@@ -65,6 +65,19 @@ export default {
     },
     validationPw() {
       console.log(this.userPw)
+      // 한글 입력을 제외한 후
+      const notPhoneticSymbolExp = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+      if (notPhoneticSymbolExp.test(this.userPw)) {
+          // 한글이 빠른 시간에 여러개 들어오는 경우도 있으니,한글이 없을 때까지 삭제하고, 검사
+          let text = text.slice(0, -1);
+          let condition = notPhoneticSymbolExp.test(text);
+          while (condition) {
+            text = text.slice(0, -1);
+            condition = notPhoneticSymbolExp.test(text);
+          }
+          this.userPw = text;
+        }
+      // 비밀번호 유효성 검사
       var passwordValid = "^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]){8,20}"  /* eslint-disable-line */
       var pwTest = new RegExp(passwordValid)
       if (pwTest.test(this.userPw)) {
