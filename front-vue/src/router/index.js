@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import AboutView from '../views/AboutView.vue'
 import LoginView from '../views/LoginView.vue'
 import BookView from '../views/BookView.vue'
 import RegisterView from '../views/RegisterView.vue'
@@ -16,11 +15,6 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: AboutView,
   },
   {
     path: '/login',
@@ -45,6 +39,7 @@ const routes = [
     name: 'book',
     component: BookView,
   },
+
 ]
 
 const router = new VueRouter({

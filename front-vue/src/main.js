@@ -5,6 +5,8 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+import 'vue-turnjs/dist/vue-turnjs.esm.css';
+
 new Vue({
   store,
   router,
