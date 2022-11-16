@@ -2,7 +2,7 @@
 <section class="vh-100">
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center h-70">
-      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+      <div class="col-md-8 col-lg-6 col-xl-4">
         <h1>로그인</h1>
         <br>
         <form>
