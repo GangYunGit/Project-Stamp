@@ -1,3 +1,0 @@
-# feature-front
-
-- content1
