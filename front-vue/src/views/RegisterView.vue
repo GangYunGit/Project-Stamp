@@ -3,22 +3,30 @@
     <h1>회원가입</h1>
     <div class="justify-content-md-center m-4">
       <b-form  @submit.stop.prevent>
-      <label for="feedback-user">User ID</label>
+      <label for="feedback-user">사용자 이메일(ID)</label>
       <b-form-input v-model="userId" :state="validationId" id="feedback-user"></b-form-input>
       <b-form-invalid-feedback :state="validationId">
-        Your user ID must be 5-12 characters long.
+        올바른 형식이 아닙니다.
       </b-form-invalid-feedback>
       <b-form-valid-feedback :state="validationId">
-        Looks Good.
+        사용할 수 있습니다.
       </b-form-valid-feedback>
+      </b-form>
 
       <hr>
-
-      <label for="text-password">Password</label>
-      <b-form-input v-model="userPw" type="password" id="text-password" aria-describedby="password-help-block"></b-form-input>
+      <b-form  @submit.stop.prevent>
+      <label for="text-password">비밀번호</label>
+      <!-- <b-form-input v-model="userPw" type="password" id="text-password" aria-describedby="password-help-block"></b-form-input> -->
+      <b-form-input v-model="userPw" id="text-password" aria-describedby="password-help-block"></b-form-input>
       <b-form-text id="password-help-block">
         비밀번호는 8자 이상 20자 이하여야 하며, 문자와 숫자를 포함해야 합니다. 공백, 특수문자, 이모티콘 없어야 합니다.
       </b-form-text>
+      <b-form-invalid-feedback :state="validationPw">
+        올바른 형식이 아닙니다.
+      </b-form-invalid-feedback>
+      <b-form-valid-feedback :state="validationPw">
+        사용할 수 있습니다.
+      </b-form-valid-feedback>
       <hr>
      </b-form>
     </div>
@@ -48,11 +56,22 @@ export default {
   },
   computed: {
     validationId() {
-      return this.userId.length > 4 && this.userId.length < 13
+      var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+      if (this.userId.match(regExp) === null) {
+        return false
+      } else {
+        return true
+      }
     },
     validationPw() {
-      // var passwordValid = "^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$";
-      return this.userPw.length > 8 && this.userPw.length < 21 // && passwordValid.test(this.userPw)
+      console.log(this.userPw)
+      var passwordValid = "^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]){8,20}"  /* eslint-disable-line */
+      var pwTest = new RegExp(passwordValid)
+      if (pwTest.test(this.userPw)) {
+        return true
+      } else {
+        return false
+      }
     },
   },
   methods: {
@@ -65,7 +84,7 @@ export default {
       }
       console.log(payload)
       // this.$store.dispatch('userSubmit', payload)
-    }
+    },
   }
 }
 </script>

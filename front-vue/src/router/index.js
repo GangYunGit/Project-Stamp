@@ -4,6 +4,8 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import BookView from '../views/BookView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import SearchView from '../views/SearchView.vue'
+import DetailView from '../views/DetailView.vue'
 
 Vue.use(VueRouter)
 
@@ -39,7 +41,16 @@ const routes = [
     name: 'book',
     component: BookView,
   },
-
+  {
+    path: '/search/:q',
+    name: 'SearchView',
+    component: SearchView
+  },
+  {
+    path: '/:id',
+    name: 'DetailView',
+    component: DetailView,
+  }
 ]
 
 const router = new VueRouter({
