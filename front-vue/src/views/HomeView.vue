@@ -1,9 +1,14 @@
 <template>
-  <div class="row d-flex justify-content-center align-items-center h-70 m-4">
     <div class="container m-4 p-4" style="background-color: skyblue">
       <b-row>
       <b-col align-self="baseline">
-        <h3>사용자님 환영합니다.</h3>
+        <div v-if="isLogin">
+          <h3>사용자님 환영합니다.</h3>
+        </div>
+        <div v-else>
+          <h3>로그인하세요.</h3>
+          <router-link :to="{ name: 'login'}">로그인</router-link>
+        </div>
         <input type="text" v-model="searchInput">
         <b-button class="m-3" variant="outline-primary" @click="searchResult">검색</b-button>
       </b-col>
@@ -11,7 +16,6 @@
         <p>여기에 앨범으로 향하는 링크 넣기</p>
       </b-col>
     </b-row>
-    </div>
     <div class="container m-4 p-4" style="background-color: burlywood">
         <carousel
           :navigation-enabled="true"
@@ -64,6 +68,11 @@ export default {
       show: true,
       // searchInput : axios 요청에 보낼 검색어
       searchInput: null,
+    }
+  },
+  computed: {
+    isLogin() {
+      return this.$store.getters.isLogin
     }
   },
   methods: {
