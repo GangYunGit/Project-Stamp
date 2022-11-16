@@ -16,7 +16,7 @@
       <hr>
       <b-form  @submit.stop.prevent>
       <label for="text-password">비밀번호</label>
-      <b-form-input v-model="userPw" type="password" id="text-password" aria-describedby="password-help-block"></b-form-input>
+      <b-form-input v-model="userPw1" type="password" id="text-password" aria-describedby="password-help-block"></b-form-input>
       <b-form-text id="password-help-block">
         비밀번호는 8자 이상 20자 이하여야 하며, 문자와 숫자를 포함해야 합니다. 공백, 특수문자, 이모티콘 없어야 합니다.
       </b-form-text>
@@ -26,7 +26,22 @@
       <b-form-valid-feedback :state="validationPw">
         사용할 수 있습니다.
       </b-form-valid-feedback>
+    </b-form>
       <hr>
+
+      <hr>
+      <b-form  @submit.stop.prevent>
+      <label for="text-password">비밀번호 확인</label>
+      <b-form-input v-model="userPw2" type="password" id="text-password" aria-describedby="password-help-block"></b-form-input>
+      <b-form-text id="password-help-block">
+        비밀번호는 8자 이상 20자 이하여야 하며, 문자와 숫자를 포함해야 합니다. 공백, 특수문자, 이모티콘 없어야 합니다.
+      </b-form-text>
+      <b-form-invalid-feedback :state="validationPw">
+        올바른 형식이 아닙니다.
+      </b-form-invalid-feedback>
+      <b-form-valid-feedback :state="validationPw">
+        사용할 수 있습니다.
+      </b-form-valid-feedback>
       </b-form>
     </div>
     <b-button pill variant="primary" @click="userSubmit">회원가입</b-button>
@@ -50,7 +65,8 @@ export default {
   data() {
     return {
       userId: '',
-      userPw: '',
+      userPw1: '',
+      userPw2: '',
     }
   },
   computed: {
@@ -79,13 +95,15 @@ export default {
   methods: {
     userSubmit() {
       const userId = this.userId
-      const userPw = this.userPw
+      const userPw1 = this.userPw1
+      const userPw2 = this.userPw2
       const payload = {
         userId,
-        userPw,
+        userPw1,
+        userPw2,
       }
       console.log(payload)
-      // this.$store.dispatch('userSubmit', payload)
+      this.$store.dispatch('userSubmit', payload)
     },
   }
 }
