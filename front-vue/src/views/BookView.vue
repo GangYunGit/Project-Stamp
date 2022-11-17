@@ -1,18 +1,15 @@
 <template>
-  <div>
-    <FwTurn class="d-flex justify-content-center magazine m-4" :options="bookOptions">
-      <div v-for="i in 7" :key="i" style="background-color:burlywood;">
-        <div class="container m-3" >
-          <div v-if="i === 1">
-            <h1>표지</h1>
-          </div>
-          <div v-else>
-            <h1>페이지</h1>
-            <p>{{i}}</p>
-          </div>
-        </div>
-      </div>
+  <div class="container p-2">
+    <div class="justify-content-md-center m-4">
+      <FwTurn class="d-flex justify-content-center magazine" :options="bookOptions" >
+        <BookContentView
+            class="container m-3" 
+            v-for="(album, pageNo) in albums"
+            :key="pageNo"
+            :album="album"
+          />
     </FwTurn>
+    </div>
   </div>
 </template>
 
@@ -20,11 +17,29 @@
 import { FwTurn } from "vue-turnjs";
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import BookContentView from '@/components/BookContentView'
+
+import Vue from 'vue';
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+// Make BootstrapVue available throughout your project
+Vue.use(BootstrapVue)
+// Optionally install the BootstrapVue icon components plugin
+Vue.use(IconsPlugin)
 
 export default {
   name: "BookView",
   components: {
     FwTurn,
+    BookContentView,
+  },
+  computed: {
+    albums() {
+      return this.$store.state.albums
+    }
   },
   props: {
     msg: String,
