@@ -1,8 +1,21 @@
 <template>
   <div>
-    <h2>상세 설명</h2>
-    <b-button @click="addAlbum">앨범에 추가</b-button>
-    <b-button @click="getRecommend">영화 추천 받기</b-button>
+    <b-col>
+    <b-card
+      class="mb-2"
+      :title="movie.title"
+      :img-src="`https://image.tmdb.org/t/p/original/${movie.poster_path}`"
+      img-alt="Poster Image"
+      img-top
+      style="width: 25rem"
+    >
+      <b-card-text>
+        {{ movie.overview }}
+      </b-card-text>
+    </b-card>
+  </b-col>
+  <b-button @click="addAlbum">앨범에 추가</b-button>
+  <b-button @click="getRecommend">다른 영화 보기</b-button>
   </div>
 </template>
 
@@ -32,10 +45,11 @@ export default {
     }
   },
   created() {
-    this.getMovieDetail()
+    this.getRecommendMovies()
   },
+  // methods는 추가 작업 필요할 수 있음
   methods: {
-    getMovieDetail() {
+    getRecommendMovies() {
       axios({
         method: 'get',
         url: `${API_URL}/` ,

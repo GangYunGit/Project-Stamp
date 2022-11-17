@@ -10,7 +10,7 @@
           <div class="form-outline mb-4">
             <label class="form-label" for="form3Example3">Email address</label>
 
-            <input type="email" id="form3Example3" class="form-control form-control-lg"
+            <input v-model="userEmail" type="email" id="form3Example3" class="form-control form-control-lg"
               placeholder="Enter a valid email address" />
           </div>
 
@@ -18,7 +18,7 @@
           <div class="form-outline mb-3">
             <label class="form-label" for="form3Example4">Password</label>
 
-            <input type="password" id="form3Example4" class="form-control form-control-lg"
+            <input v-model="userPw" type="password" id="form3Example4" class="form-control form-control-lg"
               placeholder="Enter password" />
           </div>
 
@@ -72,14 +72,14 @@ export default {
   name: 'LoginView',
   data() {
     return {
-      username: null,
-      password: null,
+      userEmail: null,
+      userPw: null,
     }
   },
   methods: {
     userLogin() {
-      const username = this.username
-      const password = this.password
+      const username = this.userEmail
+      const password = this.userPw
 
       const payload = {
         username,
