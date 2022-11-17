@@ -4,7 +4,6 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import BookView from '../views/BookView.vue'
 import RegisterView from '../views/RegisterView.vue'
-import SearchView from '../views/SearchView.vue'
 import DetailView from '../views/DetailView.vue'
 import InitialLogin from '../views/InitialLogin.vue'
 
@@ -46,11 +45,6 @@ const routes = [
     path: '/book',
     name: 'BookView',
     component: BookView,
-  },
-  {
-    path: '/search/:q',
-    name: 'SearchView',
-    component: SearchView
   },
   {
     path: '/:id',

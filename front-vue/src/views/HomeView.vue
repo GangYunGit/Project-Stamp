@@ -15,16 +15,19 @@
       </div>
     </div>
     <div class="d-flex justify-content-md-center m-4">
-      <CarouselView />
+      <MovieListView v-for="(movie, pk) in movies" :key="pk" :movie="movie" />
     </div>
   </div>
 </template>
 
 <script>
-// bootstrap, vuecarousel 관련 라이브러리
+// Vue 캐러셀 코드(더미 데이터)
+// import VueCarousel from 'vue-carousel';
+// Vue.use(VueCarousel);
+
+// bootstrap, axios 관련 라이브러리
 // @ is an alias to /src
 import Vue from 'vue';
-import VueCarousel from 'vue-carousel';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -32,9 +35,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import axios from 'axios'
 
 import HeaderView from '@/components/HeaderView'
-import CarouselView from '@/components/CarouselView'
+import MovieListView from '@/components/MovieListView.vue'
 
-Vue.use(VueCarousel);
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
@@ -48,7 +50,7 @@ export default {
   name: 'HomeView',
   components: {
     HeaderView,
-    CarouselView,
+    MovieListView,
   },
   data() {
     return {
@@ -56,14 +58,23 @@ export default {
       show: true,
       // searchInput : axios 요청에 보낼 검색어
       searchInput: null,
+      
+      // movies : 메인 화면에 표시할 영화 데이터 모음
+      movies: []
     }
   },
+  // 사이트 접속(템플릿 초기화)시 영화 정보 가져오기
+  created() {
+    // this.getMovieData()
+  },
   computed: {
+    // // getMovieData : 백엔드 서버에 저장된 영화 정보 가져오기
+    // getMovieData() {
+    //   this.$store.dispatch()
+    // },
   },
   methods: {
-    // 검색 페이지로 이동
     searchResult() {
-      // this.$router.push({ name: 'SearchView', params: { q: this.searchInput }})
       const searchInput = this.searchInput
       axios({
         method:'get',
@@ -74,6 +85,8 @@ export default {
       })
       .then((request) => {
         console.log(request)
+        // 서버에서 받은 영화 정보로 대체
+        // this.movies = request.data
       })
       .catch((error) => {
         console.log(error)

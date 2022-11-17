@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>검색 결과 개별 항목</h1>
+    <h1>영화 제목</h1>
   </div>
 </template>
 

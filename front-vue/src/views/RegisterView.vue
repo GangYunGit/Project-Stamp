@@ -40,7 +40,6 @@
       </b-form>
       <hr>
 
-      <hr>
       <b-form  @submit.stop.prevent>
       <label for="text-password">비밀번호 확인</label>
       <b-form-input v-model="userPw2" type="password" id="text-password2" aria-describedby="password-help-block"></b-form-input>
