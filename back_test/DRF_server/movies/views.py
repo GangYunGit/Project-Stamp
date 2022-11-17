@@ -1,10 +1,11 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from django.shortcuts import get_list_or_404, get_object_or_404
+from django.shortcuts import get_list_or_404, get_object_or_404, render, redirect
+from django.http import JsonResponse
 
-from .serialzers import MovieListSerializer, MovieSerializer
-from .models import Movie
+from .serialzers import MovieListSerializer, MovieSerializer, GenreSerializer, ActorListSerializer
+from .models import Movie, Genre, Actor
 
 
 # @api_view(['GET'])
@@ -33,6 +34,47 @@ def movie_detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     serializer = MovieSerializer(movie)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def genre_list(request):
+    genres = get_list_or_404(Genre)
+    serializer = GenreSerializer(genres, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def actor_list(request):
+    actors = get_list_or_404(Actor)
+    serializer = ActorListSerializer(actors, many=True)
+    return Response(serializer.data)
+
+
+def genre_index(request):
+    genres = Genre.objects.all()
+    context = {
+        'genres': genres,
+    }
+    return render(request, 'movies/genre_index.html', context)
+
+
+
+# 포스트 요청으로 장르 ID 아무거나 주소에 파라미터로 넘겨서 주면??
+def like_genre(request, genre_pk):
+    if request.user.is_authenticated:
+        genre = Genre.objects.get(pk=genre_pk)
+
+        if genre.like_users.filter(pk=request.user.pk).exists():
+            genre.like_users.remove(request.user)
+            is_liked = False
+        else:
+            genre.like_users.add(request.user)
+            is_liked = True
+        context = {
+            'is_liked': is_liked,
+        }
+        return JsonResponse(context)
+    return redirect('accounts:login')
+
 
 
 # @api_view(['GET'])
