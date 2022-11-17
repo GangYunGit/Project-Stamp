@@ -34,7 +34,7 @@
           </div>
 
           <div class="text-center text-lg-start mt-4 pt-2">
-            <button type="button" class="btn btn-primary btn-lg"
+            <button @click="userLogin" type="button" class="btn btn-primary btn-lg"
               style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
             <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? 
               <router-link :to="{ name:'RegisterView' }">Register</router-link></p>

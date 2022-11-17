@@ -4,7 +4,18 @@
 
 <script>
 export default {
-  name: 'DetailView.vue'
+  name: 'DetailView.vue',
+  data() {
+    return {
+
+    }
+  },
+  created() {
+
+  },
+  methods: {
+
+  },
 }
 </script>
 

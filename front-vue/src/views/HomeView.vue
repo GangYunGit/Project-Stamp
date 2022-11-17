@@ -1,38 +1,21 @@
 <template>
-    <div class="container m-4 p-4" style="background-color: skyblue">
+  <div clas="container p-4">
+    <div class="d-flex justify-content-md-center m-4">
+      <div class="container m-4 p-4" style="background-color: skyblue">
+      <HeaderView />
       <b-row>
-      <b-col align-self="baseline">
-        <div v-if="isLogin">
-          <h3>사용자님 환영합니다.</h3>
-        </div>
-        <div v-else>
-          <h3>로그인하세요.</h3>
-          <router-link :to="{ name: 'login'}">로그인</router-link>
-        </div>
-        <input type="text" v-model="searchInput">
-        <b-button class="m-3" variant="outline-primary" @click="searchResult">검색</b-button>
-      </b-col>
-      <b-col align-self="baseline">
-        <p>여기에 앨범으로 향하는 링크 넣기</p>
-      </b-col>
-    </b-row>
-    <div class="container m-4 p-4" style="background-color: burlywood">
-        <carousel
-          :navigation-enabled="true"
-        >
-          <slide>
-            Slide 1 Content
-          </slide>
-          <slide>
-            Slide 2 Content
-          </slide>
-          <slide>
-            Slide 3 Content
-          </slide>
-          <slide>
-            Slide 4 Content
-          </slide>
-        </carousel>
+        <b-col align-self="baseline">
+          <input type="text" v-model="searchInput">
+          <b-button class="m-3" variant="outline-primary" @click="searchResult">검색</b-button>
+        </b-col>
+        <b-col align-self="baseline">
+          <p>여기에 앨범으로 향하는 링크 넣기</p>
+        </b-col>
+      </b-row>
+      </div>
+    </div>
+    <div class="d-flex justify-content-md-center m-4">
+      <CarouselView />
     </div>
   </div>
 </template>
@@ -48,6 +31,9 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import axios from 'axios'
 
+import HeaderView from '@/components/HeaderView'
+import CarouselView from '@/components/CarouselView'
+
 Vue.use(VueCarousel);
 
 // Make BootstrapVue available throughout your project
@@ -61,6 +47,8 @@ const API_URL = process.env.VUE_APP_API_KEY
 export default {
   name: 'HomeView',
   components: {
+    HeaderView,
+    CarouselView,
   },
   data() {
     return {
@@ -71,9 +59,6 @@ export default {
     }
   },
   computed: {
-    isLogin() {
-      return this.$store.getters.isLogin
-    }
   },
   methods: {
     // 검색 페이지로 이동

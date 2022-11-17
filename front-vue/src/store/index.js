@@ -13,8 +13,14 @@ export default new Vuex.Store({
     createPersistedState()
   ],
   state: {
-    movies: [],
+    movies: [
+    ],
     token: null,
+    albums: [
+      'TITLE',
+      'content1',
+      'content2',
+    ]
   },
   getters: {
     isLogin(state) {
@@ -22,10 +28,14 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    INITIAL_LOGIN(state, token) {
+      state.token = token
+      router.push({ name: 'InitialLogin' })
+    },
     SAVE_TOKEN(state, token) {
       state.token = token
       router.push({ name: 'LoginView' })
-    }
+    },
   },
   actions: {
     userSubmit(context, payload) {
@@ -41,12 +51,25 @@ export default new Vuex.Store({
       })
       .then((response) => {
         console.log(response)
-        context.commit('SAVE_TOKEN', payload)
+        context.commit('INITIAL_LOGIN', payload)
       })
       .catch((error) => {
         console.log(error)
       })
     },
+    userLogin(context, payload) {
+      axios({
+        method:'post',
+        url: `${API_URL}/accounts/login`,
+        data: {
+          username: payload.username,
+          password: payload.password
+        }
+      })
+      .then((response) => {
+        context.commit('SAVE_TOKEN', response.data.key)
+      })
+    }
   },
   modules: {
   }
