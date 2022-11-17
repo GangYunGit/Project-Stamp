@@ -3,8 +3,19 @@
     <h1>회원가입</h1>
     <div class="justify-content-md-center m-4">
       <b-form  @submit.stop.prevent>
+      <label for="feedback-user">사용자 이름</label>
+      <b-form-input v-model="userName" :state="validationName" id="feedback-username"></b-form-input>
+      <b-form-invalid-feedback :state="validationName">
+        2자 이상 20자 이하여야 합니다.
+      </b-form-invalid-feedback>
+      <b-form-valid-feedback :state="validationName">
+        사용할 수 있습니다.
+      </b-form-valid-feedback>
+      </b-form>
+
+      <b-form  @submit.stop.prevent>
       <label for="feedback-user">사용자 이메일(ID)</label>
-      <b-form-input v-model="userId" :state="validationId" id="feedback-user"></b-form-input>
+      <b-form-input v-model="userId" :state="validationId" id="feedback-useremail"></b-form-input>
       <b-form-invalid-feedback :state="validationId">
         올바른 형식이 아닙니다.
       </b-form-invalid-feedback>
@@ -16,30 +27,30 @@
       <hr>
       <b-form  @submit.stop.prevent>
       <label for="text-password">비밀번호</label>
-      <b-form-input v-model="userPw1" type="password" id="text-password" aria-describedby="password-help-block"></b-form-input>
+      <b-form-input v-model="userPw1" type="password" id="text-password1" aria-describedby="password-help-block"></b-form-input>
       <b-form-text id="password-help-block">
-        비밀번호는 8자 이상 20자 이하여야 하며, 문자와 숫자를 포함해야 합니다. 공백, 특수문자, 이모티콘 없어야 합니다.
+        비밀번호는 8자 이상 20자 이하여야 하며, 문자와 숫자, 특수문자를 포함해야 합니다.
       </b-form-text>
-      <b-form-invalid-feedback :state="validationPw">
+      <b-form-invalid-feedback :state="validationPw1">
         올바른 형식이 아닙니다.
       </b-form-invalid-feedback>
-      <b-form-valid-feedback :state="validationPw">
+      <b-form-valid-feedback :state="validationPw1">
         사용할 수 있습니다.
       </b-form-valid-feedback>
-    </b-form>
+      </b-form>
       <hr>
 
       <hr>
       <b-form  @submit.stop.prevent>
       <label for="text-password">비밀번호 확인</label>
-      <b-form-input v-model="userPw2" type="password" id="text-password" aria-describedby="password-help-block"></b-form-input>
+      <b-form-input v-model="userPw2" type="password" id="text-password2" aria-describedby="password-help-block"></b-form-input>
       <b-form-text id="password-help-block">
-        비밀번호는 8자 이상 20자 이하여야 하며, 문자와 숫자를 포함해야 합니다. 공백, 특수문자, 이모티콘 없어야 합니다.
+        입력한 비밀번호를 다시 한 번 입력해주세요.
       </b-form-text>
-      <b-form-invalid-feedback :state="validationPw">
-        올바른 형식이 아닙니다.
+      <b-form-invalid-feedback :state="validationPw2">
+        유효하지 않은 비밀번호입니다.
       </b-form-invalid-feedback>
-      <b-form-valid-feedback :state="validationPw">
+      <b-form-valid-feedback :state="validationPw2">
         사용할 수 있습니다.
       </b-form-valid-feedback>
       </b-form>
@@ -64,12 +75,21 @@ export default {
   name: 'RegisterView',
   data() {
     return {
+      userName: '',
       userId: '',
       userPw1: '',
       userPw2: '',
     }
   },
   computed: {
+    validationName() {
+      var pattern = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,20}$/;
+      if (this.userName.match(pattern) === null) {
+        return false
+      } else {
+        return true
+      }
+    },
     validationId() {
       var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
       if (this.userId.match(regExp) === null) {
@@ -78,14 +98,20 @@ export default {
         return true
       }
     },
-    validationPw() {
+    validationPw1() {
       // 비밀번호 유효성 검사
 
-      // 이하 console.log는 유효성 검사가 잘 작동하는지 테스트하는 용도
-      console.log(this.userPw)
-      var passwordValid = "^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]){8,20}"  /* eslint-disable-line */
+      // console.log(this.userPw1)
+      var passwordValid = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]){8,20}/  /* eslint-disable-line */
       var pwTest = new RegExp(passwordValid)
-      if (pwTest.test(this.userPw) && this.userPw.length >= 8) {
+      if (pwTest.test(this.userPw1)) {
+        return true
+      } else {
+        return false
+      }
+    },
+    validationPw2() {
+      if (this.validationPw1 === true && this.userPw1 === this.userPw2) {
         return true
       } else {
         return false
@@ -94,15 +120,16 @@ export default {
   },
   methods: {
     userSubmit() {
+      const userName = this.userName
       const userId = this.userId
       const userPw1 = this.userPw1
       const userPw2 = this.userPw2
       const payload = {
+        userName,
         userId,
         userPw1,
         userPw2,
       }
-      console.log(payload)
       this.$store.dispatch('userSubmit', payload)
     },
   }

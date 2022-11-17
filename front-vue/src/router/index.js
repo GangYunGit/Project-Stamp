@@ -15,12 +15,12 @@ const isLoggedIn = false
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'HomeView',
     component: HomeView
   },
   {
     path: '/login',
-    name: 'login',
+    name: 'LoginView',
     component: LoginView,
     beforeEnter(to, from, next) {
       if (isLoggedIn === true) {
@@ -33,12 +33,12 @@ const routes = [
   },
   {
     path: '/register',
-    name: 'register',
+    name: 'RegisterView',
     component: RegisterView,
   },
   {
     path: '/book',
-    name: 'book',
+    name: 'BookView',
     component: BookView,
   },
   {
