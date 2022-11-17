@@ -1,20 +1,19 @@
 <template>
-  <div class="container">
-    <div class="justify-content-md-center">
-      <FwTurn class="d-flex magazine" :options="bookOptions" >
-        <BookContentView
-            class="container" 
-            v-for="(album, pageNo) in albums"
-            :key="pageNo"
-            :album="album"
-          />
-    </FwTurn>
+  <div>
+      <h1>앨범 목록</h1>
+      <turn class="container justify-content-md-center rounded-3" style="background-color:brown; width:100%; height: 100%; line-height: 400%;">
+        <BookContentView 
+          class="flip_page_double hard"
+          v-for="(album, pageNo) in albums"
+          :key="pageNo"
+          :album="album"
+        />
+      </turn>
     </div>
-  </div>
 </template>
 
 <script>
-import { FwTurn } from "vue-turnjs";
+import { Turn } from "vue-turnjs";
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import BookContentView from '@/components/BookContentView'
@@ -33,7 +32,8 @@ Vue.use(IconsPlugin)
 export default {
   name: "BookView",
   components: {
-    FwTurn,
+    // FwTurn,
+    Turn,
     BookContentView,
   },
   computed: {
@@ -46,24 +46,14 @@ export default {
   },
   data() {
     return {
-      bookOptions: {
-        display: "double",
-        acceleration: true,
-        elevation: 50,
-      },
+      // bookOptions: {
+      //   display: "double",
+      // },
     };
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.magazine {
-  width: 1152px;
-  height: 752px;
-}
-.magazine .turn-page {
-  background-color: #FBFEAB;
-  background-size: 100% 100%;
-}
+<style>
+
 </style>
