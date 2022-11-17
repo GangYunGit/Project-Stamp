@@ -1,7 +1,7 @@
 <template>
   <div class="container p-4">
     <h1>회원가입</h1>
-    <div class="justify-content-md-center m-4">
+    <div offset-md="3" class="row p-3 justify-content-md-center m-4">
       <b-form  @submit.stop.prevent>
       <label for="feedback-user">사용자 이름</label>
       <b-form-input v-model="userName" :state="validationName" id="feedback-username"></b-form-input>

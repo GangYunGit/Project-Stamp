@@ -17,9 +17,18 @@ export default new Vuex.Store({
     ],
     token: null,
     albums: [
-      'TITLE',
-      'content1',
-      'content2',
+      {
+        content: 'content1',
+      },
+      {
+        content: 'content2',
+      },
+      {
+        content: 'content3',
+      },
+      {
+        content: 'content4',
+      },
     ]
   },
   getters: {
