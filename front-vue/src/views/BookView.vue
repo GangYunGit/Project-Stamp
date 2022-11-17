@@ -1,9 +1,9 @@
 <template>
-  <div class="container p-2">
-    <div class="justify-content-md-center m-4">
-      <FwTurn class="d-flex justify-content-center magazine" :options="bookOptions" >
+  <div class="container">
+    <div class="justify-content-md-center">
+      <FwTurn class="d-flex magazine" :options="bookOptions" >
         <BookContentView
-            class="container m-3" 
+            class="container" 
             v-for="(album, pageNo) in albums"
             :key="pageNo"
             :album="album"
@@ -63,7 +63,7 @@ export default {
   height: 752px;
 }
 .magazine .turn-page {
-  background-color: #ccc;
+  background-color: #FBFEAB;
   background-size: 100% 100%;
 }
 </style>

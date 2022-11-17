@@ -1,13 +1,7 @@
 <template>
-  <div style="background-color:burlywood">
-    <div v-if="true">
-      <br>
-      <h1>표지</h1>
-    </div>
-    <div v-else>
-      <h1>페이지</h1>
-      <p>{{i}}</p>
-    </div>
+  <div style="background-color:#FBFEAB">
+    <h1>페이지</h1>
+    <p>{{ album.content }}</p>
   </div>
 </template>
 
@@ -26,6 +20,7 @@ Vue.use(IconsPlugin)
 export default {
   name: 'BookContentView',
   props: {
+    album: Object,
   },
 }
 </script>

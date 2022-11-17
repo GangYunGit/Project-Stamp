@@ -1,7 +1,7 @@
 <template>
-  <div class="container p-4">
+  <div class="container p-4 col-md-5">
     <h1>회원가입</h1>
-    <div class="justify-content-md-center m-4">
+    <div offset-md="3" class="row p-3 justify-content-md-center m-4">
       <b-form  @submit.stop.prevent>
       <label for="feedback-user">사용자 이름</label>
       <b-form-input v-model="userName" :state="validationName" id="feedback-username"></b-form-input>
@@ -15,7 +15,7 @@
 
       <b-form  @submit.stop.prevent>
       <label for="feedback-user">사용자 이메일(ID)</label>
-      <b-form-input v-model="userId" :state="validationId" id="feedback-useremail"></b-form-input>
+      <b-form-input v-model="userEmail" :state="validationId" id="feedback-useremail"></b-form-input>
       <b-form-invalid-feedback :state="validationId">
         올바른 형식이 아닙니다.
       </b-form-invalid-feedback>
@@ -40,7 +40,6 @@
       </b-form>
       <hr>
 
-      <hr>
       <b-form  @submit.stop.prevent>
       <label for="text-password">비밀번호 확인</label>
       <b-form-input v-model="userPw2" type="password" id="text-password2" aria-describedby="password-help-block"></b-form-input>
@@ -76,7 +75,7 @@ export default {
   data() {
     return {
       userName: '',
-      userId: '',
+      userEmail: '',
       userPw1: '',
       userPw2: '',
     }
@@ -92,7 +91,7 @@ export default {
     },
     validationId() {
       var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-      if (this.userId.match(regExp) === null) {
+      if (this.userEmail.match(regExp) === null) {
         return false
       } else {
         return true
@@ -121,12 +120,12 @@ export default {
   methods: {
     userSubmit() {
       const userName = this.userName
-      const userId = this.userId
+      const userEmail = this.userEmail
       const userPw1 = this.userPw1
       const userPw2 = this.userPw2
       const payload = {
         userName,
-        userId,
+        userEmail,
         userPw1,
         userPw2,
       }
