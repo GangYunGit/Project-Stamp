@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color:burlywood">
+  <div style="background-color:#FBFEAB">
     <h1>페이지</h1>
     <p>{{ album.content }}</p>
   </div>

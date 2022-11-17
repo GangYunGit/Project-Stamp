@@ -1,20 +1,26 @@
 <template>
-  <div clas="container p-4">
-    <div class="d-flex justify-content-md-center m-4">
-      <div class="container m-4 p-4" style="background-color: skyblue">
+  <div clas="container m-4 p-4">
+    <div class="d-flex justify-content-md-center m-4 p-4">
+      <div class="m-4 p-4 col-md-7" style="background-color: skyblue; border-radius: 40px;">
       <HeaderView />
+      <br>
+      <hr>
       <b-row>
         <b-col align-self="baseline">
+          <h3>영화 검색하기</h3>
           <input type="text" v-model="searchInput">
           <b-button class="m-3" variant="outline-primary" @click="searchResult">검색</b-button>
         </b-col>
-        <b-col align-self="baseline">
-          <p>여기에 앨범으로 향하는 링크 넣기</p>
+        <b-col>
+          <router-link :to="{ name:'BookView' }"><img src="../assets/album.png" style="width:80px; height:96px;" alt=""></router-link>
+          <p>앨범 보기</p>
         </b-col>
       </b-row>
       </div>
+      <div class="m-4 p-4 col-md-4">
+      </div>
     </div>
-    <div class="d-flex justify-content-md-center m-4">
+    <div class="d-flex justify-content-md-center m-4" style="background-color: #FBFEAB;">
       <MovieListView v-for="(movie, pk) in movies" :key="pk" :movie="movie" />
     </div>
   </div>

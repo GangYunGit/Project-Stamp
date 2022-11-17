@@ -63,7 +63,7 @@ export default {
   height: 752px;
 }
 .magazine .turn-page {
-  background-color: burlywood;
+  background-color: #FBFEAB;
   background-size: 100% 100%;
 }
 </style>

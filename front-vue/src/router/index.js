@@ -6,11 +6,12 @@ import BookView from '../views/BookView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import DetailView from '../views/DetailView.vue'
 import InitialLogin from '../views/InitialLogin.vue'
+import RecommendView from '../views/RecommendView.vue'
 
 Vue.use(VueRouter)
 
 // isLoggedIn = 로그인 확인용 변수(서비스 구현 시 수정 예정)
-const isLoggedIn = false
+// const isLoggedIn = true
 
 const routes = [
   {
@@ -20,16 +21,16 @@ const routes = [
   },
   {
     path: '/login',
-    name: 'LoginView',
+    name: 'loginView',
     component: LoginView,
-    beforeEnter(to, from, next) {
-      if (isLoggedIn === true) {
-        console.log('이미 로그인 되어있음')
-        next({ name: 'home' })
-      } else {
-        next()
-      }
-    }
+    // beforeEnter(to, from, next) {
+    //   if (isLoggedIn === true) {
+    //     console.log('이미 로그인 되어있음')
+    //     next({ name: 'HomeView' })
+    //   } else {
+    //     next()
+    //   }
+    // }
   },
   {
     path: '/register',
@@ -50,6 +51,11 @@ const routes = [
     path: '/:id',
     name: 'DetailView',
     component: DetailView,
+  },
+  {
+    path: '/:id/recommend',
+    name: 'RecommendView',
+    component: RecommendView,
   }
 ]
 
@@ -58,5 +64,17 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+// router.beforeEach((to, from, next) => {
+//   const isLoggedIn = to.headers
+//   // console.log(isLoggedIn)
+//   const authPages = ['RecommendView', 'DetailView', 'BookView', 'InitialLogin', 'HomeView',]
+//   const isAuthRequired = authPages.includes(to.name)
+//   if (isAuthRequired && !isLoggedIn) {
+//     next({ name:'loginView'})
+//   } else {
+//     next()
+//   }
+// })
 
 export default router
