@@ -24,31 +24,27 @@ export default new Vuex.Store({
   mutations: {
     SAVE_TOKEN(state, token) {
       state.token = token
-      router.push({ name: 'HomeView' })
+      router.push({ name: 'LoginView' })
     }
   },
   actions: {
     userSubmit(context, payload) {
       axios({
         method: 'post',
-        url: `${API_URL}accounts/signup/`,
+        url: `${API_URL}/accounts/signup/`,
         data: {
-          username: payload.username,
-          password1: payload.password,
-          password2: payload.password,
+          username: payload.userName,
+          useremail: payload.userId,
+          password1: payload.userPw1,
+          password2: payload.userPw2,
         }
       })
       .then((response) => {
         console.log(response)
         context.commit('SAVE_TOKEN', payload)
       })
-      .catch(error => {
-        if (!error.response) {
-            // network error
-            this.errorStatus = 'Error: Network Error';
-        } else {
-            this.errorStatus = error.response.data.message;
-        }
+      .catch((error) => {
+        console.log(error)
       })
     },
   },
