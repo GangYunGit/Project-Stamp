@@ -4,9 +4,12 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import BookView from '../views/BookView.vue'
 import RegisterView from '../views/RegisterView.vue'
-import DetailView from '../views/DetailView.vue'
+// import DetailView from '../views/DetailView.vue'
 import InitialLogin from '../views/InitialLogin.vue'
 import RecommendView from '../views/RecommendView.vue'
+
+// 실험용 템플릿
+import FlibBook from '../views/FlipBook.vue'
 
 Vue.use(VueRouter)
 
@@ -47,15 +50,20 @@ const routes = [
     name: 'BookView',
     component: BookView,
   },
-  {
-    path: '/:id',
-    name: 'DetailView',
-    component: DetailView,
-  },
+  // {
+  //   path: '/:id',
+  //   name: 'DetailView',
+  //   component: DetailView,
+  // },
   {
     path: '/:id/recommend',
     name: 'RecommendView',
     component: RecommendView,
+  },
+  {
+    path: '/flipbook',
+    name: 'FlipBook',
+    component: FlibBook,
   }
 ]
 

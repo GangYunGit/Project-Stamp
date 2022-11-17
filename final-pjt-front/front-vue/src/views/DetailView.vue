@@ -1,8 +1,8 @@
 <template>
   <div>
     <h2>상세 설명</h2>
-    <b-button @click="addAlbum">앨범에 추가</b-button>
-    <b-button @click="getRecommend">영화 추천 받기</b-button>
+    <b-button @click="addAlbum" class="m-2">앨범에 추가</b-button>
+    <b-button @click="getRecommend" class="m-2">영화 추천 받기</b-button>
   </div>
 </template>
 
