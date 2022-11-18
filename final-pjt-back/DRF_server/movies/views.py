@@ -76,6 +76,40 @@ def like_genre(request, genre_pk):
     return redirect('accounts:login')
 
 
+def like_actor(request, actor_pk):
+    if request.user.is_authenticated:
+        actor = Actor.objects.get(pk=actor_pk)
+
+        if actor.like_users.filter(pk=request.user.pk).exists():
+            actor.like_users.remove(request.user)
+            is_liked = False
+        else:
+            actor.like_users.add(request.user)
+            is_liked = True
+        context = {
+            'is_liked': is_liked,
+        }
+        return JsonResponse(context)
+    return redirect('accounts:login')
+
+
+def like_movie(request, movie_pk):
+    if request.user.is_authenticated:
+        movie = Movie.objects.get(pk=movie_pk)
+
+        if movie.like_users.filter(pk=request.user.pk).exists():
+            movie.like_users.remove(request.user)
+            is_liked = False
+        else:
+            movie.like_users.add(request.user)
+            is_liked = True
+        context = {
+            'is_liked': is_liked,
+        }
+        return JsonResponse(context)
+    return redirect('accounts:login')
+
+
 def user_likes(request):
     genres = Genre.objects.all()
     movies = Movie.objects.all()

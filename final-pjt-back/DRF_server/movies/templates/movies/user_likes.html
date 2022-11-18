@@ -14,74 +14,178 @@
     <p>로그인 필요</p>
   {% endif %}
   <hr>
-  <label for="genre">장르 선택<br></label>
-    <form class="like-forms" data-genre-id="{{ genre.pk }}">
-    {% for genre in genres %}
-    {% if request.user in genre.like_users.all %}
-      <input type="submit" value="선호 장르 취소" id="like-{{ genre.pk }}">
-    {% else %}
-      <input type="submit" value="선호 장르 선택" id="like-{{ genre.pk }}">
-    {% endif %}
-    {% endfor %}
-    </form>
-    <hr>
-  <label for="movie">영화 선택</label>
-    <select id="" multiple>
-      {% for movie in movies %}
-      <option value="movie">{{ movie.title }}</option>
-      {% endfor %}
-    </select>
-  <hr>
-  <label for="actor">배우 선택</label>
-    <select id="" multiple>
-      {% for actor in actors %}
-        {% if actor.name_kr %}
-          <option value="actor">{{ actor.name_kr }}</option>
+  <p>장르 선택</p>
+  {% for genre in genres %}
+    {% if genre %}
+      <form class="genre-like-forms" data-id="{{ genre.pk }}" data-name="{{ genre.name }}">
+        {% csrf_token %}
+        {% if request.user in genre.like_users.all %}
+          <input type="submit" value="{{ genre.name }} 취소" id="like-{{ genre.pk }}">
         {% else %}
-          <option value="actor">{{ actor.name_en }}</option>
+          <input type="submit" value="{{ genre.name }} 선택" id="like-{{ genre.pk }}">
         {% endif %}
-      {% endfor %}
-    </select>
+      </form>
+    {% endif %}
+  {% endfor %}
   <hr>
+  <p>배우 선택</p>
+  {% for actor in actors %}
+    {% if actor %}
+      <form class="actor-like-forms" data-id="{{ actor.pk }}" data-name="{{ actor.name_en }}">
+        {% csrf_token %}
+        {% if request.user in actor.like_users.all %}
+          <input type="submit" value="{{ actor.name_en }} 취소" id="like-{{ actor.pk }}">
+        {% else %}
+          <input type="submit" value="{{ actor.name_en }} 선택" id="like-{{ actor.pk }}">
+        {% endif %}
+      </form>
+    {% endif %}
+  {% endfor %}
+  <hr>
+  <p>영화 선택</p>
+  {% for movie in movies %}
+    {% if movie %}
+      <form class="movie-like-forms" data-id="{{ movie.pk }}" data-name="{{ movie.title }}">
+        {% csrf_token %}
+        {% if request.user in movie.like_users.all %}
+          <input type="submit" value="{{ movie.title }} 취소" id="like-{{ movie.pk }}">
+        {% else %}
+          <input type="submit" value="{{ movie.title }} 선택" id="like-{{ movie.pk }}">
+        {% endif %}
+      </form>
+    {% endif %}
+  {% endfor %}
 
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-  const forms = document.querySelectorAll('.like-forms')
+  const genreForms = document.querySelectorAll('.genre-like-forms')
+  const actorForms = document.querySelectorAll('.actor-like-forms')
+  const movieForms = document.querySelectorAll('.movie-like-forms')
   const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
 
-  forms.forEach((form) => {
+  function getLikes(formType, url_pattern) {
+    formType.forEach((form) => {
+      form.addEventListener('submit', function (event) {
+        event.preventDefault()
+  
+        const id = event.target.dataset.id
+        const name = event.target.dataset.name
+        
+        axios({
+          method: 'post',
+          url: `http://127.0.0.1:8000/${url_pattern}/${id}/like/`,
+          headers: {'X-CSRFToken': csrftoken},
+        })
+          .then((response) => {
+  
+            const isLiked = response.data.is_liked
+            const LikeBtn = document.querySelector(`#like-${id}`)
+  
+            if (isLiked === true) {
+              LikeBtn.value = `${name} 취소`
+            } else {
+              LikeBtn.value = `${name} 선택`
+            }
+            // genreLikeBtn.value = isLiked ? '좋아요 취소' : '좋아요'
+          })
+          .catch((error) => {
+            console.log(error)
+          })      
+      })
+    })
+  }
+
+  getLikes(genreForms, 'movies/genres')
+  getLikes(actorForms, 'movies/actors')
+  getLikes(movieForms, 'movies')
+
+
+
+
+
+
+
+
+
+  {% comment %} forms.forEach((form) => {
     form.addEventListener('submit', function (event) {
       event.preventDefault()
-      // onsole.log(event.target.dataset)
 
       const genreId = event.target.dataset.genreId
+      const actorId = event.target.dataset.actorId
+      const movieId = event.target.dataset.movieId
 
+      const genreName = event.target.dataset.genreName
+      const actorName = event.target.dataset.actorName
+      const movieTitle = event.target.dataset.movieTitle
+      
       axios({
         method: 'post',
         url: `http://127.0.0.1:8000/movies/genres/${genreId}/like/`,
         headers: {'X-CSRFToken': csrftoken},
       })
         .then((response) => {
-          // console.log(response)
-          // console.log(response.data)
 
-          const isLiked = response.data.is_liked
+          const genre_isLiked = response.data.genre_is_liked
+          const genreLikeBtn = document.querySelector(`#like-${genreId}`)
 
-          const likeBtn = document.querySelector(`#like-${genreId}`)
-          if (isLiked === true) {
-            likeBtn.value = '선호 장르 취소'
+          if (genre_isLiked === true) {
+            genreLikeBtn.value = `${genreName} 취소`
           } else {
-            likeBtn.value = '선호 장르 선택'
+            genreLikeBtn.value = `${genreName} 선택`
           }
-          // likeBtn.value = isLiked ? '좋아요 취소' : '좋아요'
+          // genreLikeBtn.value = isLiked ? '좋아요 취소' : '좋아요'
         })
         .catch((error) => {
           console.log(error)
         })
+
+    axios({
+      method: 'post',
+      url: `http://127.0.0.1:8000/movies/actors/${actorId}/like/`,
+      headers: {'X-CSRFToken': csrftoken},
     })
-  })
+      .then((response) => {
+
+        const actor_isLiked = response.data.actor_is_liked
+        const actorLikeBtn = document.querySelector(`#like-${actorId}`)
+
+        if (actor_isLiked === true) {
+          actorLikeBtn.value = `${actorName} 취소`
+        } else {
+          actorLikeBtn.value = `${actorName} 선택`
+        }
+        // genreLikeBtn.value = isLiked ? '좋아요 취소' : '좋아요'
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+    axios({
+      method: 'post',
+      url: `http://127.0.0.1:8000/movies/${movieId}/like/`,
+      headers: {'X-CSRFToken': csrftoken},
+    })
+      .then((response) => {
+
+        const movie_isLiked = response.data.movie_is_liked
+
+        const movieLikeBtn = document.querySelector(`#like-${movieId}`)
+
+        if (movie_isLiked === true) {
+          movieLikeBtn.value = `${movieName} 취소`
+        } else {
+          movieLikeBtn.value = `${movieName} 선택`
+        }
+        // genreLikeBtn.value = isLiked ? '좋아요 취소' : '좋아요'
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    })
+  }) {% endcomment %}
 </script>
 
 </html>
