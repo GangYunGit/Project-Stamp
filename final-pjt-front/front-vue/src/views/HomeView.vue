@@ -8,8 +8,10 @@
       <b-row>
         <b-col align-self="baseline">
           <h3>영화 검색하기</h3>
-          <input type="text" v-model="searchInput">
+          <input type="text" @keyup.enter="searchResult" v-model.trim="searchInput">
           <b-button class="m-3" variant="outline-primary" @click="searchResult">검색</b-button>
+          <b-button class="m-3" variant="outline-secondary" @click="initializeData">필터 취소</b-button>
+
         </b-col>
         <b-col>
           <router-link :to="{ name:'BookView' }"><img src="../assets/album.png" style="width:80px; height:96px;" alt=""></router-link>
@@ -70,6 +72,7 @@ export default {
       // searchInput : axios 요청에 보낼 검색어
       searchInput: null,
       movies : [],
+      dataSrc : [],
     }
   },
   created() {
@@ -86,7 +89,8 @@ export default {
         url: `${API_URL}/movies/`
       })
       .then((response) => {
-        this.movies = response.data.slice(0,21)
+        this.dataSrc = response.data
+        this.movies = response.data.slice(0,31)
         console.log(this.movies)
       })
       .catch((error) => {
@@ -94,23 +98,18 @@ export default {
       })
     },
     searchResult() {
-      const searchInput = this.searchInput
-      axios({
-        method:'get',
-        url: `${API_URL}`,
-        params: {
-          searchInput,
-        }
+      if (this.searchInput !== null) {
+        const filtered = this.dataSrc.filter((movie) => {
+        return (movie.title.includes(this.searchInput))
       })
-      .then((request) => {
-        console.log(request)
-        // 서버에서 받은 영화 정보로 대체
-        // this.movies = request.data.results
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-    }
+      this.movies = filtered
+      } else {
+        alert('검색어를 입력해 주세요.')
+      }
+    },
+    initializeData() {
+      this.movies = this.dataSrc.slice(0,31)
+    },
   }
 }
 </script>
