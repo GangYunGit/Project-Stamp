@@ -2,6 +2,7 @@ import requests
 import json
 import re
 
+
 class URLMaker:
     url = 'https://api.themoviedb.org/3'
 
@@ -11,7 +12,10 @@ class URLMaker:
     def get_movie_url(self, category='movie', feature='popular', page='1'):
         url = f'{self.url}/{category}/{feature}'
         url += f'?api_key={self.key}&language=ko-KR&page={str(page)}'
+        return url
 
+    def get_all_movie_url(self, movie_id):
+        url = f'{self.url}/movie/{movie_id}?api_key={self.key}&language=ko-KR'
         return url
 
     def movie_id(self, title):
@@ -28,40 +32,56 @@ class URLMaker:
         url = f'{self.url}/genre/movie/list?api_key={self.key}'
         return url
 
-    def get_actor_url(self, person_id):
-        url = f'{self.url}/person/{person_id}?api_key={self.key}'
+    def get_actor_url(self, page='1'):
+        url = f'{self.url}/person/popular/?api_key={self.key}&language=ko-KR&page={str(page)}'
         return url
+
+    def actor_name_url(self, person_id):
+        url = f'{self.url}/person/{person_id}?api_key={self.key}&language=ko-KR'
+        return url
+
+    # def get_movie_cast_url(self, movie_id):
+    #     url = f'{self.url}/movie/{movie_id}/credits?api_key={self.key}'
+    #     return url
 
 
 TMDB_KEY = '1b05dc44579ab8b52d94ac2f4e057d63'
 url = URLMaker(TMDB_KEY)
 
 
-def create_genre_data():
-    genre_url = url.get_genre_url()
-    raw_data = requests.get(genre_url)
-    json_data = raw_data.json()
-    genres = json_data.get('genres')
+def is_korean_name(name):
+    korean_name = re.compile('[가-힣]').findall(name)
+    if korean_name:
+        return True
+    else:
+        return False
 
-    genre_data = []
 
-    for genre in genres:
-        tmp = {
-            'model': 'movies.genre',
-            'pk': genre['id'],
-            'fields': {'name': genre['name'], 'like_users': []},
-        }
-        genre_data.append(tmp)
+# def create_genre_data():
+#     genre_url = url.get_genre_url()
+#     raw_data = requests.get(genre_url)
+#     json_data = raw_data.json()
+#     genres = json_data.get('genres')
 
-    with open('genres.json', 'w') as f:
-        json.dump(genre_data, f, indent=4)
+#     genre_data = []
+
+#     for genre in genres:
+#         tmp = {
+#             'model': 'movies.genre',
+#             'pk': genre['id'],
+#             'fields': {'name': genre['name'], 'like_users': []},
+#         }
+#         genre_data.append(tmp)
+
+#     with open('genres.json', 'w') as f:
+#         json.dump(genre_data, f, indent=4)
 
 
 # def create_movie_data():
 #     with open('genres.json', 'r+') as f:
 #         movie_data = json.load(f)
 
-#     for page in range(1, 501):
+#     for page in range(1, 20):
 #         raw_data = requests.get(url.get_movie_url(page=page))
 #         json_data = raw_data.json()
 #         movies = json_data.get('results')
@@ -88,49 +108,49 @@ def create_genre_data():
 #         json.dump(movie_data, f, indent=4)
 
 
-# def create_actor_data():
-#     actors = []
-#     for person_id in range(200, 400):
-#         actor_url = url.get_actor_url(person_id=person_id)
-#         raw_data = requests.get(actor_url)
-#         json_data = raw_data.json()
+def create_actor_data():
+    actors = []
+    for page in range(1, 9):
+        raw_data = requests.get(url.get_actor_url(page=page))
+        json_data = raw_data.json()
+        actor_data = json_data.get('results')
 
-#         actor_data = []
-#         actor_data_0 = json_data.get('id')
-#         if not actor_data_0:
-#             continue
-#         actor_data_1 = json_data.get('name')
-#         actor_data_2 = ''
-#         actor_data_also_known_as = json_data.get('also_known_as')
-#         if actor_data_also_known_as:
-#             for name in actor_data_also_known_as:
-#                 korean_name = re.compile('[가-힣]').findall(name)
-#                 if korean_name:
-#                     actor_data_2 = name
+        for actor in actor_data:
+            person_id = actor.get('id')
+            raw_person_data = requests.get(url.actor_name_url(person_id=person_id))
+            person_name = raw_person_data.json().get('name')
+            person_names_data = raw_person_data.json().get('also_known_as')
+            person_profile_path = raw_person_data.json().get('profile_path')
 
-#         actor_data_3 = json_data.get('popularity')
+            filmo = []
+            known_for_data = actor.get('known_for')
+            for known_for in known_for_data:
+                movie_id = known_for.get('title')
+                filmo.append(movie_id)
 
-#         actor_data.append(actor_data_0)
-#         actor_data.append(actor_data_1)
-#         actor_data.append(actor_data_2)
-#         actor_data.append(actor_data_3)
-        
-#         tmp = {
-#             'model': 'movies.actor',
-#             'pk': actor_data[0],
-#             'fields': {
-#                 'name_en': actor_data[1], 
-#                 'name_kr': actor_data[2],
-#                 'popularity': actor_data[3],
-#                 'like_users': []
-#                 },
-#         }
-#         actors.append(tmp)
+            for i in range(len(person_names_data)):
+                if is_korean_name(person_names_data[i]):
+                    person_name = person_names_data[i]
+                    break
 
-#     with open('actors.json', 'w') as f:
-#         json.dump(actors, f, indent=4)
+            print(person_name, filmo)
+
+            tmp = {
+                'model': 'movies.actor',
+                'pk': person_id,
+                'fields': {
+                    'name': person_name,
+                    'profile_path': person_profile_path,
+                    'movie_ids': filmo,
+                    'like_users': [],
+                },
+            }
+            actors.append(tmp)
+
+    with open('actors.json', 'w') as f:
+        json.dump(actors, f, indent=4)
 
 
-create_genre_data()
+# create_genre_data()
 # create_movie_data()
-# create_actor_data()
+create_actor_data()
