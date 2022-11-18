@@ -1,8 +1,9 @@
 <template>
   <div class="container">
     <h2>후기 수정하기</h2>
-    <div class="container justify-content-md-center p-2 col-md-6" style="background-color:#FBFEAB">
-      <textarea name="" id="" cols="30" rows="10" v-model="newReview"></textarea>
+    <div class="container justify-content-md-center p-4 col-md-4" style="background-color:#FBFEAB">
+        <p>후기는 100자 이내로 작성 가능합니다.</p>
+      <textarea name="" id="" cols="30" rows="5" v-model="newReview"></textarea>
       <br>
       <b-button class='m-3' variant="outline-primary"  @click="modifyReview">수정</b-button>
       <router-link :to="{ name:'BookView' }"><b-button class='m-3' variant="outline-dark">취소</b-button></router-link>
@@ -34,7 +35,10 @@ export default {
     },
     methods: {
         modifyReview() {
-            axios({
+            if (this.nameReview.length > 100) {
+                alert('후기는 100자 이상 입력할 수 없습니다.')
+            } else {
+                axios({
                 method: 'put',
                 url: `${API_URL}/`,
                 data: {
@@ -48,6 +52,7 @@ export default {
             .catch((error) => {
                 console.log(error)
             })
+            }
         }
     },
 }

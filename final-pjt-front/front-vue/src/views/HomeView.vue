@@ -1,27 +1,21 @@
 <template>
   <div clas="container m-4 p-4">
-    <div class="d-flex justify-content-md-center m-4 p-4">
-      <div class="m-4 p-4 col-md-7" style="background-color: skyblue; border-radius: 40px;">
+    <div class="d-flex justify-content-md-center m-4">
+      <div class="p-4 col-md-11" style="background-color: skyblue; border-radius: 40px;">
       <HeaderView />
-      <br>
       <hr>
       <b-row>
-        <b-col align-self="baseline">
+        <b-col align-self="baseline" class="col-md-8">
           <h3>영화 검색하기</h3>
           <input type="text" @keyup.enter="searchResult" v-model.trim="searchInput">
           <b-button class="m-3" variant="outline-primary" @click="searchResult">검색</b-button>
-          <b-button class="m-3" variant="outline-secondary" @click="initializeData">필터 취소</b-button>
-
+          <b-button class="m-1" variant="outline-secondary" @click="initializeData">필터 초기화</b-button>
         </b-col>
-        <b-col>
-          <router-link :to="{ name:'BookView' }"><img src="../assets/album.png" style="width:80px; height:96px;" alt=""></router-link>
+        <b-col class="col-md-2">
+          <img src="../assets/album.png" style="width:80px; height:96px;" alt="" @click="viewAlbum">
           <p>앨범 보기</p>
         </b-col>
       </b-row>
-      </div>
-      <div class="m-4 p-4 col-md-4">
-        <router-link :to="{ name:'' }"><img src="../assets/album.png" style="width:168px; height:192px;" alt=""></router-link>
-          <h2>앨범 보기</h2>
       </div>
     </div>
     <div>
@@ -90,13 +84,15 @@ export default {
       })
       .then((response) => {
         this.dataSrc = response.data
-        this.movies = response.data.slice(0,31)
+        this.movies = response.data.slice(0,30)
         console.log(this.movies)
       })
       .catch((error) => {
         console.log(error)
       })
     },
+
+    // 검색 필터 결과 표시
     searchResult() {
       if (this.searchInput !== null) {
         const filtered = this.dataSrc.filter((movie) => {
@@ -107,8 +103,13 @@ export default {
         alert('검색어를 입력해 주세요.')
       }
     },
+
+    // 사용자의 앨범 페이지로 이동
+    viewAlbum() {
+      this.$router.push({ name:'BookView' })
+    },
     initializeData() {
-      this.movies = this.dataSrc.slice(0,31)
+      this.movies = this.dataSrc.slice(0,30)
     },
   }
 }

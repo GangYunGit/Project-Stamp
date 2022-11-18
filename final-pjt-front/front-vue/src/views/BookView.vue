@@ -1,7 +1,7 @@
 <template>
   <div>
       <h1>앨범</h1>
-      <turn class="container justify-content-md-center rounded-3" style="background-color:brown; width:100%; height: 555px; line-height: 75%;">
+      <turn class="container justify-content-md-center rounded-3" style="background-color:brown; width:912px; height: 555px; line-height: 75%;">
         <BookContentView 
           class="flip_page_double hard"
           v-for="(album, pageNo) in albums"

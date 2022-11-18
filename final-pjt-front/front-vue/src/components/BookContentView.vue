@@ -1,8 +1,4 @@
 <template>
-  <!-- <div style="background-color:#FBFEAB">
-    <h1>페이지</h1>
-    <p>{{ album.content }}</p>
-  </div> -->
   <div style="background-color:#FBFEAB">
       <b-card
       class="mx-auto m-3"
@@ -10,7 +6,7 @@
       :img-src="`https://image.tmdb.org/t/p/original/${album.poster_path}`"
       img-alt="Poster Image"
       img-top
-      style="width: 85%; height:90%;"
+      style="width: 85%; height:93%;"
     >
     <br>
       <b-card-text style="font-family: Gill Sans, sans-serif; line-height: 140%;">

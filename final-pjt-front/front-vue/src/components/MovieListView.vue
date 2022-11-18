@@ -1,12 +1,12 @@
 <template>
-  <div class="col p-3 m-2">
+  <div class="col p-3 col-12 col-md-6 col-lg-4 col-xl-3">
     <b-card
-      class="m-3 p-2 col-md-6 text-decoration-none"
+      class="m-2 p-1 text-decoration-none"
+      align-self="center"
       :title="movie.title"
       :img-src="`https://image.tmdb.org/t/p/original/${movie.poster_path}`"
       img-alt="Poster Image"
       img-top
-      style="width: 25rem"
       @click="goDetail(movie.id)"
     >
         <b-card-text>
