@@ -12,7 +12,12 @@
         {{ movies.overview }}
       </b-card-text>
     </b-card>
-  <b-button pill variant="#667eea" class="m-2 gradient-custom" @click="addAlbum">앨범에 추가</b-button>
+  <v-if alreadyAdded="true">
+    <b-button pill variant="#667eea" class="m-2 gradient-custom" @click="addAlbum">앨범에 추가</b-button>
+  </v-if>
+  <v-else>
+    <b-button pill disabled class="m-2 gradient-custom" @click="addAlbum">이미 추가됨</b-button>
+  </v-else>
   <b-button pill variant="outline-secondary" class="m-2" @click="getRecommend">다른 영화 보기</b-button>
   </div>
 </template>
@@ -40,7 +45,7 @@ export default {
   data() {
     return {
       // 테스트용 데이터
-      movies: 
+      movies: [
       {
         title: "Hair each base dark guess garden accept.",
         popularity: 4.0,
@@ -48,9 +53,22 @@ export default {
         released_data: "1995-01-20T07:27:13Z",
         poster_path: "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F346a942a-9e1d-4add-a4f2-6d8c18b7e7b6%2Fwelldone!.png?table=block&id=9acc0d11-cfdd-4ba0-a411-e09aa855d650&spaceId=f7ab64f0-6613-4035-b609-06b6865d9b61&width=250&userId=3da73d48-5c6a-457e-843d-1891bf0e354c&cache=v2"
       },
+    ],
+      alreadyInAlbum: false
     }
   },
   created() {
+  },
+  computed: {
+    // 앨범 중복 체크
+    alreadyAdded() {
+      const albums = this.$store.state.albums
+      if (this.movies in albums) {
+        return true
+      } else {
+        return false
+      }
+    },
   },
   // methods는 추가 작업 필요할 수 있음
   methods: {

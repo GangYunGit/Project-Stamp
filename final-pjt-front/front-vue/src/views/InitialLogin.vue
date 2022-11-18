@@ -1,7 +1,7 @@
 <template>
   <div class="container col-md-8 p-4" style="background-color: #FBFEAB; border-radius: 40px;">
     <div offset-md="4" class="row d-flex justify-content-center align-items-center">
-      <h1>회원님의 취향을 알려주세요.</h1>
+      <h1>당신의 취향을 알려주세요.</h1>
       <br>
       <b-row class="col-7 p-3" offset-md="3">
       <b-col sm="3">
