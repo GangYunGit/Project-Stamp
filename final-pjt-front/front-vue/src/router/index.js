@@ -8,8 +8,6 @@ import RegisterView from '../views/RegisterView.vue'
 import InitialLogin from '../views/InitialLogin.vue'
 import RecommendView from '../views/RecommendView.vue'
 
-// 실험용 템플릿
-import FlibBook from '../views/FlipBook.vue'
 
 Vue.use(VueRouter)
 
@@ -56,15 +54,11 @@ const routes = [
   //   component: DetailView,
   // },
   {
-    path: '/:id/recommend',
+    // path: '/:id/recommend',
+    path: '/recommend',
     name: 'RecommendView',
     component: RecommendView,
   },
-  {
-    path: '/flipbook',
-    name: 'FlipBook',
-    component: FlibBook,
-  }
 ]
 
 const router = new VueRouter({

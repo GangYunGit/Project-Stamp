@@ -1,11 +1,10 @@
 <template>
   <div id="app">
-    <nav>
+    <nav style="background-color:aquamarine">
       <router-link to="/">Home</router-link> |
       <router-link to="/login">Login</router-link> |
       <router-link to="/book">Book</router-link> |
       <router-link to="/register">회원가입</router-link> |
-      <router-link to="/flipbook">테스트</router-link>
     </nav>
     <router-view/>
   </div>
