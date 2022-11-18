@@ -80,7 +80,7 @@ export default new Vuex.Store({
     // 토큰 초기화(로그아웃)
     USER_LOGOUT(state) {
       state.token = null
-      router.push({ name: 'LoginView' })
+      router.push({ name: 'loginView' })
     }
   },
   actions: {
@@ -90,7 +90,7 @@ export default new Vuex.Store({
         method: 'post',
         url: `${API_URL}/accounts/signup/`,
         data: {
-          username: payload.userName,
+          // username: payload.userName,
           email: payload.userEmail,
           password1: payload.userPw1,
           password2: payload.userPw2,

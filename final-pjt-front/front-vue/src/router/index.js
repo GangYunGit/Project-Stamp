@@ -54,7 +54,8 @@ const routes = [
   //   component: DetailView,
   // },
   {
-    path: '/:id/recommend',
+    // path: '/:id/recommend',
+    path: '/recommend',
     name: 'RecommendView',
     component: RecommendView,
   },

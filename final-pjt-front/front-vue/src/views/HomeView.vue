@@ -18,10 +18,14 @@
       </b-row>
       </div>
       <div class="m-4 p-4 col-md-4">
+        <router-link :to="{ name:'BookView' }"><img src="../assets/album.png" style="width:168px; height:192px;" alt=""></router-link>
+          <h2>앨범 보기</h2>
       </div>
     </div>
-    <div class="d-flex justify-content-md-center m-4" style="background-color: #FBFEAB;">
+    <div>
+      <b-row class="justify-content-md-center m-4 round-3" style="background-color: #FBFEAB;">
       <MovieListView v-for="(movie, idx) in movies" :key="idx" :movie="movie" />
+      </b-row>
     </div>
   </div>
 </template>
@@ -41,7 +45,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import axios from 'axios'
 
 import HeaderView from '@/components/HeaderView'
-import MovieListView from '@/components/MovieListItemView.vue'
+import MovieListView from '@/components/MovieListView.vue'
 
 
 // Make BootstrapVue available throughout your project
@@ -68,11 +72,15 @@ export default {
     }
   },
   created() {
+    this.testMethod()
   },
   computed: {
     // movies : 백엔드 서버에 저장된 영화 정보 가져오기
   },
   methods: {
+    testMethod() {
+      this.movies = this.$store.state.movies
+    },
     searchResult() {
       const searchInput = this.searchInput
       axios({
@@ -85,7 +93,7 @@ export default {
       .then((request) => {
         console.log(request)
         // 서버에서 받은 영화 정보로 대체
-        // this.movies = request.data
+        // this.movies = request.data.results
       })
       .catch((error) => {
         console.log(error)

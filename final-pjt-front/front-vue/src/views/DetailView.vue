@@ -1,8 +1,19 @@
 <template>
-  <div>
-    <h2>상세 설명</h2>
-    <b-button @click="addAlbum" class="m-2">앨범에 추가</b-button>
-    <b-button @click="getRecommend" class="m-2">영화 추천 받기</b-button>
+  <div class="container justify-content-md-center mt-4" style="background-color:#FBFEAB">
+      <b-card
+      class="mb-2 rounded-3 mx-auto"
+      :title="movies.title"
+      :img-src="`https://image.tmdb.org/t/p/original/${movies.poster_path}`"
+      img-alt="Poster Image"
+      img-top
+      style="width: 30rem"
+    >
+      <b-card-text>
+        {{ movies.overview }}
+      </b-card-text>
+    </b-card>
+  <b-button pill variant="#667eea" class="m-2 gradient-custom" @click="addAlbum">앨범에 추가</b-button>
+  <router-link :to="{ name : 'HomeView' }"><b-button pill variant="outline-secondary" class="m-2">메인으로</b-button></router-link>
   </div>
 </template>
 
@@ -28,13 +39,14 @@ export default {
   name: 'DetailView',
   data() {
     return {
-      movie: null,
+      movie: [],
     }
   },
   created() {
     this.getMovieDetail()
   },
   methods: {
+    // 페이지를 열 때 영화 상세 정보 조회
     getMovieDetail() {
       axios({
         method: 'get',
@@ -49,8 +61,18 @@ export default {
         console.log(error)
       })
     },
+    // 앨범에 이 영화를 추가
     addAlbum() {
-
+      axios({
+        method: 'post',
+        url: `${API_URL}/`
+      })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     },
     getRecommend() {
 
