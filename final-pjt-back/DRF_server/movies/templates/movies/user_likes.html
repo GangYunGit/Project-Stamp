@@ -7,35 +7,43 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>장르 리스트</h1>
+  <h1>유저 선호도 조사</h1>
   {% if request.user.is_authenticated %}
     <p>로그인 되어있음</p>
   {% else %}
     <p>로그인 필요</p>
   {% endif %}
   <hr>
-  {% for genre in genres %}
-    {% if genre %}
-      <p>장르 번호 : {{ genre.pk }}</p>
-      <p>장르 : {{ genre.name }}</p>
-      <p>장르를 좋아하는 유저들 : 
-        {% for genre_like_user in genre.like_users.all %}
-          {{ genre_like_user }}
-        {% endfor %}
-      </p>
-      <div>
-        <form class="like-forms" data-genre-id="{{ genre.pk }}">
-          {% csrf_token %}
-          {% if request.user in genre.like_users.all %}
-            <input type="submit" value="선호 장르 취소" id="like-{{ genre.pk }}">
-          {% else %}
-            <input type="submit" value="선호 장르 선택" id="like-{{ genre.pk }}">
-          {% endif %}
-        </form>
-      </div>
-      <hr>
-    {% endif %}
-  {% endfor %}
+  <label for="genre">장르 선택<br></label>
+    <form class="like-forms" data-genre-id="{{ genre.pk }}">
+    {% for genre in genres %}
+      {% if request.user in genre.like_users.all %}
+        <input type="radio" value="{{ genre.name }}" id="like-{{ genre.pk }}" checked>{{ genre.name }}<br></input>
+      {% else %}
+        <input type="radio" value="{{ genre.name }}" id="like-{{ genre.pk }}">{{ genre.name }}<br></input>
+      {% endif %}
+    {% endfor %}
+    </form>
+    <hr>
+  <label for="movie">영화 선택</label>
+    <select id="" multiple>
+      {% for movie in movies %}
+      <option value="movie">{{ movie.title }}</option>
+      {% endfor %}
+    </select>
+  <hr>
+  <label for="actor">배우 선택</label>
+    <select id="" multiple>
+      {% for actor in actors %}
+        {% if actor.name_kr %}
+          <option value="actor">{{ actor.name_kr }}</option>
+        {% else %}
+          <option value="actor">{{ actor.name_en }}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+  <hr>
+
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -61,13 +69,12 @@
 
           const isLiked = response.data.is_liked
 
-          const likeBtn = document.querySelector(`#like-${genreId}`)
+          const likeOpt = document.querySelector(`#like-${genreId}`)
           if (isLiked === true) {
-            likeBtn.value = '선호 장르 취소'
+            likeOpt.setAttribute("checked")
           } else {
-            likeBtn.value = '선호 장르 선택'
+            likeOpt.removeAttribute("checked")
           }
-          // likeBtn.value = isLiked ? '좋아요 취소' : '좋아요'
         })
         .catch((error) => {
           console.log(error)
