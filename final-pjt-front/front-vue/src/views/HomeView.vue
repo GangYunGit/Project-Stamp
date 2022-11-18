@@ -65,19 +65,17 @@ export default {
       // searchInput : axios 요청에 보낼 검색어
       searchInput: null,
       
-      // movies : 메인 화면에 표시할 영화 데이터 모음
-      movies: []
     }
   },
   // 사이트 접속(템플릿 초기화)시 영화 정보 가져오기
   created() {
-    // this.getMovieData()
+    this.getMovieData()
   },
   computed: {
     // // getMovieData : 백엔드 서버에 저장된 영화 정보 가져오기
-    // getMovieData() {
-    //   this.$store.dispatch()
-    // },
+    getMovieData() {
+      return this.$store.state.movies
+    },
   },
   methods: {
     searchResult() {

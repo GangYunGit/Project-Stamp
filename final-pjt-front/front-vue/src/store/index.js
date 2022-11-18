@@ -14,6 +14,34 @@ export default new Vuex.Store({
   ],
   state: {
     movies: [
+      {
+        title: "Hair each base dark guess garden accept.",
+        popularity: 4.0,
+        overview: "Religious ball another laugh light million. Federal public power another.\nDuring always recent maintain major others bank. Say place address. Wife tough outside system must. Develop road especially.",
+        released_data: "1995-01-20T07:27:13Z",
+        poster_path: "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F346a942a-9e1d-4add-a4f2-6d8c18b7e7b6%2Fwelldone!.png?table=block&id=9acc0d11-cfdd-4ba0-a411-e09aa855d650&spaceId=f7ab64f0-6613-4035-b609-06b6865d9b61&width=250&userId=3da73d48-5c6a-457e-843d-1891bf0e354c&cache=v2"
+      },
+      {
+        title: "TEST title 1",
+        popularity: 4.0,
+        overview: "TEST data 1",
+        released_data: "1995-01-20T07:27:13Z",
+        poster_path: "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F346a942a-9e1d-4add-a4f2-6d8c18b7e7b6%2Fwelldone!.png?table=block&id=9acc0d11-cfdd-4ba0-a411-e09aa855d650&spaceId=f7ab64f0-6613-4035-b609-06b6865d9b61&width=250&userId=3da73d48-5c6a-457e-843d-1891bf0e354c&cache=v2"
+      },
+      {
+        title: "TEST title 2",
+        popularity: 4.0,
+        overview: "Religious ball another laugh light million. Federal public power another.\nDuring always recent maintain major others bank. Say place address. Wife tough outside system must. Develop road especially.",
+        released_data: "1995-01-20T07:27:13Z",
+        poster_path: "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F346a942a-9e1d-4add-a4f2-6d8c18b7e7b6%2Fwelldone!.png?table=block&id=9acc0d11-cfdd-4ba0-a411-e09aa855d650&spaceId=f7ab64f0-6613-4035-b609-06b6865d9b61&width=250&userId=3da73d48-5c6a-457e-843d-1891bf0e354c&cache=v2"
+      },
+      {
+        title: "TEST title 3",
+        popularity: 4.0,
+        overview: "TEST data 2",
+        released_data: "1995-01-20T07:27:13Z",
+        poster_path: "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F346a942a-9e1d-4add-a4f2-6d8c18b7e7b6%2Fwelldone!.png?table=block&id=9acc0d11-cfdd-4ba0-a411-e09aa855d650&spaceId=f7ab64f0-6613-4035-b609-06b6865d9b61&width=250&userId=3da73d48-5c6a-457e-843d-1891bf0e354c&cache=v2"
+      },
     ],
     recommended: [
     ],
@@ -52,7 +80,7 @@ export default new Vuex.Store({
     // 토큰 초기화(로그아웃)
     USER_LOGOUT(state) {
       state.token = null
-      router.push({ name: 'LoginView'})
+      router.push({ name: 'LoginView' })
     }
   },
   actions: {
@@ -68,27 +96,27 @@ export default new Vuex.Store({
           password2: payload.userPw2,
         }
       })
-      .then((response) => {
-        console.log(response)
-        context.commit('INITIAL_LOGIN', payload)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+        .then((response) => {
+          console.log(response)
+          context.commit('INITIAL_LOGIN', payload)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
     // 사용자 로그인(기능 검증 필요)
     userLogin(context, payload) {
       axios({
-        method:'post',
+        method: 'post',
         url: `${API_URL}/accounts/login`,
         data: {
           username: payload.username,
           password: payload.password
         }
       })
-      .then((response) => {
-        context.commit('SAVE_TOKEN', response.data.key)
-      })
+        .then((response) => {
+          context.commit('SAVE_TOKEN', response.data.key)
+        })
     },
     // 사용자 로그아웃
     userLogout(context) {
@@ -104,12 +132,12 @@ export default new Vuex.Store({
           Authorization: `Token ${context.state.token}`
         }
       })
-      .then((response) => {
-        console.log(response)
-      })
+        .then((response) => {
+          console.log(response)
+        })
         .catch((error) => {
-        console.log(error)
-      })
+          console.log(error)
+        })
     },
   },
   modules: {
