@@ -17,11 +17,11 @@
   <label for="genre">장르 선택<br></label>
     <form class="like-forms" data-genre-id="{{ genre.pk }}">
     {% for genre in genres %}
-      {% if request.user in genre.like_users.all %}
-        <input type="radio" value="{{ genre.name }}" id="like-{{ genre.pk }}" checked>{{ genre.name }}<br></input>
-      {% else %}
-        <input type="radio" value="{{ genre.name }}" id="like-{{ genre.pk }}">{{ genre.name }}<br></input>
-      {% endif %}
+    {% if request.user in genre.like_users.all %}
+      <input type="submit" value="선호 장르 취소" id="like-{{ genre.pk }}">
+    {% else %}
+      <input type="submit" value="선호 장르 선택" id="like-{{ genre.pk }}">
+    {% endif %}
     {% endfor %}
     </form>
     <hr>
@@ -69,12 +69,13 @@
 
           const isLiked = response.data.is_liked
 
-          const likeOpt = document.querySelector(`#like-${genreId}`)
+          const likeBtn = document.querySelector(`#like-${genreId}`)
           if (isLiked === true) {
-            likeOpt.setAttribute("checked")
+            likeBtn.value = '선호 장르 취소'
           } else {
-            likeOpt.removeAttribute("checked")
+            likeBtn.value = '선호 장르 선택'
           }
+          // likeBtn.value = isLiked ? '좋아요 취소' : '좋아요'
         })
         .catch((error) => {
           console.log(error)
