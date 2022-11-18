@@ -10,6 +10,7 @@ class Genre(models.Model):
     name = models.CharField(max_length=50)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_genres')
 
+
 class Movie(models.Model):
     genre_ids = models.ManyToManyField(Genre)
     overview = models.TextField()
@@ -20,11 +21,8 @@ class Movie(models.Model):
     vote_count = models.IntegerField()
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
 
+
 class Actor(models.Model):
-    name_en = models.TextField()
-    name_kr = models.TextField()
-    popularity = models.FloatField()
+    name = models.TextField()
+    movie_ids = models.ManyToManyField(Movie)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_actors')
-
-
-# class Review(models.Model):
