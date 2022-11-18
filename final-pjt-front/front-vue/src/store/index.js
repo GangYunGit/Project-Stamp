@@ -46,20 +46,6 @@ export default new Vuex.Store({
     recommended: [
     ],
     token: null,
-    albums: [
-      {
-        content: 'content1',
-      },
-      {
-        content: 'content2',
-      },
-      {
-        content: 'content3',
-      },
-      {
-        content: 'content4',
-      },
-    ]
   },
   getters: {
     isLogin(state) {

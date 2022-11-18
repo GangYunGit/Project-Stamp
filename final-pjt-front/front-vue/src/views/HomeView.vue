@@ -23,6 +23,7 @@
       </div>
     </div>
     <div>
+      <h1>영화 목록</h1>
       <b-row class="justify-content-md-center m-4 round-3" style="background-color: #FBFEAB;">
       <MovieListView v-for="(movie, idx) in movies" :key="idx" :movie="movie" />
       </b-row>

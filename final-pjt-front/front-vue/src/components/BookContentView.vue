@@ -1,7 +1,26 @@
 <template>
-  <div style="background-color:#FBFEAB">
+  <!-- <div style="background-color:#FBFEAB">
     <h1>페이지</h1>
     <p>{{ album.content }}</p>
+  </div> -->
+  <div style="background-color:#FBFEAB">
+      <b-card
+      class="mx-auto m-3"
+      :title="album.title"
+      :img-src="`https://image.tmdb.org/t/p/original/${album.poster_path}`"
+      img-alt="Poster Image"
+      img-top
+      style="width: 85%; height:90%;"
+    >
+    <br>
+      <b-card-text>
+        {{ album.overview }}
+      </b-card-text>
+      <template #footer>
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </template>
+      <router-link :to="{ name: 'ModifyView'}"><b-button variant="primary">후기 수정하기</b-button></router-link>
+    </b-card>
   </div>
 </template>
 
@@ -21,6 +40,12 @@ export default {
   name: 'BookContentView',
   props: {
     album: Object,
+  },
+  data() {
+    return {
+    }
+  },
+  components: {
   },
 }
 </script>
