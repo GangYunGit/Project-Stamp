@@ -95,14 +95,14 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
-    // 사용자 로그인(기능 검증 필요)
+    // 사용자 로그인
     userLogin(context, payload) {
       axios({
         method: 'post',
-        url: `${API_URL}/accounts/login`,
+        url: `${API_URL}/accounts/login/`,
         data: {
-          username: payload.username,
-          password: payload.password
+          email: payload.username,
+          password: payload.password,
         }
       })
         .then((response) => {
@@ -110,6 +110,27 @@ export default new Vuex.Store({
         })
     },
 
+    // 회원정보 수정
+    userEdit(context, payload) {
+      axios({
+        method: 'put',
+        url: `${API_URL}/accounts/signup/`,
+        data: {
+          // username: payload.userName,
+          email: payload.userEmail,
+          password1: payload.userPw1,
+          password2: payload.userPw2,
+        }
+      })
+        .then((response) => {
+          console.log(response)
+          alert('수정되었습니다.')
+          context.commit('SAVE_TOKEN', payload)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
     // 사용자 로그아웃
     userLogout(context) {
       context.commit('USER_LOGOUT')

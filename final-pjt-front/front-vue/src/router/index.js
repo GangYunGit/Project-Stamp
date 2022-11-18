@@ -8,6 +8,7 @@ import DetailView from '../views/DetailView.vue'
 import InitialLogin from '../views/InitialLogin.vue'
 import RecommendView from '../views/RecommendView.vue'
 import ModifyView from '../views/ModifyView.vue'
+import AccountEdit from '../views/AccountEdit.vue'
 
 
 Vue.use(VueRouter)
@@ -65,7 +66,12 @@ const routes = [
     path: '/modify',
     name: 'ModifyView',
     component: ModifyView,
-  }
+  },
+  {
+    path: '/account',
+    name: 'AccountEdit',
+    component: AccountEdit,
+  },
 ]
 
 const router = new VueRouter({

@@ -18,7 +18,7 @@
       </b-row>
       </div>
       <div class="m-4 p-4 col-md-4">
-        <router-link :to="{ name:'BookView' }"><img src="../assets/album.png" style="width:168px; height:192px;" alt=""></router-link>
+        <router-link :to="{ name:'' }"><img src="../assets/album.png" style="width:168px; height:192px;" alt=""></router-link>
           <h2>앨범 보기</h2>
       </div>
     </div>
@@ -74,7 +74,8 @@ export default {
   },
   created() {
     this.testMethod()
-    console.log(this.movies)
+    // console.log(this.movies)
+    this.basicData()
   },
   computed: {
     // movies : 백엔드 서버에 저장된 영화 정보 가져오기
@@ -83,11 +84,23 @@ export default {
     testMethod() {
       this.movies = this.$store.state.movies
     },
+    basicData() {
+      axios({
+        method: 'get',
+        url: `${API_URL}/movies/`
+      })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
     searchResult() {
       const searchInput = this.searchInput
       axios({
         method:'get',
-        url: API_URL,
+        url: `${API_URL}`,
         params: {
           searchInput,
         }
