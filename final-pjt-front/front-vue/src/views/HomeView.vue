@@ -23,6 +23,7 @@
       </div>
     </div>
     <div>
+      <h1>추천 영화 목록</h1>
       <b-row class="justify-content-md-center m-4 round-3" style="background-color: #FBFEAB;">
       <MovieListView v-for="(movie, idx) in movies" :key="idx" :movie="movie" />
       </b-row>
@@ -73,6 +74,7 @@ export default {
   },
   created() {
     this.testMethod()
+    console.log(this.movies)
   },
   computed: {
     // movies : 백엔드 서버에 저장된 영화 정보 가져오기
