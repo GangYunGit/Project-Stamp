@@ -1,10 +1,18 @@
 <template>
   <div class="container position-relative">
     <div class="row justify-content-center">
-      <div class="text-center text-white col-md-5">
+      <div class="text-center text-white col-md-8">
         <div v-if="isLogin">
-          <h3>안녕하세요!</h3>
-          <b-button variant="light" @click="userLogout">로그아웃</b-button>
+          <b-row align-self="baseline">
+            <b-col class="col-md-8">
+              <h3>안녕하세요!</h3>
+              <b-button variant="light" @click="userLogout">로그아웃</b-button>
+            </b-col>
+            <b-col class="col-md-4">
+              <br>
+              <router-link :to="{ name:'AccountEdit' }"><img src="../assets/user.png" style="width:64px; height:64px;" alt=""></router-link>
+            </b-col>
+          </b-row>
         </div>
         <div v-else>
           <h3>로그인하세요.</h3>
