@@ -76,6 +76,16 @@ def like_genre(request, genre_pk):
     return redirect('accounts:login')
 
 
+def user_likes(request):
+    genres = Genre.objects.all()
+    movies = Movie.objects.all()
+    actors = Actor.objects.all()
+    context = {
+        'genres': genres,
+        'movies': movies,
+        'actors': actors,
+    }
+    return render(request, 'movies/user_likes.html', context)
 
 # @api_view(['GET'])
 # def review_list(request):
