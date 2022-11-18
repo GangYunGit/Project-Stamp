@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="d-flex justify-content-md-center m-4" style="background-color: #FBFEAB;">
-      <MovieListView v-for="(movie, pk) in movies" :key="pk" :movie="movie" />
+      <MovieListView v-for="(movie, idx) in movies" :key="idx" :movie="movie" />
     </div>
   </div>
 </template>
@@ -41,7 +41,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import axios from 'axios'
 
 import HeaderView from '@/components/HeaderView'
-import MovieListView from '@/components/MovieListView.vue'
+import MovieListView from '@/components/MovieListItemView.vue'
 
 
 // Make BootstrapVue available throughout your project
@@ -64,18 +64,13 @@ export default {
       show: true,
       // searchInput : axios 요청에 보낼 검색어
       searchInput: null,
-      
+      movies : [],
     }
   },
-  // 사이트 접속(템플릿 초기화)시 영화 정보 가져오기
   created() {
-    this.getMovieData()
   },
   computed: {
-    // // getMovieData : 백엔드 서버에 저장된 영화 정보 가져오기
-    getMovieData() {
-      return this.$store.state.movies
-    },
+    // movies : 백엔드 서버에 저장된 영화 정보 가져오기
   },
   methods: {
     searchResult() {
