@@ -73,24 +73,21 @@ export default {
     }
   },
   created() {
-    this.testMethod()
-    // console.log(this.movies)
+    // 페이지 초기화 시 작동
     this.basicData()
   },
   computed: {
-    // movies : 백엔드 서버에 저장된 영화 정보 가져오기
   },
   methods: {
-    testMethod() {
-      this.movies = this.$store.state.movies
-    },
+    // 기본 영화 정보 가져오기(최초 로딩 시)
     basicData() {
       axios({
         method: 'get',
         url: `${API_URL}/movies/`
       })
       .then((response) => {
-        console.log(response)
+        this.movies = response.data.slice(0,21)
+        console.log(this.movies)
       })
       .catch((error) => {
         console.log(error)

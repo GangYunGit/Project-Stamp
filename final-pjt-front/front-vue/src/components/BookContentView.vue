@@ -13,7 +13,7 @@
       style="width: 85%; height:90%;"
     >
     <br>
-      <b-card-text>
+      <b-card-text style="font-family: Gill Sans, sans-serif; line-height: 140%;">
         {{ album.overview }}
       </b-card-text>
       <template #footer>
