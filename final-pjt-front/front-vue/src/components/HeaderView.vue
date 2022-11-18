@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div class="text-center text-white col-md-5">
         <div v-if="isLogin">
-          <h3>{{ userName }}님 환영합니다.</h3>
+          <h3>안녕하세요!</h3>
           <b-button variant="light" @click="userLogout">로그아웃</b-button>
         </div>
         <div v-else>
@@ -32,7 +32,6 @@ export default {
   name: 'HeaderView',
   data() {
     return {
-      userName: this.$route.params.userName
     }
   },
   computed: {
@@ -46,10 +45,6 @@ export default {
       this.$store.dispatch('userLogout')
     }
   },
-  beforeRouteUpdate(to, from, next) {
-    this.userName = to.params.userName
-    next()
-  }
 }
 </script>
 

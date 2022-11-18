@@ -1,8 +1,7 @@
 <template>
-  <div>
-    <b-col>
+  <div class="col p-3 m-2">
     <b-card
-      class="mb-2"
+      class="m-3 p-2 col-md-6"
       :title="movie.title"
       :img-src="`https://image.tmdb.org/t/p/original/${movie.poster_path}`"
       img-alt="Poster Image"
@@ -13,7 +12,6 @@
           {{ movie.overview }}
         </b-card-text>
       </b-card>
-    </b-col>
   </div>
 </template>
 
