@@ -1,10 +1,11 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
+from django.contrib.auth import get_user_model
 from django.shortcuts import get_list_or_404, get_object_or_404, render, redirect
 from django.http import JsonResponse
 
-from .serialzers import MovieListSerializer, MovieSerializer, GenreSerializer, ActorListSerializer
+from .serialzers import MovieListSerializer, MovieSerializer, GenreSerializer, UserLikesSerializer, ActorListSerializer
 from .models import Movie, Genre, Actor
 
 
@@ -120,6 +121,12 @@ def user_likes(request):
         'actors': actors,
     }
     return render(request, 'movies/user_likes.html', context)
+
+@api_view(['GET'])
+def users(request):
+    users = get_user_model().objects.all()
+    serializer = UserLikesSerializer(users, many=True)
+    return Response(serializer.data)
 
 # @api_view(['GET'])
 # def review_list(request):

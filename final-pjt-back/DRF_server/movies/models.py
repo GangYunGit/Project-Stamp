@@ -25,4 +25,5 @@ class Movie(models.Model):
 class Actor(models.Model):
     name = models.TextField()
     movie_ids = models.ManyToManyField(Movie)
+    profile_path = models.TextField(null=True)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_actors')

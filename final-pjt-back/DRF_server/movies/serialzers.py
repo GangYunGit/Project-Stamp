@@ -1,15 +1,6 @@
 from rest_framework import serializers
 from .models import Movie, Genre, Actor
-from django.conf import settings
-
-
-# class ActorListSerializer(serializers.ModelSerializer):
-
-#     class Meta:
-#         model = Actor
-#         fields = '__all__'
-
-
+from django.contrib.auth import get_user_model
 
 
 # class ActorSerializer(serializers.ModelSerializer):
@@ -60,20 +51,31 @@ class GenreSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Genre
-        fields = ('name','like_users',)
+        fields = ('id', 'name',)
 
 
 class ActorListSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Actor
-        fields = '__all__'
+            model = Actor
+            fields = '__all__'
 
-class UserLikesSerializer(serializers.ModelSerializer):
-    like_actors = ActorListSerializer
+
+class ActorSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = settings.AUTH_USER_MODEL
+        model = Actor
+        fields = ('name', 'profile_path')
+
+
+class UserLikesSerializer(serializers.ModelSerializer):
+    like_genres = GenreSerializer(many=True)
+    like_actors = ActorSerializer(many=True)
+    like_movies = MovieSerializer(many=True)
+
+    class Meta:
+        model = get_user_model()
+        fields = ('email', 'like_genres', 'like_actors', 'like_movies',)
 
 # class ReviewDetailSerializer(serializers.ModelSerializer):
 #     movie = MovieTitleSerializer(read_only=True)

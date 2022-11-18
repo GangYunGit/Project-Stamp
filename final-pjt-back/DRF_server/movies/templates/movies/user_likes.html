@@ -31,12 +31,12 @@
   <p>배우 선택</p>
   {% for actor in actors %}
     {% if actor %}
-      <form class="actor-like-forms" data-id="{{ actor.pk }}" data-name="{{ actor.name_en }}">
+      <form class="actor-like-forms" data-id="{{ actor.pk }}" data-name="{{ actor.name }}">
         {% csrf_token %}
         {% if request.user in actor.like_users.all %}
-          <input type="submit" value="{{ actor.name_en }} 취소" id="like-{{ actor.pk }}">
+          <input type="submit" value="{{ actor.name }} 취소" id="like-{{ actor.pk }}">
         {% else %}
-          <input type="submit" value="{{ actor.name_en }} 선택" id="like-{{ actor.pk }}">
+          <input type="submit" value="{{ actor.name }} 선택" id="like-{{ actor.pk }}">
         {% endif %}
       </form>
     {% endif %}
