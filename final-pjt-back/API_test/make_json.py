@@ -1,6 +1,7 @@
 import requests
 import json
 import re
+from pprint import pprint
 
 
 class URLMaker:
@@ -77,35 +78,35 @@ def is_korean_name(name):
 #         json.dump(genre_data, f, indent=4)
 
 
-# def create_movie_data():
-#     with open('genres.json', 'r+') as f:
-#         movie_data = json.load(f)
+def create_movie_data():
+    with open('genres.json', 'r+') as f:
+        movie_data = json.load(f)
 
-#     for page in range(1, 20):
-#         raw_data = requests.get(url.get_movie_url(page=page))
-#         json_data = raw_data.json()
-#         movies = json_data.get('results')
+    for page in range(1, 20):
+        raw_data = requests.get(url.get_movie_url(page=page))
+        json_data = raw_data.json()
+        movies = json_data.get('results')
 
-#         for movie in movies:
-#             if movie.get('release_date') == "" or movie.get('poster_path') == "":
-#                 continue
+        for movie in movies:
+            if movie.get('release_date') == "" or movie.get('poster_path') == "":
+                continue
 
-#             movie.pop('adult')
-#             movie.pop('original_language')
-#             movie.pop('original_title')
-#             movie.pop('popularity')
-#             movie.pop('backdrop_path')
-#             movie.pop('video')
-#             movie['like_users'] = []
-#             tmp = {
-#                 'model': 'movies.movie',
-#                 'pk': movie.pop('id'),
-#                 'fields': movie,
-#             }
-#             movie_data.append(tmp)
+            movie.pop('adult')
+            movie.pop('original_language')
+            movie.pop('original_title')
+            movie.pop('popularity')
+            movie.pop('backdrop_path')
+            movie.pop('video')
+            movie['like_users'] = []
+            tmp = {
+                'model': 'movies.movie',
+                'pk': movie.pop('id'),
+                'fields': movie,
+            }
+            movie_data.append(tmp)
 
-#     with open('movies.json', 'w') as f:
-#         json.dump(movie_data, f, indent=4)
+    with open('movies.json', 'w') as f:
+        json.dump(movie_data, f, indent=4)
 
 
 def create_actor_data():
@@ -125,7 +126,14 @@ def create_actor_data():
             filmo = []
             known_for_data = actor.get('known_for')
             for known_for in known_for_data:
-                movie_id = known_for.get('title')
+                if (
+                    not known_for.get('release_date')
+                    or not known_for.get('poster_path')
+                    or not known_for.get('title')
+                ):
+                    continue
+
+                movie_id = known_for.get('id')
                 filmo.append(movie_id)
 
             for i in range(len(person_names_data)):
@@ -133,7 +141,7 @@ def create_actor_data():
                     person_name = person_names_data[i]
                     break
 
-            print(person_name, filmo)
+            # print(person_name, filmo)
 
             tmp = {
                 'model': 'movies.actor',
@@ -151,6 +159,54 @@ def create_actor_data():
         json.dump(actors, f, indent=4)
 
 
+def create_movie_from_actor():
+    movies = []
+    for page in range(1, 9):
+        raw_data = requests.get(url.get_actor_url(page=page))
+        json_data = raw_data.json()
+        actor_data = json_data.get('results')
+
+        for actor in actor_data:
+            known_for_data = actor.get('known_for')
+
+            for known_for in known_for_data:
+                if (
+                    not known_for.get('release_date')
+                    or not known_for.get('poster_path')
+                    or not known_for.get('title')
+                ):
+                    continue
+                # pprint(known_for)
+                id = known_for.get('id')
+                genre_ids = known_for.get('genre_ids')
+                overview = known_for.get('overview')
+                poster_path = known_for.get('poster_path')
+                release_date = known_for.get('release_date')
+                title = known_for.get('title')
+                vote_average = known_for.get('vote_average')
+                vote_count = known_for.get('vote_count')
+
+                tmp = {
+                    'model': 'movies.movie',
+                    'pk': id,
+                    'fields': {
+                        'genre_ids': genre_ids,
+                        'overview': overview,
+                        'poster_path': poster_path,
+                        'release_date': release_date,
+                        'title': title,
+                        'vote_average': vote_average,
+                        'vote_count': vote_count,
+                    },
+                }
+                movies.append(tmp)
+
+    # pprint(movies)
+    with open('movies.json', 'w') as f:
+        json.dump(movies, f, indent=4)
+
+
 # create_genre_data()
 # create_movie_data()
 create_actor_data()
+create_movie_from_actor()
