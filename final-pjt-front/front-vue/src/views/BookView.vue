@@ -66,7 +66,7 @@ export default {
 .wrapper {
   align-items: center;
   display: flex;
-  height: 90%;
+  height: 100%;
   justify-content: center;
   width: 90%;
 }
