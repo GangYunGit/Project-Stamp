@@ -61,6 +61,7 @@ export default new Vuex.Store({
     // 회원가입 시 출력할 화면
     INITIAL_LOGIN(state, token) {
       state.token = token
+      console.log(token)
       router.push({ name: 'InitialLogin' })
     },
     // 토큰(인증 정보) 저장
@@ -85,11 +86,10 @@ export default new Vuex.Store({
           email: payload.userEmail,
           password1: payload.userPw1,
           password2: payload.userPw2,
-        }
+        },
       })
         .then((response) => {
-          console.log(response)
-          context.commit('INITIAL_LOGIN', payload)
+          context.commit('INITIAL_LOGIN', response.data.key)
         })
         .catch((error) => {
           console.log(error)
