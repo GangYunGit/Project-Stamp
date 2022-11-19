@@ -1,15 +1,22 @@
 <template>
-  <div>
-      <h1>앨범</h1>
-      <turn class="container justify-content-md-center rounded-3" style="background-color:brown; width:912px; height: 555px; line-height: 75%;">
+  <div class="p-2" style="background-color: #BDFCFE">
+    <!-- <div class="wrapper"> -->
+      <h1 class="p-3">앨범</h1>
+      <turn 
+        class="d-flex wrapper container justify-content-md-center rounded-3" 
+        style="background-color:brown; width:100%; height: 100%; line-height: 75%;"
+        >
         <BookContentView 
           class="flip_page_double hard"
+          style="width:100%; height:100%;"
           v-for="(album, pageNo) in albums"
           :key="pageNo"
           :album="album"
         />
       </turn>
-    </div>
+    <br>
+    <!-- </div> -->
+  </div>
 </template>
 
 <script>
@@ -56,5 +63,11 @@ export default {
 </script>
 
 <style>
-
+.wrapper {
+  align-items: center;
+  display: flex;
+  height: 90%;
+  justify-content: center;
+  width: 90%;
+}
 </style>

@@ -3,11 +3,11 @@
     <div class="text-center text-white col-md-10">
       <div v-if="isLogin">
         <b-row align-self="baseline">
-          <b-col class="col-md-9 p-2">
+          <b-col class="col-md-9 p-2 mx-auto">
             <h5>안녕하세요!</h5>
             <b-button variant="light" @click="userLogout">로그아웃</b-button>
           </b-col>
-          <b-col class="col-md-3">
+          <b-col class="col-md-3 mx-auto">
             <router-link :to="{ name:'AccountEdit' }"><img src="../assets/user.png" style="width:64px; height:64px;" alt=""></router-link>
             <p>회원정보 수정</p>
           </b-col>

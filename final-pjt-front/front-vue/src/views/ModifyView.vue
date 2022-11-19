@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <h2>후기 수정하기</h2>
+  <div class="p-4" style="background-color: #BDFCFE; height: 85vh;">
+    <h2 class="p-1">후기 수정하기</h2>
     <div class="container justify-content-md-center p-4 col-md-4" style="background-color:#FBFEAB">
         <p>후기는 100자 이내로 작성 가능합니다.</p>
       <textarea name="" id="" cols="" rows="5" v-model="newReview"></textarea>

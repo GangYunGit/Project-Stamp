@@ -1,23 +1,24 @@
 <template>
-  <div clas="container m-4 p-4">
-    <div class="d-flex justify-content-md-center m-4">
-      <div class="p-4 col-md-11" style="background-color: skyblue; border-radius: 40px;">
+  <div class="p-3" style="background-color: #BDFCFE;">
+    <br>
+    <div class="col-9 justify-content-md-center mx-auto">
+      <div class="p-4" style="background-color: skyblue; border-radius: 40px;">
       <HeaderView />
       <hr>
       <b-row>
-        <b-col align-self="baseline" class="col-md-8">
-          <h3>영화 검색하기</h3>
+        <b-col align-self="baseline" class="col-md-8 mx-auto text-white">
+          <h3>어떤 작품을 찾으시나요?</h3>
           <input type="text" @keyup.enter="searchResult" v-model.trim="searchInput">
           <b-button class="m-3" variant="outline-primary" @click="searchResult">검색</b-button>
           <b-button class="m-1" variant="outline-secondary" @click="initializeData">필터 초기화</b-button>
         </b-col>
-        <b-col class="col-md-2">
+        <b-col class="col-md-3 mx-auto">
           <img src="../assets/album.png" style="width:80px; height:96px;" alt="" @click="viewAlbum">
-          <p>앨범 보기</p>
         </b-col>
       </b-row>
       </div>
     </div>
+    <br>
     <div>
       <h1>추천 영화 목록</h1>
       <b-row class="justify-content-md-center m-4 round-3" style="background-color: #FBFEAB;">

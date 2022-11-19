@@ -1,32 +1,22 @@
 <template>
-  <div class="container col-md-8 p-4" style="background-color: #FBFEAB; border-radius: 40px;">
-    <div offset-md="4" class="row d-flex justify-content-center align-items-center">
+  <div class="container col-md-8 p-4 mt-4" style="background-color: #FBFEAB; border-radius: 40px;">
+    <div class="align-items-md-center">
       <h1>당신의 취향을 알려주세요.</h1>
       <br>
-      <b-row class="col-7 p-3" offset-md="3">
-      <b-col sm="3">
-        <label for="input-default">영화 제목</label>
+      <b-col class="col-7 mx-auto">
+        <b-row>
+          <label for="input-default">영화 제목</label>
+          <b-form-input v-model="movieName" placeholder="Enter your name"></b-form-input>
+        </b-row>
+        <b-row>
+          <label for="input-default">장르명</label>
+          <b-form-input v-model="genreName" placeholder="Enter your name"></b-form-input>
+        </b-row>
+        <b-row>
+          <label for="input-default">배우명</label>
+          <b-form-input v-model="actorName" placeholder="Enter your name"></b-form-input>
+        </b-row>
       </b-col>
-      <b-col sm="9">
-        <b-form-input v-model="movieName" placeholder="Enter your name"></b-form-input>
-      </b-col>
-    </b-row>
-    <b-row class="col-7 p-3" offset-md="3">
-      <b-col sm="3">
-        <label for="input-default">장르명</label>
-      </b-col>
-      <b-col sm="9">
-        <b-form-input v-model="genreName" placeholder="Enter your name"></b-form-input>
-      </b-col>
-    </b-row>
-    <b-row class="col-7 p-3" offset-md="3">
-      <b-col sm="3">
-        <label for="input-default">배우명</label>
-      </b-col>
-      <b-col sm="9">
-        <b-form-input v-model="actorName" placeholder="Enter your name"></b-form-input>
-      </b-col>
-    </b-row>
     <b-row align-h="end">
       <b-col cols="4">
         <b-button class="m-3" variant="primary" @click="submitTaste">확인</b-button>
