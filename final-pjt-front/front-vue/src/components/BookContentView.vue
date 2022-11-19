@@ -6,7 +6,7 @@
       :img-src="`https://image.tmdb.org/t/p/original/${album.poster_path}`"
       img-alt="Poster Image"
       img-top
-      style="width: 85%; height:93%; overflow: hidden;"
+      style="width: 85%; height:93%; "
     >
     <br>
       <b-card-text style="font-family: Gill Sans, sans-serif; line-height: 140%;">
