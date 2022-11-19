@@ -34,7 +34,9 @@ INSTALLED_APPS = [
     # Django Apps
     'movies',
     'accounts',
+    'albums',
     'rest_framework',
+    'django_extensions',
     # CORS policy
     "corsheaders",
     # Auth

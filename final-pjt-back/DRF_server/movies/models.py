@@ -2,10 +2,6 @@ from django.db import models
 from django.conf import settings
 
 
-# Create your models here.
-# class Actor(models.Model):
-#     name = models.CharField(max_length=100)
-
 class Genre(models.Model):
     name = models.CharField(max_length=50)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_genres')
@@ -27,3 +23,4 @@ class Actor(models.Model):
     movie_ids = models.ManyToManyField(Movie)
     profile_path = models.TextField(null=True)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_actors')
+
