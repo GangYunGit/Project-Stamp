@@ -5,5 +5,5 @@ app_name='albums'
 
 urlpatterns = [
     path('', views.album_index),
-    path('<int:album_pk>/', views.album_detail)
+    path('<int:album_pk>/', views.album_detail),
 ]

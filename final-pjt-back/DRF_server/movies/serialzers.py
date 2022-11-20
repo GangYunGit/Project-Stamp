@@ -3,44 +3,14 @@ from .models import Movie, Genre, Actor
 from django.contrib.auth import get_user_model
 
 
-# class ActorSerializer(serializers.ModelSerializer):
-#     movies = MovieTitleSerializer(many=True)
-
-#     class Meta:
-#         model = Actor
-#         fields = ('id', 'movies', 'name')
-
-
-# class ActorNameSerializer(serializers.ModelSerializer):
-    
-#     class Meta:
-#         model = Actor
-#         fields = ('name',)
-
-
-# class ReviewSerializer(serializers.ModelSerializer):
-
-#     class Meta:
-#         model = Review
-#         fields = ('title', 'content',)
-
 class MovieListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movie
-        fields = ('title', 'overview', 'poster_path')
-
-
-class MovieTitleSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Movie
-        fields = ('title',)
+        fields = ('id', 'title', 'overview', 'poster_path')
 
 
 class MovieSerializer(serializers.ModelSerializer):
-    # actors = ActorNameSerializer(many=True)
-    # review_set = ReviewSerializer(many=True)
 
     class Meta:
         model = Movie
@@ -77,9 +47,11 @@ class UserLikesSerializer(serializers.ModelSerializer):
         model = get_user_model()
         fields = ('email', 'like_genres', 'like_actors', 'like_movies',)
 
-# class ReviewDetailSerializer(serializers.ModelSerializer):
-#     movie = MovieTitleSerializer(read_only=True)
 
-#     class Meta:
-#         model = Review
-#         fields = ('id', 'movie', 'title', 'content')
+class RecommendationSerializer(serializers.ModelSerializer):
+    user = get_user_model()
+    like_movies = MovieSerializer(many=True)
+
+    class Meta:
+        model = get_user_model()
+        fields = ('like_movies',)
