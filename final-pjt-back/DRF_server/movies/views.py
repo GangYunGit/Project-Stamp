@@ -9,7 +9,6 @@ from django.http import JsonResponse
 from .serialzers import MovieListSerializer, MovieSerializer, GenreSerializer, UserLikesSerializer, ActorListSerializer, RecommendationSerializer
 from .models import Movie, Genre, Actor
 
-import random
 
 @api_view(['GET'])
 def movie_list(request):
@@ -46,8 +45,6 @@ def genre_index(request):
     return render(request, 'movies/genre_index.html', context)
 
 
-
-# 포스트 요청으로 장르 ID 아무거나 주소에 파라미터로 넘겨서 주면??
 def like_genre(request, genre_pk):
     if request.user.is_authenticated:
         genre = Genre.objects.get(pk=genre_pk)
