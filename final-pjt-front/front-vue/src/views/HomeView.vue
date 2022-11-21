@@ -86,7 +86,7 @@ export default {
       .then((response) => {
         this.dataSrc = response.data
         this.movies = response.data.slice(0,30)
-        console.log(this.movies)
+        // console.log(this.movies)
       })
       .catch((error) => {
         console.log(error)

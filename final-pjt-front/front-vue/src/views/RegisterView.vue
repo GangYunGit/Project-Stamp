@@ -1,5 +1,5 @@
 <template>
-  <div class="container p-4 col-md-6 rounded-3" style="background-color:#FBFEAB;">
+  <div class="container p-4 col-md-6 rounded-3 mt-4" style="background-color:#FBFEAB;">
     <h1>회원가입</h1>
     <div offset-md="3" class="row p-3 justify-content-md-center m-4">
       <!-- <b-form  @submit.stop.prevent>
