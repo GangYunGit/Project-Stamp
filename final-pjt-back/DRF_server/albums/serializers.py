@@ -30,6 +30,7 @@ class AlbumListSerializer(serializers.ModelSerializer):
             'movie_poster_path',
             'review',
         )
+        read_only_fields = ('review',)
 
 
 class AlbumSerializer(serializers.ModelSerializer):
