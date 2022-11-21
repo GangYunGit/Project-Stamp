@@ -8,7 +8,7 @@
       </b-nav>
     </div>
   <div class='p-2' style="background-color:#BDFCFE;">
-    <div class="mx-auto mt-3 p-3 col-6" style="background-color:#FBFEAB;">
+    <div class="mx-auto mt-3 p-3 col-lg-6 col-md-8" style="background-color:#FBFEAB;">
       <b-card
       class="mb-2 rounded-3 mx-auto"
       :title="movie.title"

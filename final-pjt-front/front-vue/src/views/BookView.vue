@@ -70,9 +70,16 @@ export default {
         url:`${API_URL}/albums/`,
       })
       .then((response) => {
-        this.albums = response.data
+        const albumSrc = response.data
+        const userId = this.$store.state.user_pk
         // console.log(this.albums)
-      })
+        if (this.searchInput !== null) {
+        const filtered = albumSrc.filter((page) => {
+        return (page.user === userId)
+        })
+        this.albums = filtered
+      }
+    })
       .catch((error) => {
         console.log(error)
       })
