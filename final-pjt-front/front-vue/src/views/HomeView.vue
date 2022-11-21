@@ -48,7 +48,7 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-// import axios from 'axios'
+import axios from 'axios'
 
 import HeaderView from '@/components/HeaderView'
 import MovieListView from '@/components/MovieListView.vue'
@@ -61,7 +61,7 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
 // API_URL = "http://127.0.0.1:8000/"
-//const API_URL = 'http://localhost:8000'
+const API_URL = 'http://localhost:8000'
 
 export default {
   name: 'HomeView',
@@ -82,14 +82,19 @@ export default {
   created() {
     // 페이지 초기화 시 작동
     this.basicData()
+    this.userData()
   },
   computed: {
   },
   methods: {
     // 기본 영화 정보 가져오기(최초 로딩 시)
     basicData() {
-      this.$store.dispatch('basicData')
-      this.movies = this.$store.state.movies.slice(0,30)
+      axios({
+        method: 'get',
+        url: 'https://api.themoviedb.org',
+      })
+      // this.$store.dispatch('basicData')
+      // this.movies = this.$store.state.movies.slice(0,30)
     },
 
     // 검색 필터 결과 표시
@@ -108,6 +113,26 @@ export default {
     // 사용자의 앨범 페이지로 이동
     viewAlbum() {
       this.$router.push({ name:'BookView' })
+    },
+
+    userData() {
+      const token = this.$store.state.token
+      // console.log(token)
+      axios({
+        method:'get',
+        url: `${API_URL}/accounts/user/`,
+        headers: {
+          Authorization: `Token ${token}`
+        },
+      })
+      .then((response) => {
+        // console.log(response)
+        this.$store.commit('USER_ENTER', response.data.pk)
+        // console.log(this.$store.state.user_pk)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     },
   }
 }

@@ -82,7 +82,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const isLoggedIn = store.getters.isLogin
+  const isLoggedIn = store.state.token
   // console.log(to)
   // console.log(from)
   // console.log(isLoggedIn)
