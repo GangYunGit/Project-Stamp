@@ -15,7 +15,7 @@
     </b-card>
   <b-button pill variant="#667eea" class="m-2 gradient-custom" @click="addAlbum">앨범에 추가</b-button>
   <router-link :to="{ name : 'HomeView' }"><b-button pill variant="outline-secondary" class="m-2">메인으로</b-button></router-link>
-  <router-link :to="{ name: 'RecommendView' }"><b-button pill variant="outline-primary">영화 추천받기</b-button></router-link>
+  <router-link :to="{ name: 'RecommendView' }" class="m-2"><b-button pill variant="primary">영화 추천받기</b-button></router-link>
   </div>
   </div>
 </template>
@@ -67,7 +67,7 @@ export default {
     addAlbum() {
       axios({
         method: 'post',
-        url: `${API_URL}/`
+        url: `${API_URL}/albums/`
       })
       .then((response) => {
         console.log(response)
@@ -76,6 +76,9 @@ export default {
         console.log(error)
       })
     },
+  
+
+    // 추천 영화 조회(더미 데이터)
     getRecommend() {
 
     },

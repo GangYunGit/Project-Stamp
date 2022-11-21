@@ -16,6 +16,7 @@
   <b-button v-if="alreadyAdded" pill variant="#667eea" class="m-2 gradient-custom" @click="addAlbum">앨범에 추가하기</b-button>
   <b-button v-else pill disabled class="m-2 gradient-custom" @click="addAlbum">앨범에 추가됨</b-button>
   <b-button pill variant="outline-secondary" class="m-2" @click="getRecommend">다른 영화 보기</b-button>
+  <b-button @click="goBack" pill variant="outline-warning" class="m-2">뒤로</b-button>
   </div>
   </div>
 </template>
@@ -57,6 +58,7 @@ export default {
   },
   created() {
     console.log(this.movie[0])
+    // getRecommend()
   },
   computed: {
     // 앨범 중복 체크
@@ -69,12 +71,13 @@ export default {
       }
     },
   },
-  // methods는 추가 작업 필요할 수 있음
   methods: {
+    // 서버에서 추천 작품 받기
+    // user_pk는 어디에서 얻을지 고민해야 함
     getRecommend() {
       axios({
         method: 'get',
-        url: `${API_URL}/` ,
+        url: `${API_URL}/movies/recommendation/${this.route.params.user_pk}` ,
       })
       .then((response) => {
         console.log(response)
@@ -87,6 +90,11 @@ export default {
     },
     addAlbum() {
 
+    },
+
+    // 뒤로 가기 버튼 작동
+    goBack() {
+      this.$router.go(-1)
     },
   },
 }

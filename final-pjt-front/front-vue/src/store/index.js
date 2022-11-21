@@ -65,7 +65,7 @@ export default new Vuex.Store({
       console.log(token)
       router.push({ name: 'InitialLogin' })
     },
-    // 토큰(인증 정보) 저장
+    // 로그인 시 토큰(인증 정보) 저장
     SAVE_TOKEN(state, token) {
       state.token = token
       router.push({ name: 'HomeView' })
@@ -75,6 +75,11 @@ export default new Vuex.Store({
       state.token = null
       router.push({ name: 'loginView' })
     },
+
+    // HomeView에 표시할 정보 업데이트
+    HOME_MOVIES(state, data) {
+      state.movies = data
+    }
   },
   actions: {
     // 회원가입
@@ -137,6 +142,21 @@ export default new Vuex.Store({
     // 사용자 로그아웃
     userLogout(context) {
       context.commit('USER_LOGOUT')
+    },
+
+    // 기본 페이지에 표시할 영화 정보 불러오기
+    basicData(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/movies/`
+      })
+      .then((response) => {
+        const movieData = response.data
+        context.commit('HOME_MOVIES', movieData)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     },
 
     // 추천 영화 데이터 불러오기(미완성)
