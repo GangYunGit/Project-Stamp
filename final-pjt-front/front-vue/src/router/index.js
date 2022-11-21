@@ -85,7 +85,7 @@ router.beforeEach((to, from, next) => {
   const isLoggedIn = store.getters.isLogin
   // console.log(to)
   // console.log(from)
-  console.log(isLoggedIn)
+  // console.log(isLoggedIn)
   const authPages = ['RecommendView', 'DetailView', 'BookView', 'InitialLogin', 'HomeView',]
   const isAuthRequired = authPages.includes(to.name)
   if (isAuthRequired && !isLoggedIn) {

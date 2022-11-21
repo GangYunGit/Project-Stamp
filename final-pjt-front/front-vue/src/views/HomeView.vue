@@ -1,7 +1,15 @@
 <template>
-  <div class="p-3" style="background-color: #BDFCFE;">
+  <div style="background-color: #BDFCFE;">
+    <!-- <NavBar /> -->
+    <div style="">
+      <b-nav tabs justified>
+      <b-nav-item active><router-link :to="{ name: 'HomeView' }">Home</router-link></b-nav-item>
+      <b-nav-item active><router-link :to="{ name:'BookView' }">Album</router-link></b-nav-item>
+      <b-nav-item active><router-link :to="{ name:'RecommendView' }">Recommended</router-link></b-nav-item>
+      </b-nav>
+    </div>
     <br>
-    <div class="col-9 justify-content-md-center mx-auto">
+    <div class="col-8 justify-content-md-center mx-auto">
       <div class="p-4" style="background-color: skyblue; border-radius: 40px;">
       <HeaderView />
       <hr>
@@ -12,16 +20,16 @@
           <b-button class="m-3" variant="outline-primary" @click="searchResult">검색</b-button>
           <b-button class="m-1" variant="outline-secondary" @click="basicData">필터 초기화</b-button>
         </b-col>
-        <b-col class="col-md-3 mx-auto">
+        <!-- <b-col class="col-md-3 mx-auto">
           <img src="../assets/album.png" style="width:80px; height:96px;" alt="" @click="viewAlbum">
-        </b-col>
+        </b-col> -->
       </b-row>
       </div>
     </div>
     <br>
     <div>
       <h1>추천 영화 목록</h1>
-      <b-row class="justify-content-md-center m-4 round-3" style="background-color: #FBFEAB;">
+      <b-row class="mx-auto m-3 p-3 round-3 col-11" style="background-color: #FBFEAB;">
       <MovieListView v-for="(movie, idx) in movies" :key="idx" :movie="movie" />
       </b-row>
     </div>
@@ -44,6 +52,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import HeaderView from '@/components/HeaderView'
 import MovieListView from '@/components/MovieListView.vue'
+// import NavBar from '@/components/NavBar.vue'
 
 
 // Make BootstrapVue available throughout your project
@@ -59,6 +68,7 @@ export default {
   components: {
     HeaderView,
     MovieListView,
+    // NavBar,
   },
   data() {
     return {

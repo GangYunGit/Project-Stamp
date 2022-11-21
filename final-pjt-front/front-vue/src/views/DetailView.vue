@@ -1,6 +1,14 @@
 <template>
+  <div style="background-color: #BDFCFE;">
+    <div style="">
+      <b-nav tabs justified>
+      <b-nav-item active><router-link :to="{ name: 'HomeView' }">Home</router-link></b-nav-item>
+      <b-nav-item ><router-link :to="{ name:'BookView' }">Album</router-link></b-nav-item>
+      <b-nav-item ><router-link :to="{ name:'RecommendView' }">Recommended</router-link></b-nav-item>
+      </b-nav>
+    </div>
   <div class='p-2' style="background-color:#BDFCFE;">
-    <div class="mx-auto mt-3 p-3 col-6" style="background-color:#FBFEAB;">
+    <div class="mx-auto mt-3 p-3 col-4" style="background-color:#FBFEAB;">
       <b-card
       class="mb-2 rounded-3 mx-auto"
       :title="movie.title"
@@ -18,6 +26,8 @@
   <router-link :to="{ name: 'RecommendView' }" class="m-2"><b-button pill variant="primary">영화 추천받기</b-button></router-link>
   </div>
   </div>
+  </div>
+
 </template>
 
 <script>

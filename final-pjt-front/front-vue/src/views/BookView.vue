@@ -1,4 +1,12 @@
 <template>
+  <div style="background-color: #BDFCFE;">
+    <div style="">
+      <b-nav tabs justified>
+      <b-nav-item ><router-link :to="{ name: 'HomeView' }">Home</router-link></b-nav-item>
+      <b-nav-item active><router-link :to="{ name:'BookView' }">Album</router-link></b-nav-item>
+      <b-nav-item ><router-link :to="{ name:'RecommendView' }">Recommended</router-link></b-nav-item>
+      </b-nav>
+    </div>
   <div class="p-4" style="background-color: #BDFCFE; height:800px;">
     <h1 class="p-3">앨범</h1>
     <turn 
@@ -14,6 +22,7 @@
       />
     </turn>
     <br>
+  </div>
   </div>
 </template>
 

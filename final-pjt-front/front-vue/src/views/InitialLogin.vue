@@ -1,33 +1,43 @@
 <template>
-  <div class="container col-md-8 p-4 mt-4" style="background-color: #FBFEAB; border-radius: 40px;">
-    <div class="align-items-md-center">
-      <h1>당신의 취향을 알려주세요.</h1>
-      <br>
-      <b-col class="col-7 mx-auto">
-        <b-row class="p-2">
-          <label for="input-default" class="p-2">영화 제목</label>
-          <b-form-input v-model="movieName" placeholder="Enter your name"></b-form-input>
-        </b-row>
-        <b-row class="p-2">
-          <label for="input-default" class="p-2">장르명</label>
-          <b-form-input v-model="genreName" placeholder="Enter your name"></b-form-input>
-        </b-row>
-        <b-row class="p-2">
-          <label for="input-default" class="p-2">배우명</label>
-          <b-form-input v-model="actorName" placeholder="Enter your name"></b-form-input>
-        </b-row>
-      </b-col>
-    <b-row align-h="end">
-      <b-col cols="4">
-        <b-button class="m-3" variant="primary" @click="submitTaste">확인</b-button>
-      </b-col>
-      <b-col cols="4" class="text-center">
+  <div>
+    <div style="">
+      <b-nav tabs justified>
+        <b-nav-item><router-link :to="{ name: 'HomeView' }">Home</router-link></b-nav-item>
+        <b-nav-item><router-link :to="{ name:'BookView' }">Album</router-link></b-nav-item>
+        <b-nav-item><router-link :to="{ name:'RecommendView' }">Recommended</router-link></b-nav-item>
+      </b-nav>
+    </div>
+    <div class="container col-md-8 p-4 mt-4" style="background-color: #FBFEAB; border-radius: 40px;">
+      <div class="align-items-md-center">
+        <h1>당신의 취향을 알려주세요.</h1>
         <br>
-        <router-link :to="{ name:'HomeView' }"><a href="">직접 검색해 볼래요</a></router-link>
-      </b-col>
-    </b-row>
+        <b-col class="col-7 mx-auto">
+          <b-row class="p-2">
+            <label for="input-default" class="p-2">영화 제목</label>
+            <b-form-input v-model="movieName" placeholder="Enter your name"></b-form-input>
+          </b-row>
+          <b-row class="p-2">
+            <label for="input-default" class="p-2">장르명</label>
+            <b-form-input v-model="genreName" placeholder="Enter your name"></b-form-input>
+          </b-row>
+          <b-row class="p-2">
+            <label for="input-default" class="p-2">배우명</label>
+            <b-form-input v-model="actorName" placeholder="Enter your name"></b-form-input>
+          </b-row>
+        </b-col>
+      <b-row align-h="end">
+        <b-col cols="4">
+          <b-button class="m-3" variant="primary" @click="submitTaste">확인</b-button>
+        </b-col>
+        <b-col cols="4" class="text-center">
+          <br>
+          <router-link :to="{ name:'HomeView' }"><a href="">직접 검색해 볼래요</a></router-link>
+        </b-col>
+      </b-row>
+      </div>
     </div>
   </div>
+
 </template>
 
 <script>
