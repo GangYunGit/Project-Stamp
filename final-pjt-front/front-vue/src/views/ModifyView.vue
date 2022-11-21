@@ -36,14 +36,17 @@ export default {
     methods: {
         modifyReview() {
             if (this.nameReview.length > 100) {
-                alert('후기는 100자 이상 입력할 수 없습니다.')
+                alert('후기는 100자 이내여야 합니다.')
             } else {
                 axios({
                 method: 'put',
                 url: `${API_URL}/`,
                 data: {
                     review: this.newReview,
-                }
+                },
+                headers: {
+                    Authorization: `Token ${this.$store.state.token}`
+                },
             })
             .then((response) => {
                 console.log(response)

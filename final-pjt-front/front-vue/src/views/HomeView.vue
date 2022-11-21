@@ -10,7 +10,7 @@
           <h3>어떤 작품을 찾으시나요?</h3>
           <input type="text" @keyup.enter="searchResult" v-model.trim="searchInput">
           <b-button class="m-3" variant="outline-primary" @click="searchResult">검색</b-button>
-          <b-button class="m-1" variant="outline-secondary" @click="initializeData">필터 초기화</b-button>
+          <b-button class="m-1" variant="outline-secondary" @click="basicData">필터 초기화</b-button>
         </b-col>
         <b-col class="col-md-3 mx-auto">
           <img src="../assets/album.png" style="width:80px; height:96px;" alt="" @click="viewAlbum">
@@ -40,7 +40,7 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import axios from 'axios'
+// import axios from 'axios'
 
 import HeaderView from '@/components/HeaderView'
 import MovieListView from '@/components/MovieListView.vue'
@@ -52,7 +52,7 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
 // API_URL = "http://127.0.0.1:8000/"
-const API_URL = 'http://localhost:8000'
+//const API_URL = 'http://localhost:8000'
 
 export default {
   name: 'HomeView',
@@ -67,7 +67,6 @@ export default {
       // searchInput : axios 요청에 보낼 검색어
       searchInput: null,
       movies : [],
-      dataSrc : [],
     }
   },
   created() {
@@ -79,24 +78,15 @@ export default {
   methods: {
     // 기본 영화 정보 가져오기(최초 로딩 시)
     basicData() {
-      axios({
-        method: 'get',
-        url: `${API_URL}/movies/`
-      })
-      .then((response) => {
-        this.dataSrc = response.data
-        this.movies = response.data.slice(0,30)
-        // console.log(this.movies)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+      this.$store.dispatch('basicData')
+      this.movies = this.$store.state.movies.slice(0,30)
     },
 
     // 검색 필터 결과 표시
     searchResult() {
+      const movieSrc = this.$store.state.movies
       if (this.searchInput !== null) {
-        const filtered = this.dataSrc.filter((movie) => {
+        const filtered = movieSrc.filter((movie) => {
         return (movie.title.includes(this.searchInput))
       })
       this.movies = filtered
@@ -108,9 +98,6 @@ export default {
     // 사용자의 앨범 페이지로 이동
     viewAlbum() {
       this.$router.push({ name:'BookView' })
-    },
-    initializeData() {
-      this.movies = this.dataSrc.slice(0,30)
     },
   }
 }
