@@ -19,7 +19,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import axios from 'axios'
 
-const API_URL = process.env.VUE_APP_API_KEY
+const API_URL = 'http://localhost:8000'
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
