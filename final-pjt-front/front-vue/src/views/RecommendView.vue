@@ -8,7 +8,7 @@
       </b-nav>
     </div>
     <div class="p-4" style="background-color:#BDFCFE;">
-      <div class="mx-auto mt-3 p-3 col-6" style="background-color:#FBFEAB">
+      <div class="mx-auto mt-3 p-3 col-lg-6 col-md-8" style="background-color:#FBFEAB">
         <b-card
           class="mb-2 rounded-3 mx-auto m-3 p-3"
           :title="movie[0].title"
@@ -22,7 +22,7 @@
           </b-card-text>
         </b-card>
         <b-button v-if="alreadyAdded" pill variant="#667eea" class="m-2 gradient-custom" @click="addAlbum">앨범에 추가하기</b-button>
-        <b-button v-else pill disabled class="m-2 gradient-custom" @click="addAlbum">앨범에 추가됨</b-button>
+        <b-button v-else pill disabled class="m-2 gradient-custom" @click="addToAlbum">앨범에 추가됨</b-button>
         <b-button pill variant="outline-secondary" class="m-2" @click="getRecommend">다른 영화 보기</b-button>
         <b-button @click="goBack" pill variant="outline-warning" class="m-2">뒤로</b-button>
       </div>
@@ -97,8 +97,26 @@ export default {
         console.log(error)
       })
     },
-    addAlbum() {
 
+    // 앨범에 이 영화 추가
+    addToAlbum() {
+      axios({
+        method: 'post',
+        url: `${API_URL}/albums/`,
+        data: {
+          // pk: movieData.pk,
+          user: this.$store.state.user_pk,
+          movie_poster_path: this.movie.poster_path,
+          movie_title: this.movie.title,
+        },
+      })
+      .then((response) =>{
+        console.log('저장 성공!')
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     },
 
     // 뒤로 가기 버튼 작동

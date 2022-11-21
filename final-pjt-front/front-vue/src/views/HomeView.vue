@@ -95,7 +95,7 @@ export default {
       })
       .then((response) => {
         const movieData = response.data
-        console.log(movieData)
+        // console.log(movieData)
         this.$store.dispatch('basicData', movieData)
         this.movies = this.$store.state.movies.slice(0,36)
       })
