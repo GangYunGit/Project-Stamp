@@ -30,6 +30,7 @@
 import { Turn } from "vue-turnjs";
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import axios from 'axios'
 import BookContentView from '@/components/BookContentView'
 
 import Vue from 'vue';
@@ -37,6 +38,8 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+const API_URL = 'http://localhost:8000'
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
@@ -61,19 +64,27 @@ export default {
     testMethod() {
       this.albums = this.$store.state.albums
     },
-    // getAlbumData() {
-    //   this.$store.dispatch('getAlbumData')
-    // },
+    getAlbumData() {
+      axios({
+        method:'get',
+        url:`${API_URL}/albums/`,
+      })
+      .then((response) => {
+        this.albums = response.data
+        // console.log(this.albums)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
   },
   created() {
     this.testMethod()
-    // this.$store.dispatch('getAlbumData')
-    // console.log(this.albums)
+    this.getAlbumData()
   },
   updated() {
-    this.testMethod()
-    // this.$store.dispatch('getAlbumData')
-    // console.log(this.albums)
+    // this.testMethod()
+    // this.getAlbumData()
   },
 };
 </script>

@@ -6,7 +6,7 @@ import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
-const API_URL = 'http://localhost:8000'
+const API_URL = 'http://127.0.0.1:8000'
 
 export default new Vuex.Store({
   plugins: [
@@ -79,8 +79,8 @@ export default new Vuex.Store({
     },
 
     // HomeView에 표시할 정보 업데이트
-    HOME_MOVIES(state, data) {
-      state.movies = data
+    HOME_MOVIES(state, movieData) {
+      state.movies = movieData
     },
 
     // 사용자 로그인 시 pk 저장
@@ -153,18 +153,8 @@ export default new Vuex.Store({
     },
 
     // 기본 페이지에 표시할 영화 정보 불러오기
-    basicData(context) {
-      axios({
-        method: 'get',
-        url: `${API_URL}/movies/`
-      })
-      .then((response) => {
-        const movieData = response.data
-        context.commit('HOME_MOVIES', movieData)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    basicData(context, movieData) {
+      context.commit('HOME_MOVIES', movieData)
     },
 
     // 추천 영화 데이터 불러오기(미완성)
@@ -185,43 +175,16 @@ export default new Vuex.Store({
         })
     },
 
-    // 상세 및 추천 페이지에서 영화를 사용자 앨범에 추가(미완성)
-    addToAlbums(context, payload) {
-      const newData = payload
-      axios({
-        method: 'post',
-        url: `${API_URL}/`,
-        // data에는 추가할 영화 입력
-        data: {
-          newData
-        },
-        headers: {
-          Authorization: `Token ${context.state.token}`
-        },
-      })
-        .then((response) => {
-          console.log(response)
-          alert('추가되었습니다.')
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-
-    },
-
-    // 앨범 데이터 가져오기
     getAlbumData(context) {
       axios({
         method: 'get',
         url: `${API_URL}/albums/`,
-        headers: {
-          Authorization: `Token ${context.state.token}`
-        },
       })
       .then((response) => {
         console.log(response)
+        context.commit('ALBUM_UPDATE')
       })
-    }
+    },
   },
   modules: {
   }

@@ -82,17 +82,48 @@ export default {
   created() {
     // 페이지 초기화 시 작동
     this.basicData()
-    this.userData()
+    this.getMovieData()
   },
   computed: {
   },
   methods: {
-    // 기본 영화 정보 가져오기(최초 로딩 시)
-    basicData() {
+    // django에 저장된 기본 데이터 가져오기
+    getMovieData() {
       axios({
         method: 'get',
-        url: 'https://api.themoviedb.org',
+        url: `${API_URL}/movies/`,
       })
+      .then((response) => {
+        const movieData = response.data
+        console.log(movieData)
+        this.$store.dispatch('basicData', movieData)
+        this.movies = this.$store.state.movies.slice(0,36)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
+
+    // TMDB에서 영화 정보 가져오기(최초 로딩 시)
+    basicData() {
+      // axios({
+      //   method: 'get',
+        // url: `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.VUE_APP_TMDB}&language=ko-KR&page=1`,
+        // parmas: {
+        //   api_key: process.env.API_KEY_TMDB,
+        //   language: 'ko-KR',
+        // }
+      // })
+      // .then((response) => {
+      //   const movies = response.data.results
+      //   console.log(movies)
+      //   this.$store.dispatch('basicData', movies)
+      //   this.movies = this.$store.state.movies
+      //   return this.movies
+      // })
+      // .catch((error) => {
+      //   console.log(error)
+      // })
       // this.$store.dispatch('basicData')
       // this.movies = this.$store.state.movies.slice(0,30)
     },

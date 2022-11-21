@@ -8,7 +8,7 @@
       </b-nav>
     </div>
   <div class='p-2' style="background-color:#BDFCFE;">
-    <div class="mx-auto mt-3 p-3 col-4" style="background-color:#FBFEAB;">
+    <div class="mx-auto mt-3 p-3 col-6" style="background-color:#FBFEAB;">
       <b-card
       class="mb-2 rounded-3 mx-auto"
       :title="movie.title"
@@ -21,7 +21,7 @@
         {{ movie.overview }}
       </b-card-text>
     </b-card>
-  <b-button pill variant="#667eea" class="m-2 gradient-custom" @click="addAlbum">앨범에 추가</b-button>
+  <b-button pill variant="#667eea" class="m-2 gradient-custom" @click="addToAlbum">앨범에 추가</b-button>
   <router-link :to="{ name : 'HomeView' }"><b-button pill variant="outline-secondary" class="m-2">메인으로</b-button></router-link>
   <router-link :to="{ name: 'RecommendView' }" class="m-2"><b-button pill variant="primary">영화 추천받기</b-button></router-link>
   </div>
@@ -73,13 +73,21 @@ export default {
         console.log(error)
       })
     },
+
     // 앨범에 이 영화를 추가
-    addAlbum() {
+    addToAlbum() {
       axios({
         method: 'post',
-        url: `${API_URL}/albums/`
+        url: `${API_URL}/albums/`,
+        data: {
+          // pk: movieData.pk,
+          user: this.$store.state.user_pk,
+          movie_poster_path: this.movie.poster_path,
+          movie_title: this.movie.title,
+        },
       })
-      .then((response) => {
+      .then((response) =>{
+        console.log('저장 성공!')
         console.log(response)
       })
       .catch((error) => {
