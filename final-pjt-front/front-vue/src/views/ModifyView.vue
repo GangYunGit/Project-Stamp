@@ -39,7 +39,7 @@ export default {
                 alert('후기는 100자 이내여야 합니다.')
             } else {
                 axios({
-                method: 'put',
+                method: 'post',
                 url: `${API_URL}/`,
                 data: {
                     review: this.newReview,

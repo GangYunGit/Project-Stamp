@@ -1,4 +1,12 @@
 <template>
+  <div>
+    <div style="">
+      <b-nav tabs justified>
+      <b-nav-item ><router-link :to="{ name: 'HomeView' }">Home</router-link></b-nav-item>
+      <b-nav-item ><router-link :to="{ name:'BookView' }">Album</router-link></b-nav-item>
+      <b-nav-item >Recommended</b-nav-item>
+      </b-nav>
+    </div>
   <div class="container p-4 col-md-6 rounded-3 mt-4" style="background-color:#FBFEAB;">
     <h1>회원가입</h1>
     <div offset-md="3" class="row p-3 justify-content-md-center m-4">
@@ -55,6 +63,7 @@
       </b-form>
     </div>
     <b-button pill variant="primary" @click="userSubmit">회원가입</b-button>
+  </div>
   </div>
 </template>
 

@@ -1,23 +1,32 @@
 <template>
-  <div class="p-4" style="background-color: #BDFCFE; height:800px;">
-    <div class="mx-auto col-6 mt-4 p-2 col-md-6" style="background-color:#FBFEAB">
-      <b-card
-      class="mb-2 rounded-3 mx-auto m-3 p-3"
-      :title="movie[0].title"
-      :img-src="`https://image.tmdb.org/t/p/original/${movie[0].poster_path}`"
-      img-alt="Poster Image"
-      img-top
-      style="width: 30rem"
-    >
-      <b-card-text>
-        {{ movie[0].overview }}
-      </b-card-text>
-    </b-card>
-  <b-button v-if="alreadyAdded" pill variant="#667eea" class="m-2 gradient-custom" @click="addAlbum">앨범에 추가하기</b-button>
-  <b-button v-else pill disabled class="m-2 gradient-custom" @click="addAlbum">앨범에 추가됨</b-button>
-  <b-button pill variant="outline-secondary" class="m-2" @click="getRecommend">다른 영화 보기</b-button>
-  <b-button @click="goBack" pill variant="outline-warning" class="m-2">뒤로</b-button>
-  </div>
+  <div style="background-color: #BDFCFE;">
+    <div style="">
+      <b-nav tabs justified>
+      <b-nav-item ><router-link :to="{ name: 'HomeView' }">Home</router-link></b-nav-item>
+      <b-nav-item ><router-link :to="{ name:'BookView' }">Album</router-link></b-nav-item>
+      <b-nav-item active>Recommended</b-nav-item>
+      </b-nav>
+    </div>
+    <div class="p-4" style="background-color:#BDFCFE;">
+      <div class="mx-auto mt-3 p-3 col-6" style="background-color:#FBFEAB">
+        <b-card
+          class="mb-2 rounded-3 mx-auto m-3 p-3"
+          :title="movie[0].title"
+          :img-src="`https://image.tmdb.org/t/p/original/${movie[0].poster_path}`"
+          img-alt="Poster Image"
+          img-top
+          style="width: 30rem"
+        >
+          <b-card-text>
+            {{ movie[0].overview }}
+          </b-card-text>
+        </b-card>
+        <b-button v-if="alreadyAdded" pill variant="#667eea" class="m-2 gradient-custom" @click="addAlbum">앨범에 추가하기</b-button>
+        <b-button v-else pill disabled class="m-2 gradient-custom" @click="addAlbum">앨범에 추가됨</b-button>
+        <b-button pill variant="outline-secondary" class="m-2" @click="getRecommend">다른 영화 보기</b-button>
+        <b-button @click="goBack" pill variant="outline-warning" class="m-2">뒤로</b-button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -77,7 +86,7 @@ export default {
     getRecommend() {
       axios({
         method: 'get',
-        url: `${API_URL}/movies/recommendation/${this.route.params.user_pk}` ,
+        url: `${API_URL}/movies/recommendation/` ,
       })
       .then((response) => {
         console.log(response)
