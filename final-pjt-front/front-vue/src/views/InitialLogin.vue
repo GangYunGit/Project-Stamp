@@ -4,16 +4,16 @@
       <h1>당신의 취향을 알려주세요.</h1>
       <br>
       <b-col class="col-7 mx-auto">
-        <b-row>
-          <label for="input-default">영화 제목</label>
+        <b-row class="p-2">
+          <label for="input-default" class="p-2">영화 제목</label>
           <b-form-input v-model="movieName" placeholder="Enter your name"></b-form-input>
         </b-row>
-        <b-row>
-          <label for="input-default">장르명</label>
+        <b-row class="p-2">
+          <label for="input-default" class="p-2">장르명</label>
           <b-form-input v-model="genreName" placeholder="Enter your name"></b-form-input>
         </b-row>
-        <b-row>
-          <label for="input-default">배우명</label>
+        <b-row class="p-2">
+          <label for="input-default" class="p-2">배우명</label>
           <b-form-input v-model="actorName" placeholder="Enter your name"></b-form-input>
         </b-row>
       </b-col>

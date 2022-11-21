@@ -6,7 +6,7 @@ import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
-const API_URL = process.env.VUE_APP_API_KEY
+const API_URL = 'http://localhost:8000'
 
 export default new Vuex.Store({
   plugins: [
@@ -14,6 +14,11 @@ export default new Vuex.Store({
   ],
   state: {
     movies: [
+    ],
+    recommended: [
+    ],
+    token: null,
+    albums: [
       {
         id: 1,
         title: "Hair each base dark guess garden accept.",
@@ -47,10 +52,6 @@ export default new Vuex.Store({
         poster_path: "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F346a942a-9e1d-4add-a4f2-6d8c18b7e7b6%2Fwelldone!.png?table=block&id=9acc0d11-cfdd-4ba0-a411-e09aa855d650&spaceId=f7ab64f0-6613-4035-b609-06b6865d9b61&width=250&userId=3da73d48-5c6a-457e-843d-1891bf0e354c&cache=v2"
       },
     ],
-    recommended: [
-    ],
-    token: null,
-    albums: []
   },
   getters: {
     isLogin(state) {
