@@ -1,5 +1,6 @@
 <template>
-  <div class="container justify-content-md-center mt-4" style="background-color:#FBFEAB">
+  <div class='p-2' style="background-color:#BDFCFE;">
+    <div class="mx-auto mt-3 p-3 col-6" style="background-color:#FBFEAB;">
       <b-card
       class="mb-2 rounded-3 mx-auto"
       :title="movie.title"
@@ -14,7 +15,8 @@
     </b-card>
   <b-button pill variant="#667eea" class="m-2 gradient-custom" @click="addAlbum">앨범에 추가</b-button>
   <router-link :to="{ name : 'HomeView' }"><b-button pill variant="outline-secondary" class="m-2">메인으로</b-button></router-link>
-  <b-button pill variant="outline-primary">영화 추천받기</b-button>
+  <router-link :to="{ name: 'RecommendView' }"><b-button pill variant="outline-primary">영화 추천받기</b-button></router-link>
+  </div>
   </div>
 </template>
 
@@ -40,7 +42,7 @@ export default {
   name: 'DetailView',
   data() {
     return {
-      movie: null,
+      movie: [],
     }
   },
   created() {
@@ -54,7 +56,6 @@ export default {
         url: `${API_URL}/movies/${this.$route.params.id}` ,
       })
       .then((response) => {
-        console.log(response)
         // 데이터 타입에 따라 this.movie에 저장할 정보 결정
         this.movie = response.data
       })

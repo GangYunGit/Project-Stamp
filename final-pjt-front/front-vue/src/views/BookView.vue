@@ -1,21 +1,19 @@
 <template>
-  <div class="p-4" style="background-color: #BDFCFE">
-    <!-- <div class="wrapper"> -->
-      <h1 class="p-3">앨범</h1>
-      <turn 
-        class="d-flex wrapper container justify-content-md-center rounded-3" 
-        style="background-color:brown; width:100%; height: 645px; line-height: 75%;"
-        >
-        <BookContentView 
-          class="flip_page_double hard"
-          style="width:100%; height:100%;"
-          v-for="(album, pageNo) in albums"
-          :key="pageNo"
-          :album="album"
-        />
-      </turn>
+  <div class="p-4" style="background-color: #BDFCFE; height:800px;">
+    <h1 class="p-3">앨범</h1>
+    <turn 
+      class="d-flex wrapper container justify-content-md-center rounded-3" 
+      style="background-color:brown; width:100%; height: 645px; line-height: 75%;"
+      >
+      <BookContentView 
+        class="flip_page_double hard"
+        style="width:100%; height:100%;"
+        v-for="(album, pageNo) in albums"
+        :key="pageNo"
+        :album="album"
+      />
+    </turn>
     <br>
-    <!-- </div> -->
   </div>
 </template>
 
@@ -53,11 +51,20 @@ export default {
   methods: {
     testMethod() {
       this.albums = this.$store.state.albums
-    }
+    },
+    // getAlbumData() {
+    //   this.$store.dispatch('getAlbumData')
+    // },
   },
   created() {
     this.testMethod()
-    console.log(this.albums)
+    // this.$store.dispatch('getAlbumData')
+    // console.log(this.albums)
+  },
+  updated() {
+    this.testMethod()
+    // this.$store.dispatch('getAlbumData')
+    // console.log(this.albums)
   },
 };
 </script>

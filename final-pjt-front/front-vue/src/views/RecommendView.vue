@@ -1,24 +1,22 @@
 <template>
-  <div class="container justify-content-md-center p-2 col-md-6" style="background-color:#FBFEAB">
+  <div class="p-4" style="background-color: #BDFCFE; height:800px;">
+    <div class="mx-auto col-6 mt-4 p-2 col-md-6" style="background-color:#FBFEAB">
       <b-card
       class="mb-2 rounded-3 mx-auto m-3 p-3"
-      :title="movies.title"
-      :img-src="`https://image.tmdb.org/t/p/original/${movies.poster_path}`"
+      :title="movie[0].title"
+      :img-src="`https://image.tmdb.org/t/p/original/${movie[0].poster_path}`"
       img-alt="Poster Image"
       img-top
       style="width: 30rem"
     >
       <b-card-text>
-        {{ movies.overview }}
+        {{ movie[0].overview }}
       </b-card-text>
     </b-card>
-  <v-if alreadyAdded="true">
-    <b-button pill variant="#667eea" class="m-2 gradient-custom" @click="addAlbum">앨범에 추가</b-button>
-  </v-if>
-  <v-else>
-    <b-button pill disabled class="m-2 gradient-custom" @click="addAlbum">이미 추가됨</b-button>
-  </v-else>
+  <b-button v-if="alreadyAdded" pill variant="#667eea" class="m-2 gradient-custom" @click="addAlbum">앨범에 추가하기</b-button>
+  <b-button v-else pill disabled class="m-2 gradient-custom" @click="addAlbum">앨범에 추가됨</b-button>
   <b-button pill variant="outline-secondary" class="m-2" @click="getRecommend">다른 영화 보기</b-button>
+  </div>
   </div>
 </template>
 
@@ -45,7 +43,7 @@ export default {
   data() {
     return {
       // 테스트용 데이터
-      movies: [
+      movie: [
       {
         title: "Hair each base dark guess garden accept.",
         popularity: 4.0,
@@ -58,6 +56,7 @@ export default {
     }
   },
   created() {
+    console.log(this.movie[0])
   },
   computed: {
     // 앨범 중복 체크

@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <nav style="background-color:aquamarine">
-      <router-link to="/" ><img src="./assets/homesm.png" alt="" style="width:30px; height:32px;"></router-link> |
+      <router-link to="/" ><img src="./assets/homesm.png" alt="" style="width:40px; height:44px;"></router-link> |
+      <router-link to="/book"><img src="./assets/album.png" alt="" style="width:40px; height:44px;"></router-link> |
       <router-link to="/login">Login</router-link> |
-      <router-link to="/book"><img src="./assets/album.png" alt="" style="width:30px; height:32px;"></router-link> |
-      <router-link to="/register">회원가입</router-link> |
+      <router-link to="/register">회원가입</router-link>
     </nav>
     <router-view/>
   </div>

@@ -129,13 +129,16 @@ export default new Vuex.Store({
           context.commit('SAVE_TOKEN', payload)
         })
         .catch((error) => {
+          alert('아이디와 비밀번호를 확인하세요.')
           console.log(error)
         })
     },
+
     // 사용자 로그아웃
     userLogout(context) {
       context.commit('USER_LOGOUT')
     },
+
     // 추천 영화 데이터 불러오기(미완성)
     getRecommendMovies(context) {
       axios({
@@ -176,6 +179,20 @@ export default new Vuex.Store({
           console.log(error)
         })
 
+    },
+
+    // 앨범 데이터 가져오기
+    getAlbumData(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/albums/`,
+        headers: {
+          Authorization: `Token ${context.state.token}`
+        },
+      })
+      .then((response) => {
+        console.log(response)
+      })
     }
   },
   modules: {
