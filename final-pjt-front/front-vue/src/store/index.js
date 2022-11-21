@@ -174,17 +174,6 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
-
-    getAlbumData(context) {
-      axios({
-        method: 'get',
-        url: `${API_URL}/albums/`,
-      })
-      .then((response) => {
-        console.log(response)
-        context.commit('ALBUM_UPDATE')
-      })
-    },
   },
   modules: {
   }
