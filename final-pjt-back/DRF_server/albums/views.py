@@ -43,21 +43,17 @@ def album_detail(request, album_pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-@api_view(['POST', 'PUT', 'DELETE'])
+@api_view(['GET'])
+def review(request, album_pk, review_pk):
+    review = get_object_or_404(Review, pk=review_pk)
+    serializer = ReviewSerializer(review)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
 def review_create(request, album_pk):
     album = get_object_or_404(Album, pk=album_pk)
-    if request.method == 'POST':
-        serializer = ReviewSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save(album=album)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-    elif request.method == 'PUT':
-        serializer = ReviewSerializer(review, data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
-
-    elif request.method == 'DELETE':
-        album.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    serializer = ReviewSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(album=album)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

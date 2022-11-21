@@ -12,7 +12,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = '__all__'
-        # read_only_fields = ('album',)
+        read_only_fields = ('album',)
 
 
 class ReviewContentSerializer(serializers.ModelSerializer):
@@ -33,13 +33,8 @@ class AlbumListSerializer(serializers.ModelSerializer):
 
 
 class AlbumSerializer(serializers.ModelSerializer):
-    # review = ReviewSerializer()
+    # review = ReviewSerializer(read_only=True)
 
     class Meta:
         model = Album
-        fields = (
-            'user',
-            'movie_title',
-            'movie_poster_path',
-            'review',
-        )
+        fields = ('user', 'movie_title', 'movie_poster_path', 'review')
