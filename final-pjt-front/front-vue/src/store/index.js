@@ -18,6 +18,7 @@ export default new Vuex.Store({
     recommended: [
     ],
     token: null,
+    user_pk: null,
     albums: [
       {
         id: 1,
@@ -70,16 +71,23 @@ export default new Vuex.Store({
       state.token = token
       router.push({ name: 'HomeView' })
     },
-    // 토큰 초기화(로그아웃)
+    // 사용자 정보 및 토큰 초기화(로그아웃)
     USER_LOGOUT(state) {
       state.token = null
+      state.user_pk = null
       router.push({ name: 'loginView' })
     },
 
     // HomeView에 표시할 정보 업데이트
     HOME_MOVIES(state, data) {
       state.movies = data
-    }
+    },
+
+    // 사용자 로그인 시 pk 저장
+    USER_ENTER(state, pk) {
+      // console.log(pk)
+      state.user_pk = pk
+    },
   },
   actions: {
     // 회원가입
