@@ -6,7 +6,14 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_list_or_404, get_object_or_404, render, redirect
 from django.http import JsonResponse
 
-from .serialzers import MovieListSerializer, MovieSerializer, GenreSerializer, UserLikesSerializer, ActorListSerializer, RecommendationSerializer
+from .serialzers import (
+    MovieListSerializer,
+    MovieSerializer,
+    GenreSerializer,
+    UserLikesSerializer,
+    ActorListSerializer,
+    RecommendationSerializer,
+)
 from .models import Movie, Genre, Actor
 
 
@@ -29,6 +36,7 @@ def genre_list(request):
     genres = get_list_or_404(Genre)
     serializer = GenreSerializer(genres, many=True)
     return Response(serializer.data)
+
 
 @api_view(['GET'])
 def actor_list(request):
@@ -107,6 +115,7 @@ def user_likes(request):
     }
     return render(request, 'movies/user_likes.html', context)
 
+
 @api_view(['GET'])
 def users(request):
     users = get_user_model().objects.all()
@@ -120,4 +129,3 @@ def recommendation(request, user_pk):
     movie = Movie.objects.distinct().filter(genre_ids__in=genres).order_by('?').first()
     serializer = MovieSerializer(movie)
     return Response(serializer.data)
-
