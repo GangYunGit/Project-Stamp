@@ -50,10 +50,10 @@ def review(request, album_pk, review_pk):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@api_view(['PUT'])
 def review_create(request, album_pk):
     album = get_object_or_404(Album, pk=album_pk)
-    serializer = ReviewSerializer(data=request.data)
+    serializer = ReviewSerializer(album, data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
