@@ -4,7 +4,7 @@
       <b-nav tabs justified>
         <b-nav-item active><router-link :to="{ name: 'HomeView' }">Home</router-link></b-nav-item>
         <b-nav-item ><router-link :to="{ name:'BookView' }">Album</router-link></b-nav-item>
-        <b-nav-item ><router-link :to="{ name:'RecommendView' }">Recommended</router-link></b-nav-item>
+        <b-nav-item ><router-link :to="{ name:'InitialLogin' }">Recommended</router-link></b-nav-item>
       </b-nav>
     </div>
     <br>

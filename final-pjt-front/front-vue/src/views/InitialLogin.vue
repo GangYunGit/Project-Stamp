@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div style="background-color: #BDFCFE; height:800px;">
     <div style="">
       <b-nav tabs justified>
         <b-nav-item><router-link :to="{ name: 'HomeView' }">Home</router-link></b-nav-item>
         <b-nav-item><router-link :to="{ name:'BookView' }">Album</router-link></b-nav-item>
-        <b-nav-item><router-link :to="{ name:'RecommendView' }">Recommended</router-link></b-nav-item>
+        <b-nav-item active><router-link :to="{ name:'InitialLogin' }">Recommended</router-link></b-nav-item>
       </b-nav>
     </div>
-    <div class="container col-md-8 p-4 mt-4" style="background-color: #FBFEAB; border-radius: 40px;">
+    <div class="container col-md-8 p-4 mt-5" style="background-color: #FBFEAB; border-radius: 40px;">
       <div class="align-items-md-center">
         <h1>당신의 취향을 알려주세요.</h1>
         <br>
@@ -57,7 +57,7 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
 // API_URL = "http://127.0.0.1:8000/"
-const API_URL = process.env.VUE_APP_API_KEY
+const API_URL = "http://localhost:8000";
 
 export default {
   name: 'InitialLogin',
@@ -71,12 +71,12 @@ export default {
   methods: {
     submitTaste() {
       axios({
-        method: 'post',
-        url: `${API_URL}/`,
+        method: 'get',
+        url: `${API_URL}/movies/genres/`,
       })
       .then((response) => {
-        console.log(response)
-        this.$router.push({ name: 'HomeView' })
+        console.log(response.data)
+        // this.$router.push({ name: 'RecommendView' })
       })
       .catch((error) => {
         console.log(error)

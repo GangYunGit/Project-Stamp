@@ -4,7 +4,7 @@
       <b-nav tabs justified>
       <b-nav-item active><router-link :to="{ name: 'HomeView' }">Home</router-link></b-nav-item>
       <b-nav-item ><router-link :to="{ name:'BookView' }">Album</router-link></b-nav-item>
-      <b-nav-item ><router-link :to="{ name:'RecommendView' }">Recommended</router-link></b-nav-item>
+      <b-nav-item ><router-link :to="{ name:'InitialLogin' }">Recommended</router-link></b-nav-item>
       </b-nav>
     </div>
   <div class='p-2' style="background-color:#BDFCFE;">
@@ -96,46 +96,38 @@ export default {
     addToAlbum() {
       const albumSrc = this.$store.state.albums
       const thisMovie = this.movie
-      console.log(albumSrc)
-      console.log(thisMovie)
+      let quit = false
+      
+      // console.log(thisMovie.title)
       for (const album of albumSrc) {
-        if (thisMovie === album) {
-        alert('이미 추가된 영화입니다.')
-        break
+        // console.log(album.movie_title)
+        if (thisMovie.title === album.movie_title) {
+          quit = true
+          alert('이미 추가된 영화입니다.')
+          }
         }
+        if (quit === false) {
+          axios({
+          method: 'post',
+          url: `${API_URL}/albums/`,
+          data: {
+            // pk: movieData.pk,
+            user: this.$store.state.user_pk,
+            movie_poster_path: this.movie.poster_path,
+            movie_title: this.movie.title,
+            content: null,
+            // review: '',
+          },
+        })
+        .then((response) =>{
+          // console.log(response)
+          this.$store.commit('ADD_ALBUM', response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
       }
-      axios({
-        method: 'post',
-        url: `${API_URL}/albums/`,
-        data: {
-          // pk: movieData.pk,
-          user: this.$store.state.user_pk,
-          movie_poster_path: this.movie.poster_path,
-          movie_title: this.movie.title,
-          content: null,
-          // review: '',
-        },
-      })
-      .then((response) =>{
-        console.log(response)
-        // const albumSrc = this.$store.state.albums
-        // const thisMovie = response.data
-
-        // console.log(albumSrc)
-        // console.log(thisMovie)
-        // for (const album of albumSrc) {
-        //   if (thisMovie === album) {
-        //   alert('이미 추가된 영화입니다.')
-        //   break
-        //   }
-        // }
-      })
-      .catch((error) => {
-        console.log(error)
-      })
     },
-  
-
     // 추천 영화 조회(더미 데이터)
     getRecommend() {
 

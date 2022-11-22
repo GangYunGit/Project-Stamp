@@ -14,7 +14,7 @@
           ></b-nav-item
         >
         <b-nav-item active
-          ><router-link :to="{ name: 'RecommendView' }"
+          ><router-link :to="{ name: 'InitialLogin' }"
             >Recommended</router-link
           ></b-nav-item
         >
@@ -39,9 +39,8 @@
               @click="searchResult"
               >검색</b-button
             >
-            <b-button class="m-1" variant="outline-secondary" @click="basicData"
-              >필터 초기화</b-button
-            >
+            <b-button class="m-1" variant="outline-secondary" @click="basicData">필터 초기화</b-button>
+            <router-link :to="{ name:'InitialLogin' }"><b-button class="m-1" variant="outline-secondary">영화 추천 받기</b-button></router-link>
           </b-col>
           <!-- <b-col class="col-md-3 mx-auto">
           <img src="../assets/album.png" style="width:80px; height:96px;" alt="" @click="viewAlbum">
@@ -57,8 +56,8 @@
         style="background-color: #fbfeab"
       >
         <MovieListView
-          v-for="(movie, idx) in movies"
-          :key="idx"
+          v-for="movie in movies"
+          :key="movie.id"
           :movie="movie"
         />
       </b-row>
@@ -110,19 +109,12 @@ export default {
   },
   created() {
     // 페이지 초기화 시 작동
-<<<<<<< HEAD
     this.basicData();
     this.getMovieData();
     this.userData();
-=======
-    this.basicData()
-    this.getMovieData()
-    this.userData()
   },
   computed: {
->>>>>>> 568102d43d4b8bba9b1861d24319802618e8ab5b
   },
-  computed: {},
   methods: {
     // django에 저장된 기본 데이터 가져오기
     getMovieData() {
