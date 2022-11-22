@@ -109,7 +109,7 @@ export default {
   },
   created() {
     // 페이지 초기화 시 작동
-    this.basicData();
+    // this.basicData();
     this.getMovieData();
     this.userData();
   },
@@ -137,28 +137,47 @@ export default {
       // this.albums = this.$store.state.albums
     },
     // TMDB에서 영화 정보 가져오기(최초 로딩 시)
-    basicData() {
-      // axios({
-      //   method: 'get',
-      // url: `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.VUE_APP_TMDB}&language=ko-KR&page=1`,
-      // parmas: {
-      //   api_key: process.env.API_KEY_TMDB,
-      //   language: 'ko-KR',
-      // }
-      // })
-      // .then((response) => {
-      //   const movies = response.data.results
-      //   console.log(movies)
-      //   this.$store.dispatch('basicData', movies)
-      //   this.movies = this.$store.state.movies
-      //   return this.movies
-      // })
-      // .catch((error) => {
-      //   console.log(error)
-      // })
-      // this.$store.dispatch('basicData')
-      // this.movies = this.$store.state.movies.slice(0,30)
-    },
+    // basicData() {
+    //   axios({
+    //     method: 'get',
+    //     url: `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.VUE_APP_TMDB}&language=ko-KR&page=1`,
+    //     parmas: {
+    //     api_key: process.env.API_KEY_TMDB,
+    //     language: 'ko-KR',
+    //   }
+    //   })
+    //   .then((response) => {
+    //     const movieSrc = response.data.results
+    //     console.log(movieSrc)
+    //     // console.log(movies)
+    //     const payload = []
+    //     for (const mv of movieSrc) {
+    //       const element = {
+    //         model: "movies.movie",
+    //         pk: mv.id,
+    //         fields: {
+    //           genre_ids: [
+    //             mv.genre_ids
+    //           ],
+    //           overview: mv.overview,
+    //           poster_path: mv.poster_path,
+    //           release_date: mv.release_date,
+    //           title: mv.title,
+    //           vote_average: mv.vote_average,
+    //           vote_count: mv.vote_count,
+    //         },
+    //       }
+    //       payload.push(element)
+    //     }
+    //     this.$store.dispatch('basicData', payload)
+    //     this.movies = this.$store.state.movies
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
+    //   // this.$store.dispatch('basicData')
+    //   // this.movies = this.$store.state.movies.slice(0,30)
+    // },
 
     // 검색 필터 결과 표시
     searchResult() {
