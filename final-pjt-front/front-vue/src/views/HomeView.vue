@@ -83,6 +83,7 @@ export default {
     // 페이지 초기화 시 작동
     this.basicData()
     this.getMovieData()
+    this.userData()
   },
   computed: {
   },
@@ -103,7 +104,10 @@ export default {
         console.log(error)
       })
     },
-
+    getAlbumData() {
+      this.$store.dispatch('getAlbumData')
+      // this.albums = this.$store.state.albums
+    },
     // TMDB에서 영화 정보 가져오기(최초 로딩 시)
     basicData() {
       // axios({

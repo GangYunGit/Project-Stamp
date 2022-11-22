@@ -21,7 +21,7 @@
         {{ movie.overview }}
       </b-card-text>
     </b-card>
-  <b-button pill variant="#667eea" class="m-2 gradient-custom" @click="addToAlbum">앨범에 추가</b-button>
+    <b-button pill variant="#667eea" class="m-2 gradient-custom" @click="addToAlbum">앨범에 추가하기</b-button>
   <router-link :to="{ name : 'HomeView' }"><b-button pill variant="outline-secondary" class="m-2">메인으로</b-button></router-link>
   <router-link :to="{ name: 'RecommendView' }" class="m-2"><b-button pill variant="primary">영화 추천받기</b-button></router-link>
   </div>
@@ -58,6 +58,23 @@ export default {
   created() {
     this.getMovieDetail()
   },
+  updated() {
+  },
+  computed: {
+    // notAdded() {
+    //   const albumSrc = this.$store.state.albums
+    //   const thisTitle = this.movie.title
+    //   // console.log(albumSrc)
+    //   console.log(this.movie.title)
+    //   for (const album of albumSrc) {
+    //     if (thisTitle === album.movie_title) {
+    //     // console.log(true)
+    //     return true
+    //     }
+    //   }
+    //   return false
+    // }
+  },
   methods: {
     // 페이지를 열 때 영화 상세 정보 조회
     getMovieDetail() {
@@ -68,6 +85,7 @@ export default {
       .then((response) => {
         // 데이터 타입에 따라 this.movie에 저장할 정보 결정
         this.movie = response.data
+        console.log('추가됨')
       })
       .catch((error) => {
         console.log(error)
@@ -76,6 +94,16 @@ export default {
 
     // 앨범에 이 영화를 추가
     addToAlbum() {
+      const albumSrc = this.$store.state.albums
+      const thisMovie = this.movie
+      console.log(albumSrc)
+      console.log(thisMovie)
+      for (const album of albumSrc) {
+        if (thisMovie === album) {
+        alert('이미 추가된 영화입니다.')
+        break
+        }
+      }
       axios({
         method: 'post',
         url: `${API_URL}/albums/`,
@@ -88,8 +116,18 @@ export default {
         },
       })
       .then((response) =>{
-        // console.log('저장 성공!')
         console.log(response)
+        // const albumSrc = this.$store.state.albums
+        // const thisMovie = response.data
+
+        // console.log(albumSrc)
+        // console.log(thisMovie)
+        // for (const album of albumSrc) {
+        //   if (thisMovie === album) {
+        //   alert('이미 추가된 영화입니다.')
+        //   break
+        //   }
+        // }
       })
       .catch((error) => {
         console.log(error)

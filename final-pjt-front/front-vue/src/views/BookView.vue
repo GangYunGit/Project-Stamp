@@ -11,13 +11,13 @@
     <h1 class="p-3">앨범</h1>
     <turn 
       class="d-flex wrapper container justify-content-md-center rounded-3" 
-      style="background-color:brown; width:100%; height: 100%; line-height: 75%;"
+      style="background-color:brown; width:100%; height: 700px; line-height: 75%;"
       >
       <BookContentView 
         class="flip_page_double hard"
         style="width:100%; height:100%;"
-        v-for="(album, pageNo) in albums"
-        :key="pageNo"
+        v-for="album in albums"
+        :key="album.id"
         :album="album"
       />
     </turn>

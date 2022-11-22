@@ -60,7 +60,7 @@ export default new Vuex.Store({
     // 현재 접속한 사용자에 맞게 앨범 데이터 필터링
     SET_ALBUM(state, albumData) {
       state.albums = albumData
-      console.log(state.albums)
+      // console.log(state.albums)
     }
   },
   actions: {
