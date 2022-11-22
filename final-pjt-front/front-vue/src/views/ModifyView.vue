@@ -4,13 +4,13 @@
         <b-nav tabs justified>
         <b-nav-item><router-link :to="{ name: 'HomeView' }">Home</router-link></b-nav-item>
         <b-nav-item active><router-link :to="{ name:'BookView' }">Album</router-link></b-nav-item>
-        <b-nav-item><router-link :to="{ name:'RecommendView' }">Recommended</router-link></b-nav-item>
+        <b-nav-item><router-link :to="{ name:'InitialLogin' }">Recommended</router-link></b-nav-item>
         </b-nav>
     </div>
     <div class="p-4" style="background-color: #BDFCFE; height: 85vh;">
-      <h2 class="p-1">후기 수정하기</h2>
       <div class="container justify-content-md-center p-4 col-md-4" style="background-color:#FBFEAB">
-          <p>후기는 100자 이내로 작성 가능합니다.</p>
+        <h2 class="p-1">후기 수정하기</h2>
+        <p>후기는 100자 이내로 작성 가능합니다.</p>
         <textarea name="" id="" cols="30" rows="5" v-model="newReview"></textarea>
         <br>
         <b-button class='m-3' variant="outline-primary"  @click="modifyReview">수정</b-button>
@@ -39,8 +39,11 @@ export default {
     name: 'ModifyView',
     data() {
         return {
-            newReview: '',
+            newReview: null,
         }
+    },
+    created() {
+        this.oldReview()
     },
     methods: {
         modifyReview() {
@@ -49,9 +52,10 @@ export default {
                 alert('후기는 100자 이내여야 합니다.')
             } else {
                 axios({
-                method: 'post',
+                method: 'put',
                 url: `${API_URL}/albums/${this.$route.params.pk}/review_create/`,
                 data: {
+                    user: this.$store.state.user_pk,
                     review: this.newReview,
                 },
                 // headers: {
@@ -66,7 +70,12 @@ export default {
                 console.log(error)
             })
             }
-        }
+        },
+        oldReview() {
+            const albumId = this.$route.params.pk
+            console.log(albumId)
+            this.newReview = this.$store.state.albums[albumId-1].review
+        },
     },
 }
 </script>

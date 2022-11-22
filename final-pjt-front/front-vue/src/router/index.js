@@ -42,7 +42,7 @@ const routes = [
     component: RegisterView,
   },
   {
-    path: '/hello',
+    path: '/getrecommend',
     name: 'InitialLogin',
     component: InitialLogin,
   },

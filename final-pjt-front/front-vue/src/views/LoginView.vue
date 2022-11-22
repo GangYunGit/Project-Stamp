@@ -4,7 +4,7 @@
       <b-nav tabs justified>
       <b-nav-item ><router-link :to="{ name: 'HomeView' }">Home</router-link></b-nav-item>
       <b-nav-item ><router-link :to="{ name:'BookView' }">Album</router-link></b-nav-item>
-      <b-nav-item >Recommended</b-nav-item>
+      <b-nav-item ><router-link :to="{ name:'InitialLogin' }">Recommend</router-link></b-nav-item>
       </b-nav>
     </div>
   <div class="mx-auto m-3 col-md-6 rounded-3" style="background-color:#FBFEAB;">

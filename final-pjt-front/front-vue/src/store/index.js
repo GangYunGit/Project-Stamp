@@ -63,6 +63,11 @@ export default new Vuex.Store({
     SET_ALBUM(state, albumData) {
       state.albums = albumData
       // console.log(state.albums)
+    },
+
+    // 앨범 정보 추가
+    ADD_ALBUM(state, movieData) {
+      state.albums.push(movieData)
     }
   },
   actions: {

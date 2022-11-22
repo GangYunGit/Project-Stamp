@@ -2,9 +2,9 @@
   <div style="background-color: #BDFCFE;">
     <div style="">
       <b-nav tabs justified>
-      <b-nav-item ><router-link :to="{ name: 'HomeView' }">Home</router-link></b-nav-item>
-      <b-nav-item active><router-link :to="{ name:'BookView' }">Album</router-link></b-nav-item>
-      <b-nav-item ><router-link :to="{ name:'RecommendView' }">Recommended</router-link></b-nav-item>
+        <b-nav-item ><router-link :to="{ name: 'HomeView' }">Home</router-link></b-nav-item>
+        <b-nav-item active><router-link :to="{ name:'BookView' }">Album</router-link></b-nav-item>
+        <b-nav-item ><router-link :to="{ name:'InitialLogin' }">Recommended</router-link></b-nav-item>
       </b-nav>
     </div>
   <div class="p-4" style="background-color: #BDFCFE; height:140%;">
@@ -73,6 +73,7 @@ export default {
     },
     getAlbumData() {
       this.$store.dispatch('getAlbumData')
+      // console.log(this.albums)
     },
     getCommentData() {
       this.$store.dispatch('getCommentData')
@@ -85,9 +86,7 @@ export default {
     // },
   },
   created() {
-    // this.testMethod()
     this.getAlbumData()
-    // this.getReviewData()
   },
   mounted() {
     // this.testMethod()
