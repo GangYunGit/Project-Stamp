@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Album
+from .models import Album, Review
 
 
 # class AlbumIdSerializer(serializers.ModelSerializer):
@@ -12,12 +12,8 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Album
         fields = (
-<<<<<<< HEAD
-            'content',
-=======
             'user',
             'review',
->>>>>>> upstream/master
         )
 
 
