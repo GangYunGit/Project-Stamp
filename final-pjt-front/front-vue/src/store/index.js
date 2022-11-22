@@ -15,6 +15,8 @@ export default new Vuex.Store({
   state: {
     movies: [
     ],
+    // temp = 세부 정보에서 보여주는 데이터(새로고침 시 404 방지용)
+    temp: null,
     recommended: [
     ],
     token: null,
@@ -68,6 +70,11 @@ export default new Vuex.Store({
     // 앨범 정보 추가
     ADD_ALBUM(state, movieData) {
       state.albums.push(movieData)
+    },
+
+    // 디테일 데이터 임시저장
+    SET_DETAIL(state, dataTemp) {
+      state.temp = dataTemp
     }
   },
   actions: {
@@ -186,6 +193,11 @@ export default new Vuex.Store({
         console.log(error)
       })
     },
+
+    // 디테일 정보 임시 저장용
+    detailTemp(context, detailData) {
+      context.commit('SET_DETAIL', detailData)
+    }
   },
   modules: {
   }
