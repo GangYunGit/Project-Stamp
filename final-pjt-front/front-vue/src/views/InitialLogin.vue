@@ -59,6 +59,9 @@ Vue.use(IconsPlugin)
 // API_URL = "http://127.0.0.1:8000/"
 const API_URL = "http://localhost:8000";
 
+// axios.defaults.xsrfCookieName = 'csrftoken';
+// axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+
 export default {
   name: 'InitialLogin',
   data() {
@@ -75,8 +78,31 @@ export default {
         url: `${API_URL}/movies/genres/`,
       })
       .then((response) => {
-        console.log(response.data)
-        // this.$router.push({ name: 'RecommendView' })
+        // console.log(response.data)
+        const genreList = response.data
+        const userGenre = genreList.filter((genre) => {
+          return (genre.name === this.genreName)
+        })
+        return userGenre[0].id
+      })
+      .then((response) => {
+        // console.log(response)
+
+        axios({
+          method: 'post',
+          url: `${API_URL}/movies/genres/${response}/like/`,
+          // headers: {
+          //   xsrfCookieName: 'csrftoken',
+          //   // xrfHeaderName: 'X-CSRFToken',
+          // } 	
+        })
+        .then((response) => {
+          console.log(response)
+          this.$router.push({ name: 'RecommendView' })
+        })
+        .catch((error) => {
+          console.log(error)
+        })
       })
       .catch((error) => {
         console.log(error)
