@@ -93,6 +93,7 @@ Vue.use(IconsPlugin);
 
 // API_URL = "http://127.0.0.1:8000/"
 const API_URL = "http://localhost:8000";
+const VUE_APP_TMDB = process.env.VUE_APP_TMDB
 
 export default {
   name: "HomeView",
@@ -113,27 +114,10 @@ export default {
   created() {
     // 페이지 초기화 시 작동
     this.basicData();
-    // this.getMovieData();
     this.userData();
   },
   computed: {},
   methods: {
-    // django에 저장된 기본 데이터 가져오기
-    // getMovieData() {
-    //   axios({
-    //     method: "get",
-    //     url: `${API_URL}/movies/`,
-    //   })
-    //     .then((response) => {
-    //       const movieData = response.data;
-    //       // console.log(movieData)
-    //       this.$store.dispatch("basicData", movieData);
-    //       this.movies = this.$store.state.movies.slice(0, 36);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // },
     getAlbumData() {
       this.$store.dispatch("getAlbumData");
       // this.albums = this.$store.state.albums
@@ -142,7 +126,7 @@ export default {
     basicData() {
       axios({
         method: "get",
-        url: `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.VUE_APP_TMDB}&language=ko-KR&page=1`,
+        url: `https://api.themoviedb.org/3/movie/popular?api_key=${VUE_APP_TMDB}&language=ko-KR&page=1`,
         parmas: {
           api_key: process.env.API_KEY_TMDB,
           language: "ko-KR",
@@ -178,16 +162,24 @@ export default {
       // this.movies = this.$store.state.movies.slice(0,30)
     },
 
-    // 검색 필터 결과 표시
+    // 검색 필터 결과 표시(TMDB에 검색 요청 전송)
     searchResult() {
-      const movieSrc = this.$store.state.movies;
-      if (this.searchInput !== null) {
-        const filtered = movieSrc.filter((movie) => {
-          return movie.title.includes(this.searchInput);
-        });
-        this.movies = filtered;
+      if (this.searchInput) {
+          axios ({
+          method: 'get',
+          url: `https://api.themoviedb.org/3/search/movie?api_key=${VUE_APP_TMDB}&query=${this.searchInput}&language=ko-KR&include_adult=false`
+        })
+        .then((response) => {
+          const responseData = response.data.results
+          console.log(responseData)
+          this.$store.dispatch('basicData', responseData)
+          this.movies = this.$store.state.movies
+        })
+        .catch((error) => {
+          console.log(error)
+        })
       } else {
-        alert("검색어를 입력해 주세요.");
+        alert('검색어를 입력하세요.')
       }
     },
 
@@ -196,6 +188,7 @@ export default {
       this.$router.push({ name: "BookView" });
     },
 
+    // 사용자 pk 및 선호 장르 가져오기
     userData() {
       const token = this.$store.state.token;
       // console.log(token)

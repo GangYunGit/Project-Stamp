@@ -11,18 +11,17 @@
       <div class="mx-auto mt-3 p-3 col-lg-6 col-md-8" style="background-color:#FBFEAB">
         <b-card
           class="mb-2 rounded-3 mx-auto m-3 p-3"
-          :title="movie[0].title"
-          :img-src="`https://image.tmdb.org/t/p/original/${movie[0].poster_path}`"
+          :title="movie.title"
+          :img-src="`https://image.tmdb.org/t/p/original/${movie.poster_path}`"
           img-alt="Poster Image"
           img-top
           style="width: 30rem"
         >
           <b-card-text>
-            {{ movie[0].overview }}
+            {{ movie.overview }}
           </b-card-text>
         </b-card>
-        <b-button v-if="alreadyAdded" pill variant="#667eea" class="m-2 gradient-custom" @click="addAlbum">앨범에 추가하기</b-button>
-        <b-button v-else pill disabled class="m-2 gradient-custom" @click="addToAlbum">앨범에 추가됨</b-button>
+        <b-button pill variant="#667eea" class="m-2 gradient-custom" @click="addToAlbum">앨범에 추가하기</b-button>
         <b-button pill variant="outline-secondary" class="m-2" @click="getRecommend">다른 영화 보기</b-button>
         <b-button @click="goBack" pill variant="outline-warning" class="m-2">뒤로</b-button>
       </div>
@@ -47,38 +46,20 @@ Vue.use(IconsPlugin)
 
 // API_URL = "http://127.0.0.1:8000/"
 const API_URL = 'http://localhost:8000'
+const VUE_APP_TMDB = process.env.VUE_APP_TMDB
 
 export default {
   name: 'DetailView',
   data() {
     return {
-      // 테스트용 데이터
-      movie: [
-      {
-        title: "Hair each base dark guess garden accept.",
-        popularity: 4.0,
-        overview: "Religious ball another laugh light million. Federal public power another.\nDuring always recent maintain major others bank. Say place address. Wife tough outside system must. Develop road especially.",
-        released_data: "1995-01-20T07:27:13Z",
-        poster_path: "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F346a942a-9e1d-4add-a4f2-6d8c18b7e7b6%2Fwelldone!.png?table=block&id=9acc0d11-cfdd-4ba0-a411-e09aa855d650&spaceId=f7ab64f0-6613-4035-b609-06b6865d9b61&width=250&userId=3da73d48-5c6a-457e-843d-1891bf0e354c&cache=v2"
-      },
-    ],
-      alreadyInAlbum: false
+      movie: [],
+      index: 0
     }
   },
   created() {
-    console.log(this.movie[0])
-    // getRecommend()
+    this.getRecommend()
   },
   computed: {
-    // 앨범 중복 체크
-    alreadyAdded() {
-      const albums = this.$store.state.albums
-      if (this.movies in albums) {
-        return true
-      } else {
-        return false
-      }
-    },
   },
   methods: {
     // 서버에서 추천 작품 받기
@@ -86,37 +67,57 @@ export default {
     getRecommend() {
       axios({
         method: 'get',
-        url: `${API_URL}/movies/recommendation/` ,
+        url: `https://api.themoviedb.org/3/movie/${this.$route.params.id}/recommendations?api_key=${VUE_APP_TMDB}&language=ko-KR` ,
       })
       .then((response) => {
-        console.log(response)
-        // 데이터 타입에 따라 this.movie에 저장할 정보 결정
-        // this.movie = response.data.results
+        const resSrc = response.data.results
+        // console.log(resSrc)
+        this.movie = response.data.results[0]
+        //resSrc는 store에 저장
+        this.$store.commit('RECOMMEND_SERIES', resSrc)
       })
       .catch((error) => {
         console.log(error)
       })
     },
 
-    // 앨범에 이 영화 추가
+    // 앨범에 이 영화를 추가
     addToAlbum() {
-      axios({
-        method: 'post',
-        url: `${API_URL}/albums/`,
-        data: {
-          // pk: movieData.pk,
-          user: this.$store.state.user_pk,
-          movie_poster_path: this.movie.poster_path,
-          movie_title: this.movie.title,
-        },
-      })
-      .then((response) =>{
-        console.log('저장 성공!')
-        console.log(response)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+      const albumSrc = this.$store.state.albums
+      const thisMovie = this.movie
+      let quit = false
+
+      // console.log(albumSrc)
+      // console.log(thisMovie.title)
+      for (const album of albumSrc) {
+        // console.log(album.movie_title)
+        if (thisMovie.title === album.movie_title) {
+          quit = true
+          alert('이미 추가된 영화입니다.')
+          }
+        }
+        if (quit === false) {
+          axios({
+          method: 'post',
+          url: `${API_URL}/albums/`,
+          data: {
+            // pk: movieData.pk,
+            user: this.$store.state.user_pk,
+            movie_poster_path: this.movie.poster_path,
+            movie_title: this.movie.title,
+            content: null,
+            // review: '',
+          },
+        })
+        .then((response) =>{
+          // console.log(response)
+          this.$store.commit('ADD_ALBUM', response.data)
+          alert('앨범에 추가되었습니다.')
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      }
     },
 
     // 뒤로 가기 버튼 작동

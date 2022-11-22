@@ -23,7 +23,7 @@
     </b-card>
     <b-button pill variant="#667eea" class="m-2 gradient-custom" @click="addToAlbum">앨범에 추가하기</b-button>
   <router-link :to="{ name : 'HomeView' }"><b-button pill variant="outline-secondary" class="m-2">메인으로</b-button></router-link>
-  <router-link :to="{ name: 'RecommendView' }" class="m-2"><b-button pill variant="primary">영화 추천받기</b-button></router-link>
+  <router-link :to="{ name: 'RecommendView', params: { id:movie.id }}" class="m-2"><b-button pill variant="primary">영화 추천받기</b-button></router-link>
   </div>
   </div>
   </div>
@@ -57,7 +57,7 @@ export default {
   },
   created() {
     this.getMovieDetail()
-    console.log(this.movie)
+    // console.log(this.movie)
   },
   updated() {
   },

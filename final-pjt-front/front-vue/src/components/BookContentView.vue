@@ -15,7 +15,7 @@
         {{ album.review }}
       </b-card-text>
       <template #footer>
-        <small class="text-muted">Last updated 3 mins ago</small>
+        <small class="text-muted"></small>
       </template>
       <router-link :to="{ name: 'ModifyView', params: { pk: album.id }}"><b-button variant="primary">후기 수정하기</b-button></router-link>
     </b-card>
