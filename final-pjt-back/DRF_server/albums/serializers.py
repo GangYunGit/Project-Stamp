@@ -2,16 +2,19 @@ from rest_framework import serializers
 from .models import Album, Review
 
 
-class AlbumIdSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Album
-        fields = ('id',)
+# class AlbumIdSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Album
+#         fields = ('id',)
 
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = '__all__'
+        fields = (
+            'album',
+            'content',
+        )
         read_only_fields = ('album',)
 
 
@@ -22,6 +25,8 @@ class ReviewContentSerializer(serializers.ModelSerializer):
 
 
 class AlbumListSerializer(serializers.ModelSerializer):
+    review = ReviewSerializer(many=True)
+
     class Meta:
         model = Album
         fields = (
@@ -34,8 +39,14 @@ class AlbumListSerializer(serializers.ModelSerializer):
 
 
 class AlbumSerializer(serializers.ModelSerializer):
-    # review = ReviewSerializer(read_only=True)
+    review = ReviewContentSerializer(many=True)
 
     class Meta:
         model = Album
-        fields = ('user', 'movie_title', 'movie_poster_path', 'review')
+        fields = (
+            'user',
+            'movie_title',
+            'movie_poster_path',
+            'review',
+        )
+        read_only_fields = ('review',)
