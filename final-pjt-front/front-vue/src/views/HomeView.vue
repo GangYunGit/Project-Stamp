@@ -4,17 +4,17 @@
     <div style="">
       <b-nav tabs justified>
         <b-nav-item active
-          ><router-link :to="{ name: 'HomeView' }"
+          ><router-link :to="{ name: 'HomeView' }" style="text-decoration: none; color: black;"
             >Home</router-link
           ></b-nav-item
         >
         <b-nav-item active
-          ><router-link :to="{ name: 'BookView' }"
+          ><router-link :to="{ name: 'BookView' }" style="text-decoration: none; color: black;"
             >Album</router-link
           ></b-nav-item
         >
         <b-nav-item active
-          ><router-link :to="{ name: 'InitialLogin' }"
+          ><router-link :to="{ name: 'InitialLogin' }" style="text-decoration: none; color: black;"
             >Recommended</router-link
           ></b-nav-item
         >
@@ -22,11 +22,11 @@
     </div>
     <br />
     <div class="col-8 justify-content-md-center mx-auto">
-      <div class="p-4" style="background-color: skyblue; border-radius: 40px">
+      <div class="p-4" style="background-color: #fbfeab; border-radius: 40px">
         <HeaderView />
         <hr />
         <b-row>
-          <b-col align-self="baseline" class="col-md-9 mx-auto text-white">
+          <b-col align-self="baseline" class="col-md-9 mx-auto">
             <h3>어떤 작품을 찾으시나요?</h3>
             <input
               type="text"
@@ -200,7 +200,7 @@ export default {
         },
       })
         .then((response) => {
-          // console.log(response);
+          console.log(response);
           this.$store.commit("USER_ENTER", response.data);
           // console.log(this.$store.state.user_pk)
         })

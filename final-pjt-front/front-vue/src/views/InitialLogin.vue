@@ -3,17 +3,20 @@
     <div style="">
       <b-nav tabs justified>
         <b-nav-item
-          ><router-link :to="{ name: 'HomeView' }"
+          ><router-link :to="{ name: 'HomeView' }" 
+          style="text-decoration: none; color: black;"
             >Home</router-link
           ></b-nav-item
         >
         <b-nav-item
-          ><router-link :to="{ name: 'BookView' }"
+          ><router-link :to="{ name: 'BookView' }" 
+          style="text-decoration: none; color: black;"
             >Album</router-link
           ></b-nav-item
         >
         <b-nav-item active
-          ><router-link :to="{ name: 'InitialLogin' }"
+          ><router-link :to="{ name: 'InitialLogin' }" 
+          style="text-decoration: none; color: black;"
             >Recommended</router-link
           ></b-nav-item
         >

@@ -1,6 +1,6 @@
 <template>
   <div class="container position-relative">
-    <div class="text-center text-white col-md-10">
+    <div class="text-center col-md-10">
       <div v-if="isLogin">
         <b-row align-self="baseline">
           <b-col class="col-md-9 p-2 mx-auto">

@@ -6,8 +6,8 @@
       :img-src="`https://image.tmdb.org/t/p/original/${album.movie_poster_path}`"
       img-alt="Poster Image"
       img-top
-      img-height="400"
-      img-width="200"
+      img-height="420"
+      img-width="240"
       style="max-width: 24rem; object-fit: cover;"
     >
     <br>

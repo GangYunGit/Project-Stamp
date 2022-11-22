@@ -2,9 +2,9 @@
   <div style="background-color: #BDFCFE;">
     <div style="">
       <b-nav tabs justified>
-      <b-nav-item ><router-link :to="{ name: 'HomeView' }">Home</router-link></b-nav-item>
-      <b-nav-item ><router-link :to="{ name:'BookView' }">Album</router-link></b-nav-item>
-      <b-nav-item active><router-link :to="{ name:'InitialLogin' }">Recommended</router-link></b-nav-item>
+      <b-nav-item ><router-link :to="{ name: 'HomeView' }" style="text-decoration: none; color: black;">Home</router-link></b-nav-item>
+      <b-nav-item ><router-link :to="{ name:'BookView' }" style="text-decoration: none; color: black;">Album</router-link></b-nav-item>
+      <b-nav-item active><router-link :to="{ name:'InitialLogin' }" style="text-decoration: none; color: black;">Recommended</router-link></b-nav-item>
       </b-nav>
     </div>
     <div class="p-4" style="background-color:#BDFCFE;">
@@ -15,14 +15,16 @@
           :img-src="`https://image.tmdb.org/t/p/original/${movie.poster_path}`"
           img-alt="Poster Image"
           img-top
-          style="width: 30rem"
+          img-height="350"
+          img-width="240"
+          style="width: 26rem"
         >
           <b-card-text>
             {{ movie.overview }}
           </b-card-text>
         </b-card>
         <b-button pill variant="#667eea" class="m-2 gradient-custom" @click="addToAlbum">앨범에 추가하기</b-button>
-        <b-button pill variant="outline-secondary" class="m-2" @click="getRecommend">다른 영화 보기</b-button>
+        <b-button pill variant="outline-secondary" class="m-2" @click="getAnother">다른 영화 보기</b-button>
         <b-button @click="goBack" pill variant="outline-warning" class="m-2">뒤로</b-button>
       </div>
     </div>
@@ -34,6 +36,7 @@
 // @ is an alias to /src
 import Vue from 'vue';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import _ from 'lodash'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -72,13 +75,36 @@ export default {
       .then((response) => {
         const resSrc = response.data.results
         // console.log(resSrc)
-        this.movie = response.data.results[0]
+
+        // Django에서 작성한 DB fields에 알맞게 수정
+        const payload = [];
+          for (const mv of resSrc) {
+            const element = {
+              model: "movies.movie",
+              id: mv.id,
+              genre_ids: mv.genre_ids,
+              overview: mv.overview,
+              poster_path: mv.poster_path,
+              release_date: mv.release_date,
+              title: mv.title,
+              vote_average: mv.vote_average,
+              vote_count: mv.vote_count,
+            };
+            payload.push(element);
+          }
+          this.movie = payload[0]
         //resSrc는 store에 저장
-        this.$store.commit('RECOMMEND_SERIES', resSrc)
+        this.$store.commit('RECOMMEND_SERIES', payload)
       })
       .catch((error) => {
         console.log(error)
       })
+    },
+
+    // (다른 영화 추천받기 버튼을 클릭한 경우) 목록의 다른 영화 보여주기
+    getAnother() {
+      const recommendedSrc = this.$store.state.recommended
+      this.movie = _.sample(recommendedSrc)
     },
 
     // 앨범에 이 영화를 추가
