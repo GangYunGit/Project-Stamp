@@ -21,6 +21,8 @@ export default new Vuex.Store({
     user_pk: null,
     albums: [
     ],
+    reviews: [
+    ],
   },
   getters: {
     isLogin(state) {
@@ -60,7 +62,7 @@ export default new Vuex.Store({
     // 현재 접속한 사용자에 맞게 앨범 데이터 필터링
     SET_ALBUM(state, albumData) {
       state.albums = albumData
-      console.log(state.albums)
+      // console.log(state.albums)
     }
   },
   actions: {
@@ -123,6 +125,9 @@ export default new Vuex.Store({
 
     // 사용자 로그아웃
     userLogout(context) {
+      this.state.user_pk = null,
+      this.state.albums = [],
+      this.state.token = null,
       context.commit('USER_LOGOUT')
     },
 
@@ -163,7 +168,7 @@ export default new Vuex.Store({
         // context.commit('SET_ALBUM', filtered)
         const payload = []
         for (let album of albumSrc) {
-          // console.log(album.user)
+          // console.log(album)
           // console.log(userId)
           if (album.user === userId) {
             payload.push(album)
