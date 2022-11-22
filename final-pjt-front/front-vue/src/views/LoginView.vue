@@ -18,7 +18,7 @@
             <label class="form-label" for="form3Example3">이메일 주소</label>
 
             <input v-model="userEmail" type="email" id="form3Example3" class="form-control form-control-lg"
-              placeholder="Enter a valid email address" />
+              placeholder="이메일 주소를 입력하세요" />
           </div>
 
           <!-- Password input -->
@@ -26,7 +26,7 @@
             <label class="form-label" for="form3Example4">비밀번호</label>
 
             <input v-model="userPw" type="password" id="form3Example4" class="form-control form-control-lg"
-              placeholder="Enter password" />
+              placeholder="비밀번호를 입력하세요" />
           </div>
 
           <div class="d-flex justify-content-between align-items-center">

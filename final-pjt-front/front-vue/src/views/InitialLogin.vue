@@ -31,21 +31,21 @@
             <label for="input-default" class="p-2">영화 제목</label>
             <b-form-input
               v-model="movieName"
-              placeholder="Enter your name"
+              placeholder="예) 기생충"
             ></b-form-input>
           </b-row>
           <b-row class="p-2">
             <label for="input-default" class="p-2">장르명</label>
             <b-form-input
               v-model="genreName"
-              placeholder="Enter your name"
+              placeholder="예) 코미디"
             ></b-form-input>
           </b-row>
           <b-row class="p-2">
             <label for="input-default" class="p-2">배우명</label>
             <b-form-input
               v-model="actorName"
-              placeholder="Enter your name"
+              placeholder="예) 브래드 피트"
             ></b-form-input>
           </b-row>
         </b-col>
