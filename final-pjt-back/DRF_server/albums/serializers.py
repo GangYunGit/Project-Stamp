@@ -12,10 +12,8 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = (
-            'album',
             'content',
         )
-        read_only_fields = ('album',)
 
 
 class ReviewContentSerializer(serializers.ModelSerializer):
