@@ -43,8 +43,8 @@
           <div class="text-center text-lg-start mt-4 pt-2">
             <button @click="userLogin" type="button" class="btn btn-primary btn-lg"
               style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-            <p class="small fw-bold mt-2 pt-1 mb-4">Don't have an account? 
-              <router-link :to="{ name:'RegisterView' }">Register</router-link></p>
+            <p class="small fw-bold mt-2 pt-1 mb-4">계정이 없으신가요? 
+              <router-link :to="{ name:'RegisterView' }">회원가입</router-link></p>
           </div>
         </form>
       </div>
