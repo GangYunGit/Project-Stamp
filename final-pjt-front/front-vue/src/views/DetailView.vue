@@ -84,10 +84,11 @@ export default {
           user: this.$store.state.user_pk,
           movie_poster_path: this.movie.poster_path,
           movie_title: this.movie.title,
+          review: '',
         },
       })
       .then((response) =>{
-        console.log('저장 성공!')
+        // console.log('저장 성공!')
         console.log(response)
       })
       .catch((error) => {

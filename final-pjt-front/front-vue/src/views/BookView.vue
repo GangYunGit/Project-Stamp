@@ -7,7 +7,7 @@
       <b-nav-item ><router-link :to="{ name:'RecommendView' }">Recommended</router-link></b-nav-item>
       </b-nav>
     </div>
-  <div class="p-4" style="background-color: #BDFCFE; height:800px;">
+  <div class="p-4" style="background-color: #BDFCFE; height:140%;">
     <h1 class="p-3">앨범</h1>
     <turn 
       class="d-flex wrapper container justify-content-md-center rounded-3" 
@@ -70,6 +70,9 @@ export default {
     getAlbumData() {
       this.$store.dispatch('getAlbumData')
       // this.albums = this.$store.state.albums
+    },
+    getCommentData() {
+      this.$store.dispatch('getCommentData')
     },
   },
   created() {

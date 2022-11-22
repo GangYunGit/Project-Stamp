@@ -1,12 +1,21 @@
 <template>
-  <div class="p-4" style="background-color: #BDFCFE; height: 85vh;">
-    <h2 class="p-1">후기 수정하기</h2>
-    <div class="container justify-content-md-center p-4 col-md-4" style="background-color:#FBFEAB">
-        <p>후기는 100자 이내로 작성 가능합니다.</p>
-      <textarea name="" id="" cols="" rows="5" v-model="newReview"></textarea>
-      <br>
-      <b-button class='m-3' variant="outline-primary"  @click="modifyReview">수정</b-button>
-      <router-link :to="{ name:'BookView' }"><b-button class='m-3' variant="outline-dark">취소</b-button></router-link>
+  <div>
+    <div style="">
+        <b-nav tabs justified>
+        <b-nav-item><router-link :to="{ name: 'HomeView' }">Home</router-link></b-nav-item>
+        <b-nav-item active><router-link :to="{ name:'BookView' }">Album</router-link></b-nav-item>
+        <b-nav-item><router-link :to="{ name:'RecommendView' }">Recommended</router-link></b-nav-item>
+        </b-nav>
+    </div>
+    <div class="p-4" style="background-color: #BDFCFE; height: 85vh;">
+      <h2 class="p-1">후기 수정하기</h2>
+      <div class="container justify-content-md-center p-4 col-md-4" style="background-color:#FBFEAB">
+          <p>후기는 100자 이내로 작성 가능합니다.</p>
+        <textarea name="" id="" cols="30" rows="5" v-model="newReview"></textarea>
+        <br>
+        <b-button class='m-3' variant="outline-primary"  @click="modifyReview">수정</b-button>
+        <router-link :to="{ name:'BookView' }"><b-button class='m-3' variant="outline-dark">취소</b-button></router-link>
+      </div>
     </div>
   </div>
 </template>
