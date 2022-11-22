@@ -52,7 +52,7 @@ export default {
                 method: 'post',
                 url: `${API_URL}/albums/${this.$route.params.pk}/review_create/`,
                 data: {
-                    content: this.newReview,
+                    review: this.newReview,
                 },
                 // headers: {
                 //     Authorization: `Token ${this.$store.state.token}`
