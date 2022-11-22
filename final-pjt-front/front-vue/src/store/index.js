@@ -20,38 +20,38 @@ export default new Vuex.Store({
     token: null,
     user_pk: null,
     albums: [
-      {
-        id: 1,
-        title: "Hair each base dark guess garden accept.",
-        popularity: 3.5,
-        overview: "Religious ball another laugh light million. Federal public power another.\nDuring always recent maintain major others bank. Say place address. Wife tough outside system must. Develop road especially.",
-        released_data: "1995-01-20T07:27:13Z",
-        poster_path: "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F346a942a-9e1d-4add-a4f2-6d8c18b7e7b6%2Fwelldone!.png?table=block&id=9acc0d11-cfdd-4ba0-a411-e09aa855d650&spaceId=f7ab64f0-6613-4035-b609-06b6865d9b61&width=250&userId=3da73d48-5c6a-457e-843d-1891bf0e354c&cache=v2"
-      },
-      {
-        id: 2,
-        title: "TEST title 1",
-        popularity: 4.0,
-        overview: "TEST data 1",
-        released_data: "1995-01-20T07:27:13Z",
-        poster_path: "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F346a942a-9e1d-4add-a4f2-6d8c18b7e7b6%2Fwelldone!.png?table=block&id=9acc0d11-cfdd-4ba0-a411-e09aa855d650&spaceId=f7ab64f0-6613-4035-b609-06b6865d9b61&width=250&userId=3da73d48-5c6a-457e-843d-1891bf0e354c&cache=v2"
-      },
-      {
-        id: 3,
-        title: "TEST title 2",
-        popularity: 4.0,
-        overview: "Religious ball another laugh light million. Federal public power another.\nDuring always recent maintain major others bank. Say place address. Wife tough outside system must. Develop road especially.",
-        released_data: "1995-01-20T07:27:13Z",
-        poster_path: "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F346a942a-9e1d-4add-a4f2-6d8c18b7e7b6%2Fwelldone!.png?table=block&id=9acc0d11-cfdd-4ba0-a411-e09aa855d650&spaceId=f7ab64f0-6613-4035-b609-06b6865d9b61&width=250&userId=3da73d48-5c6a-457e-843d-1891bf0e354c&cache=v2"
-      },
-      {
-        id: 4,
-        title: "TEST title 3",
-        popularity: 4.0,
-        overview: "TEST data 2",
-        released_data: "1995-01-20T07:27:13Z",
-        poster_path: "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F346a942a-9e1d-4add-a4f2-6d8c18b7e7b6%2Fwelldone!.png?table=block&id=9acc0d11-cfdd-4ba0-a411-e09aa855d650&spaceId=f7ab64f0-6613-4035-b609-06b6865d9b61&width=250&userId=3da73d48-5c6a-457e-843d-1891bf0e354c&cache=v2"
-      },
+      // {
+      //   id: 1,
+      //   title: "Hair each base dark guess garden accept.",
+      //   popularity: 3.5,
+      //   overview: "Religious ball another laugh light million. Federal public power another.\nDuring always recent maintain major others bank. Say place address. Wife tough outside system must. Develop road especially.",
+      //   released_data: "1995-01-20T07:27:13Z",
+      //   poster_path: "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F346a942a-9e1d-4add-a4f2-6d8c18b7e7b6%2Fwelldone!.png?table=block&id=9acc0d11-cfdd-4ba0-a411-e09aa855d650&spaceId=f7ab64f0-6613-4035-b609-06b6865d9b61&width=250&userId=3da73d48-5c6a-457e-843d-1891bf0e354c&cache=v2"
+      // },
+      // {
+      //   id: 2,
+      //   title: "TEST title 1",
+      //   popularity: 4.0,
+      //   overview: "TEST data 1",
+      //   released_data: "1995-01-20T07:27:13Z",
+      //   poster_path: "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F346a942a-9e1d-4add-a4f2-6d8c18b7e7b6%2Fwelldone!.png?table=block&id=9acc0d11-cfdd-4ba0-a411-e09aa855d650&spaceId=f7ab64f0-6613-4035-b609-06b6865d9b61&width=250&userId=3da73d48-5c6a-457e-843d-1891bf0e354c&cache=v2"
+      // },
+      // {
+      //   id: 3,
+      //   title: "TEST title 2",
+      //   popularity: 4.0,
+      //   overview: "Religious ball another laugh light million. Federal public power another.\nDuring always recent maintain major others bank. Say place address. Wife tough outside system must. Develop road especially.",
+      //   released_data: "1995-01-20T07:27:13Z",
+      //   poster_path: "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F346a942a-9e1d-4add-a4f2-6d8c18b7e7b6%2Fwelldone!.png?table=block&id=9acc0d11-cfdd-4ba0-a411-e09aa855d650&spaceId=f7ab64f0-6613-4035-b609-06b6865d9b61&width=250&userId=3da73d48-5c6a-457e-843d-1891bf0e354c&cache=v2"
+      // },
+      // {
+      //   id: 4,
+      //   title: "TEST title 3",
+      //   popularity: 4.0,
+      //   overview: "TEST data 2",
+      //   released_data: "1995-01-20T07:27:13Z",
+      //   poster_path: "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F346a942a-9e1d-4add-a4f2-6d8c18b7e7b6%2Fwelldone!.png?table=block&id=9acc0d11-cfdd-4ba0-a411-e09aa855d650&spaceId=f7ab64f0-6613-4035-b609-06b6865d9b61&width=250&userId=3da73d48-5c6a-457e-843d-1891bf0e354c&cache=v2"
+      // },
     ],
   },
   getters: {
@@ -88,6 +88,12 @@ export default new Vuex.Store({
       // console.log(pk)
       state.user_pk = pk
     },
+
+    // 현재 접속한 사용자에 맞게 앨범 데이터 필터링
+    SET_ALBUM(state, albumData) {
+      state.albums = albumData
+      console.log(state.albums)
+    }
   },
   actions: {
     // 회원가입
@@ -173,6 +179,34 @@ export default new Vuex.Store({
         .catch((error) => {
           console.log(error)
         })
+    },
+
+    // 사용자가 저장한 앨범 데이터 불러오기
+    getAlbumData(context) {
+      axios({
+        method:'get',
+        url:`${API_URL}/albums/`,
+      })
+      .then((response) => {
+        const albumSrc = response.data
+        const userId = this.state.user_pk
+        // const filtered = albumSrc.filter(page => page.user === userId)
+        // console.log(filtered)
+        // context.commit('SET_ALBUM', filtered)
+        const payload = []
+        for (let album of albumSrc) {
+          // console.log(album.user)
+          // console.log(userId)
+          if (album.user === userId) {
+            payload.push(album)
+          }
+        }
+        // console.log(payload)
+        context.commit('SET_ALBUM', payload)
+    })
+      .catch((error) => {
+        console.log(error)
+      })
     },
   },
   modules: {
