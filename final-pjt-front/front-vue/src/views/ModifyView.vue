@@ -39,23 +39,24 @@ export default {
     name: 'ModifyView',
     data() {
         return {
-            newReview: null,
+            newReview: '',
         }
     },
     methods: {
         modifyReview() {
-            if (this.nameReview.length > 100) {
+            // console.log(this.newReview)
+            if (this.newReview.length > 100) {
                 alert('후기는 100자 이내여야 합니다.')
             } else {
                 axios({
                 method: 'post',
-                url: `${API_URL}/`,
+                url: `${API_URL}/albums/${this.$route.params.pk}/review_create/`,
                 data: {
-                    review: this.newReview,
+                    content: this.newReview,
                 },
-                headers: {
-                    Authorization: `Token ${this.$store.state.token}`
-                },
+                // headers: {
+                //     Authorization: `Token ${this.$store.state.token}`
+                // },
             })
             .then((response) => {
                 console.log(response)

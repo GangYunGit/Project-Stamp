@@ -110,9 +110,17 @@ export default {
   },
   created() {
     // 페이지 초기화 시 작동
+<<<<<<< HEAD
     this.basicData();
     this.getMovieData();
     this.userData();
+=======
+    this.basicData()
+    this.getMovieData()
+    this.userData()
+  },
+  computed: {
+>>>>>>> 568102d43d4b8bba9b1861d24319802618e8ab5b
   },
   computed: {},
   methods: {
@@ -132,7 +140,10 @@ export default {
           console.log(error);
         });
     },
-
+    getAlbumData() {
+      this.$store.dispatch('getAlbumData')
+      // this.albums = this.$store.state.albums
+    },
     // TMDB에서 영화 정보 가져오기(최초 로딩 시)
     basicData() {
       // axios({

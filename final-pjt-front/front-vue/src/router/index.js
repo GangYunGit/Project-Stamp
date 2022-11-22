@@ -63,8 +63,7 @@ const routes = [
     component: RecommendView,
   },
   {
-    // path: '/modify/:id',
-    path: '/modify',
+    path: '/modify/:pk',
     name: 'ModifyView',
     component: ModifyView,
   },

@@ -11,13 +11,13 @@
     <h1 class="p-3">앨범</h1>
     <turn 
       class="d-flex wrapper container justify-content-md-center rounded-3" 
-      style="background-color:brown; width:100%; height: 100%; line-height: 75%;"
+      style="background-color:brown; width:100%; height: 700px; line-height: 75%;"
       >
       <BookContentView 
         class="flip_page_double hard"
         style="width:100%; height:100%;"
-        v-for="(album, pageNo) in albums"
-        :key="pageNo"
+        v-for="album in albums"
+        :key="album.id"
         :album="album"
       />
     </turn>
@@ -55,13 +55,17 @@ export default {
   },
   data() {
     return {
+      reviewList: [],
     };
   },
   computed: {
     albums() {
       // console.log(this.$store.state.albums)
       return this.$store.state.albums
-    }
+    },
+    reviews() {
+      return this.$store.state.reviews
+    },
   },
   methods: {
     testMethod() {
@@ -69,15 +73,21 @@ export default {
     },
     getAlbumData() {
       this.$store.dispatch('getAlbumData')
-      // this.albums = this.$store.state.albums
     },
     getCommentData() {
       this.$store.dispatch('getCommentData')
     },
+    // getReviewData() {
+    //   const filtered = reviewSrc.filter(page => page.user === userId)
+    //   console.log(filtered)
+    //   context.commit('SET_ALBUM', filtered)
+    //   this.reviewList = filtered
+    // },
   },
   created() {
     // this.testMethod()
     this.getAlbumData()
+    // this.getReviewData()
   },
   mounted() {
     // this.testMethod()
