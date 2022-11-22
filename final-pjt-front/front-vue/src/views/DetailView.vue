@@ -11,14 +11,14 @@
     <div class="mx-auto mt-3 p-3 col-lg-6 col-md-8" style="background-color:#FBFEAB;">
       <b-card
       class="mb-2 rounded-3 mx-auto"
-      :title="movie.title"
-      :img-src="`https://image.tmdb.org/t/p/original/${movie.poster_path}`"
+      :title="movie?.title"
+      :img-src="`https://image.tmdb.org/t/p/original/${movie?.poster_path}`"
       img-alt="Poster Image"
       img-top
       style="width: 30rem"
     >
       <b-card-text>
-        {{ movie.overview }}
+        {{ movie?.overview }}
       </b-card-text>
     </b-card>
     <b-button pill variant="#667eea" class="m-2 gradient-custom" @click="addToAlbum">앨범에 추가하기</b-button>
@@ -52,15 +52,19 @@ export default {
   name: 'DetailView',
   data() {
     return {
-      movie: [],
+      movie: this.$store.state.temp,
     }
   },
   created() {
     this.getMovieDetail()
+    console.log(this.movie)
   },
   updated() {
   },
   computed: {
+    movies() {
+      return this.$store.state.movies
+    },
     // notAdded() {
     //   const albumSrc = this.$store.state.albums
     //   const thisTitle = this.movie.title
@@ -78,18 +82,13 @@ export default {
   methods: {
     // 페이지를 열 때 영화 상세 정보 조회
     getMovieDetail() {
-      axios({
-        method: 'get',
-        url: `${API_URL}/movies/${this.$route.params.id}` ,
-      })
-      .then((response) => {
-        // 데이터 타입에 따라 this.movie에 저장할 정보 결정
-        this.movie = response.data
-        // console.log('추가됨')
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+      for (const part of this.movies) {
+        if (part.id === this.$route.params.id) {
+          this.movie = part
+          this.$store.dispatch('detailTemp', part)
+          break
+        }
+      }
     },
 
     // 앨범에 이 영화를 추가
@@ -97,7 +96,8 @@ export default {
       const albumSrc = this.$store.state.albums
       const thisMovie = this.movie
       let quit = false
-      
+
+      // console.log(albumSrc)
       // console.log(thisMovie.title)
       for (const album of albumSrc) {
         // console.log(album.movie_title)
@@ -122,6 +122,7 @@ export default {
         .then((response) =>{
           // console.log(response)
           this.$store.commit('ADD_ALBUM', response.data)
+          alert('앨범에 추가되었습니다.')
         })
         .catch((error) => {
           console.log(error)
