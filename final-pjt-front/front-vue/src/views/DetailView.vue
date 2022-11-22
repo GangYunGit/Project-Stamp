@@ -7,7 +7,7 @@
       <b-nav-item ><router-link :to="{ name:'InitialLogin' }">Recommended</router-link></b-nav-item>
       </b-nav>
     </div>
-  <div class='p-2' style="background-color:#BDFCFE;">
+  <div class='p-4' style="background-color:#BDFCFE;">
     <div class="mx-auto mt-3 p-3 col-lg-6 col-md-8" style="background-color:#FBFEAB;">
       <b-card
       class="mb-2 rounded-3 mx-auto"
@@ -15,7 +15,9 @@
       :img-src="`https://image.tmdb.org/t/p/original/${movie?.poster_path}`"
       img-alt="Poster Image"
       img-top
-      style="width: 30rem"
+      img-height="350"
+      img-width="240"
+      style="width: 26rem"
     >
       <b-card-text>
         {{ movie?.overview }}

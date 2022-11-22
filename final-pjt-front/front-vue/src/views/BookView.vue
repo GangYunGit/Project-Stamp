@@ -8,13 +8,14 @@
       </b-nav>
     </div>
   <div class="p-4" style="background-color: #BDFCFE; height:140%;">
-    <h1 class="p-3">앨범</h1>
+    <h1 class="p-2">앨범</h1>
     <turn 
-      class="d-flex wrapper container justify-content-md-center rounded-3" 
+      class="d-flex container wrapper mx-auto rounded-3" 
       style="background-color:brown; width:100%; height: 700px; line-height: 75%;"
       >
       <BookContentView 
-        class="flip_page_double hard"
+        class="flip_page_double hard col"
+        align-v="center"
         style="width:100%; height:100%;"
         v-for="album in albums"
         :key="album.id"

@@ -7,11 +7,18 @@
         <b-nav-item><router-link :to="{ name:'InitialLogin' }">Recommended</router-link></b-nav-item>
         </b-nav>
     </div>
-    <div class="p-4" style="background-color: #BDFCFE; height: 85vh;">
-      <div class="container justify-content-md-center p-4 col-md-4" style="background-color:#FBFEAB">
+    <div class="p-4 row" align-v="center" style="background-color: #BDFCFE; height: 85vh;">
+      <div class="container justify-content-md-center p-4 col-md-6" style="background-color:#FBFEAB">
         <h2 class="p-1">후기 수정하기</h2>
-        <p>후기는 100자 이내로 작성 가능합니다.</p>
-        <textarea name="" id="" cols="30" rows="5" v-model="newReview"></textarea>
+        <br>
+        <b-form-textarea
+        id="textarea-small"
+        size="sm"
+        rows="6"
+        placeholder="후기는 100자 이내로 작성 가능합니다."
+        v-model="newReview"
+      ></b-form-textarea>
+        <!-- <textarea name="" id="" cols="30" rows="5" v-model="newReview"></textarea> -->
         <br>
         <b-button class='m-3' variant="outline-primary"  @click="modifyReview">수정</b-button>
         <router-link :to="{ name:'BookView' }"><b-button class='m-3' variant="outline-dark">취소</b-button></router-link>
