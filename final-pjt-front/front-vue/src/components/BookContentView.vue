@@ -1,16 +1,18 @@
 <template>
   <div style="background-color:#FBFEAB">
       <b-card
-      class="mx-auto m-3"
-      :title="album.title"
-      :img-src="`https://image.tmdb.org/t/p/original/${album.poster_path}`"
+      class="mx-auto m-4"
+      :title="album.movie_title"
+      :img-src="`https://image.tmdb.org/t/p/original/${album.movie_poster_path}`"
       img-alt="Poster Image"
       img-top
-      style="width: 85%; height:93%; "
+      img-height="400"
+      img-width="200"
+      style="max-width: 24rem; object-fit: cover;"
     >
     <br>
       <b-card-text style="font-family: Gill Sans, sans-serif; line-height: 140%;">
-        {{ album.overview }}
+        {{ album.review }}
       </b-card-text>
       <template #footer>
         <small class="text-muted">Last updated 3 mins ago</small>
