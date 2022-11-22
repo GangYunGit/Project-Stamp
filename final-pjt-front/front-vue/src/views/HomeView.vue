@@ -26,21 +26,22 @@
         <HeaderView />
         <hr />
         <b-row>
-          <b-col align-self="baseline" class="col-md-8 mx-auto text-white">
+          <b-col align-self="baseline" class="col-md-9 mx-auto text-white">
             <h3>어떤 작품을 찾으시나요?</h3>
             <input
               type="text"
               @keyup.enter="searchResult"
               v-model.trim="searchInput"
+              class="m-1"
             />
             <b-button
-              class="m-3"
+              class="m-2"
               variant="outline-primary"
               @click="searchResult"
               >검색</b-button
             >
-            <b-button class="m-1" variant="outline-secondary" @click="basicData">필터 초기화</b-button>
-            <router-link :to="{ name:'InitialLogin' }"><b-button class="m-1" variant="outline-secondary">영화 추천 받기</b-button></router-link>
+            <b-button class="m-2" variant="outline-secondary" @click="basicData">필터 초기화</b-button>
+            <router-link :to="{ name:'InitialLogin' }"><b-button class="m-2" variant="outline-danger">영화 추천 받기</b-button></router-link>
           </b-col>
           <!-- <b-col class="col-md-3 mx-auto">
           <img src="../assets/album.png" style="width:80px; height:96px;" alt="" @click="viewAlbum">

@@ -35,7 +35,7 @@ export default new Vuex.Store({
     // 회원가입 시 출력할 화면
     INITIAL_LOGIN(state, token) {
       state.token = token
-      console.log(token)
+      // console.log(token)
       router.push({ name: 'InitialLogin' })
     },
     // 로그인 시 토큰(인증 정보) 저장
