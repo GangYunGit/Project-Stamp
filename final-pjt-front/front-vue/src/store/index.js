@@ -21,6 +21,8 @@ export default new Vuex.Store({
     user_pk: null,
     albums: [
     ],
+    reviews: [
+    ],
   },
   getters: {
     isLogin(state) {
@@ -163,7 +165,7 @@ export default new Vuex.Store({
         // context.commit('SET_ALBUM', filtered)
         const payload = []
         for (let album of albumSrc) {
-          // console.log(album.user)
+          // console.log(album)
           // console.log(userId)
           if (album.user === userId) {
             payload.push(album)

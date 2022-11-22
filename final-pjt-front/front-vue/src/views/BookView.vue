@@ -55,13 +55,17 @@ export default {
   },
   data() {
     return {
+      reviewList: [],
     };
   },
   computed: {
     albums() {
       // console.log(this.$store.state.albums)
       return this.$store.state.albums
-    }
+    },
+    reviews() {
+      return this.$store.state.reviews
+    },
   },
   methods: {
     testMethod() {
@@ -69,15 +73,21 @@ export default {
     },
     getAlbumData() {
       this.$store.dispatch('getAlbumData')
-      // this.albums = this.$store.state.albums
     },
     getCommentData() {
       this.$store.dispatch('getCommentData')
     },
+    // getReviewData() {
+    //   const filtered = reviewSrc.filter(page => page.user === userId)
+    //   console.log(filtered)
+    //   context.commit('SET_ALBUM', filtered)
+    //   this.reviewList = filtered
+    // },
   },
   created() {
     // this.testMethod()
     this.getAlbumData()
+    // this.getReviewData()
   },
   mounted() {
     // this.testMethod()
