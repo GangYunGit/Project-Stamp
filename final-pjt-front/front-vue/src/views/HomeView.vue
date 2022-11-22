@@ -40,8 +40,14 @@
               @click="searchResult"
               >검색</b-button
             >
-            <b-button class="m-2" variant="outline-secondary" @click="basicData">필터 초기화</b-button>
-            <router-link :to="{ name:'InitialLogin' }"><b-button class="m-2" variant="outline-danger">영화 추천 받기</b-button></router-link>
+            <b-button class="m-2" variant="outline-secondary" @click="basicData"
+              >필터 초기화</b-button
+            >
+            <router-link :to="{ name: 'InitialLogin' }"
+              ><b-button class="m-2" variant="outline-danger"
+                >영화 추천 받기</b-button
+              ></router-link
+            >
           </b-col>
           <!-- <b-col class="col-md-3 mx-auto">
           <img src="../assets/album.png" style="width:80px; height:96px;" alt="" @click="viewAlbum">
@@ -56,11 +62,7 @@
         class="mx-auto m-3 p-3 round-3 col-11"
         style="background-color: #fbfeab"
       >
-        <MovieListView
-          v-for="movie in movies"
-          :key="movie.id"
-          :movie="movie"
-        />
+        <MovieListView v-for="movie in movies" :key="movie.id" :movie="movie" />
       </b-row>
     </div>
   </div>
@@ -114,8 +116,7 @@ export default {
     // this.getMovieData();
     this.userData();
   },
-  computed: {
-  },
+  computed: {},
   methods: {
     // django에 저장된 기본 데이터 가져오기
     // getMovieData() {
@@ -134,45 +135,45 @@ export default {
     //     });
     // },
     getAlbumData() {
-      this.$store.dispatch('getAlbumData')
+      this.$store.dispatch("getAlbumData");
       // this.albums = this.$store.state.albums
     },
     // TMDB에서 영화 정보 가져오기(최초 로딩 시)
     basicData() {
       axios({
-        method: 'get',
+        method: "get",
         url: `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.VUE_APP_TMDB}&language=ko-KR&page=1`,
         parmas: {
-        api_key: process.env.API_KEY_TMDB,
-        language: 'ko-KR',
-      }
+          api_key: process.env.API_KEY_TMDB,
+          language: "ko-KR",
+        },
       })
-      .then((response) => {
-        const movieSrc = response.data.results
-        // console.log(movieSrc)
+        .then((response) => {
+          const movieSrc = response.data.results;
+          // console.log(movieSrc)
 
-        const payload = []
-        for (const mv of movieSrc) {
-          const element = {
-            model: "movies.movie",
-            id: mv.id,
-            genre_ids: mv.genre_ids,
-            overview: mv.overview,
-            poster_path: mv.poster_path,
-            release_date: mv.release_date,
-            title: mv.title,
-            vote_average: mv.vote_average,
-            vote_count: mv.vote_count,
+          const payload = [];
+          for (const mv of movieSrc) {
+            const element = {
+              model: "movies.movie",
+              id: mv.id,
+              genre_ids: mv.genre_ids,
+              overview: mv.overview,
+              poster_path: mv.poster_path,
+              release_date: mv.release_date,
+              title: mv.title,
+              vote_average: mv.vote_average,
+              vote_count: mv.vote_count,
+            };
+            payload.push(element);
           }
-          payload.push(element)
-        }
-        this.$store.dispatch('basicData', payload)
-        this.movies = this.$store.state.movies
-        // console.log(this.movies)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+          this.$store.dispatch("basicData", payload);
+          this.movies = this.$store.state.movies;
+          // console.log(this.movies)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       // this.$store.dispatch('basicData')
       // this.movies = this.$store.state.movies.slice(0,30)
     },
@@ -200,14 +201,14 @@ export default {
       // console.log(token)
       axios({
         method: "get",
-        url: `${API_URL}/accounts/user/`,
+        url: `${API_URL}/movies/genres/like/`,
         headers: {
           Authorization: `Token ${token}`,
         },
       })
         .then((response) => {
-          // console.log(response)
-          this.$store.commit("USER_ENTER", response.data.pk);
+          // console.log(response);
+          this.$store.commit("USER_ENTER", response.data);
           // console.log(this.$store.state.user_pk)
         })
         .catch((error) => {

@@ -21,6 +21,7 @@ export default new Vuex.Store({
     ],
     token: null,
     user_pk: null,
+    like_genres: null,
     albums: [
     ],
     reviews: [
@@ -56,9 +57,10 @@ export default new Vuex.Store({
     },
 
     // 사용자 로그인 시 pk 저장
-    USER_ENTER(state, pk) {
-      // console.log(pk)
-      state.user_pk = pk
+    USER_ENTER(state, user_data) {
+      console.log(user_data)
+      state.user_pk = user_data.id
+      state.like_genres = user_data.like_genres
     },
 
     // 현재 접속한 사용자에 맞게 앨범 데이터 필터링
@@ -138,9 +140,9 @@ export default new Vuex.Store({
     // 사용자 로그아웃
     userLogout(context) {
       this.state.user_pk = null,
-      this.state.albums = [],
-      this.state.token = null,
-      context.commit('USER_LOGOUT')
+        this.state.albums = [],
+        this.state.token = null,
+        context.commit('USER_LOGOUT')
     },
 
     // 기본 페이지에 표시할 영화 정보 불러오기
@@ -169,29 +171,29 @@ export default new Vuex.Store({
     // 사용자가 저장한 앨범 데이터 불러오기
     getAlbumData(context) {
       axios({
-        method:'get',
-        url:`${API_URL}/albums/`,
+        method: 'get',
+        url: `${API_URL}/albums/`,
       })
-      .then((response) => {
-        const albumSrc = response.data
-        const userId = this.state.user_pk
-        // const filtered = albumSrc.filter(page => page.user === userId)
-        // console.log(filtered)
-        // context.commit('SET_ALBUM', filtered)
-        const payload = []
-        for (let album of albumSrc) {
-          // console.log(album)
-          // console.log(userId)
-          if (album.user === userId) {
-            payload.push(album)
+        .then((response) => {
+          const albumSrc = response.data
+          const userId = this.state.user_pk
+          // const filtered = albumSrc.filter(page => page.user === userId)
+          // console.log(filtered)
+          // context.commit('SET_ALBUM', filtered)
+          const payload = []
+          for (let album of albumSrc) {
+            // console.log(album)
+            // console.log(userId)
+            if (album.user === userId) {
+              payload.push(album)
+            }
           }
-        }
-        // console.log(payload)
-        context.commit('SET_ALBUM', payload)
-    })
-      .catch((error) => {
-        console.log(error)
-      })
+          // console.log(payload)
+          context.commit('SET_ALBUM', payload)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
 
     // 디테일 정보 임시 저장용
