@@ -4,35 +4,43 @@ from django.contrib.auth import get_user_model
 
 
 class MovieListSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Movie
         fields = ('id', 'title', 'overview', 'poster_path')
 
 
 class MovieSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Movie
         fields = '__all__'
 
 
 class GenreSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Genre
-        fields = ('id', 'name',)
+        fields = (
+            'id',
+            'name',
+        )
+
+
+class GenreLikeUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = (
+            'id',
+            'like_genres',
+        )
+        read_only_fields = ('id',)
 
 
 class ActorListSerializer(serializers.ModelSerializer):
-
     class Meta:
-            model = Actor
-            fields = '__all__'
+        model = Actor
+        fields = '__all__'
 
 
 class ActorSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Actor
         fields = ('name', 'profile_path')
@@ -45,7 +53,12 @@ class UserLikesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('email', 'like_genres', 'like_actors', 'like_movies',)
+        fields = (
+            'email',
+            'like_genres',
+            'like_actors',
+            'like_movies',
+        )
 
 
 class RecommendationSerializer(serializers.ModelSerializer):
