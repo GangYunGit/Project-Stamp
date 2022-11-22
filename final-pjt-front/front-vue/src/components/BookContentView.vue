@@ -12,7 +12,7 @@
     >
     <br>
       <b-card-text style="font-family: Gill Sans, sans-serif; line-height: 140%;">
-        {{ album.review[0].content }}
+        {{ album.review }}
       </b-card-text>
       <template #footer>
         <small class="text-muted">Last updated 3 mins ago</small>

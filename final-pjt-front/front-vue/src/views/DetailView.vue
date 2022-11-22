@@ -85,7 +85,7 @@ export default {
       .then((response) => {
         // 데이터 타입에 따라 this.movie에 저장할 정보 결정
         this.movie = response.data
-        console.log('추가됨')
+        // console.log('추가됨')
       })
       .catch((error) => {
         console.log(error)
@@ -112,7 +112,8 @@ export default {
           user: this.$store.state.user_pk,
           movie_poster_path: this.movie.poster_path,
           movie_title: this.movie.title,
-          review: '',
+          content: null,
+          // review: '',
         },
       })
       .then((response) =>{

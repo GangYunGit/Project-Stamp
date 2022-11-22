@@ -125,6 +125,9 @@ export default new Vuex.Store({
 
     // 사용자 로그아웃
     userLogout(context) {
+      this.state.user_pk = null,
+      this.state.albums = [],
+      this.state.token = null,
       context.commit('USER_LOGOUT')
     },
 
