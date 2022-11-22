@@ -29,12 +29,7 @@ class AlbumListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Album
-        fields = (
-            'user',
-            'movie_title',
-            'movie_poster_path',
-            'review',
-        )
+        fields = '__all__'
         read_only_fields = ('review',)
 
 
@@ -43,10 +38,5 @@ class AlbumSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Album
-        fields = (
-            'user',
-            'movie_title',
-            'movie_poster_path',
-            'review',
-        )
+        fields = '__all__'
         read_only_fields = ('review',)
