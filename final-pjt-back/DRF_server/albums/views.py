@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_list_or_404, get_object_or_404, render, redirect
 from django.http import JsonResponse
 
-from .models import Album, Review
+from .models import Album
 from .serializers import AlbumListSerializer, AlbumSerializer, ReviewSerializer
 
 
@@ -45,7 +45,7 @@ def album_detail(request, album_pk):
 
 @api_view(['GET'])
 def review(request, album_pk, review_pk):
-    review = get_object_or_404(Review, pk=review_pk)
+    review = get_object_or_404(Album, pk=review_pk)
     serializer = ReviewSerializer(review)
     return Response(serializer.data)
 
@@ -55,5 +55,5 @@ def review_create(request, album_pk):
     album = get_object_or_404(Album, pk=album_pk)
     serializer = ReviewSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
-        serializer.save(album=album)
+        serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
