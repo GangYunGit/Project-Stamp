@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 from django.contrib.auth import get_user_model
-
+import django
 from django.shortcuts import get_list_or_404, get_object_or_404, render, redirect
 from django.http import JsonResponse
 
@@ -129,3 +129,8 @@ def recommendation(request, user_pk):
     movie = Movie.objects.distinct().filter(genre_ids__in=genres).order_by('?').first()
     serializer = MovieSerializer(movie)
     return Response(serializer.data)
+
+
+def get_csrf_token(request):
+    token = django.middleware.csrf.get_token(request)
+    return JsonResponse({'token': token})

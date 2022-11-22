@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_extensions',
     # CORS policy
-    "corsheaders",
+    'corsheaders',
+    'djoser',
     # Auth
     'rest_framework.authtoken',
     'dj_rest_auth',
@@ -102,6 +103,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost:8080",]
 
 # 허용할 다른 출처를 작성하는 곳
 CORS_ALLOWED_ORIGINS = [

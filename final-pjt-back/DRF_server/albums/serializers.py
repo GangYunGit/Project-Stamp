@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from .models import Album, Review
-
+from .models import Album
 
 # class AlbumIdSerializer(serializers.ModelSerializer):
 #     class Meta:
