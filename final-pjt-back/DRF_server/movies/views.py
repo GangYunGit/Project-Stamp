@@ -70,7 +70,7 @@ def like_genre(request):
 
     elif request.method == 'POST':
         serializer = GenreLikeUserSerializer(data=request.data)
-        print(serializer)
+        # print(serializer)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             print(serializer)
