@@ -49,10 +49,10 @@ Vue.use(IconsPlugin)
 
 // API_URL = "http://127.0.0.1:8000/"
 const API_URL = 'http://localhost:8000'
-const VUE_APP_TMDB = process.env.VUE_APP_TMDB
+// const VUE_APP_TMDB = process.env.VUE_APP_TMDB
 
 export default {
-  name: 'DetailView',
+  name: 'RecommendView',
   data() {
     return {
       movie: [],
@@ -65,48 +65,29 @@ export default {
   computed: {
   },
   methods: {
-    // 서버에서 추천 작품 받기
-    // user_pk는 어디에서 얻을지 고민해야 함
+    // vuex에 저장된 추천 작품 가져오기
     getRecommend() {
-      axios({
-        method: 'get',
-        url: `https://api.themoviedb.org/3/movie/${this.$route.params.id}/recommendations?api_key=${VUE_APP_TMDB}&language=ko-KR` ,
-      })
-      .then((response) => {
-        const resSrc = response.data.results
-        // console.log(resSrc)
-
-        // Django에서 작성한 DB fields에 알맞게 수정
-        const payload = [];
-        for (const mv of resSrc) {
-          const element = {
-            model: "movies.movie",
-            id: mv.id,
-            genre_ids: mv.genre_ids,
-            overview: mv.overview,
-            poster_path: mv.poster_path,
-            release_date: mv.release_date,
-            title: mv.title,
-            vote_average: mv.vote_average,
-            vote_count: mv.vote_count,
-          };
-          payload.push(element);
-        }
-        this.movie = payload[0]
-        // console.log(this.movie)
-        
-        //resSrc는 store에 저장
-        this.$store.commit('RECOMMEND_SERIES', payload)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+      const recommendSrc = this.$store.state.recommended
+      if (recommendSrc.length > 1) {
+        this.movie = _.sample(recommendSrc)
+      } else {
+        this.movie = recommendSrc
+      }
     },
 
     // (다른 영화 추천받기 버튼을 클릭한 경우) 목록의 다른 영화 보여주기
     getAnother() {
-      const recommendedSrc = this.$store.state.recommended
-      this.movie = _.sample(recommendedSrc)
+      if (this.$store.state.recommended.length === 1) {
+        const mvId = this.$route.params.id
+        this.$store.dispatch('getRecommendByTMDB', mvId)
+      }
+
+      const shuffle = this.$store.state.recommended
+      if (shuffle.length > 1) {
+        this.movie = _.sample(shuffle)
+      } else {
+        this.movie = shuffle
+      }
     },
 
     // 앨범에 이 영화를 추가

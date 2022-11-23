@@ -7,6 +7,7 @@ import createPersistedState from 'vuex-persistedstate'
 Vue.use(Vuex)
 
 const API_URL = 'http://127.0.0.1:8000'
+const VUE_APP_TMDB = process.env.VUE_APP_TMDB
 
 export default new Vuex.Store({
   plugins: [
@@ -83,6 +84,7 @@ export default new Vuex.Store({
     // 추천 영화 목록 저장
     RECOMMEND_SERIES(state, dataSrc) {
       state.recommended = dataSrc
+      // console.log(state.recommended)
     }
   },
   actions: {
@@ -187,6 +189,71 @@ export default new Vuex.Store({
     // 디테일 정보 임시 저장용
     detailTemp(context, detailData) {
       context.commit('SET_DETAIL', detailData)
+    },
+
+    // TMDB에서 추천받기
+    getRecommendByTMDB (context, movieId) {
+      axios({
+        method: 'get',
+        url: `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${VUE_APP_TMDB}&language=ko-KR` ,
+      })
+      .then((response) => {
+        const resSrc = response.data.results
+        // console.log(resSrc)
+
+        // Django에서 작성한 DB fields에 알맞게 수정
+        const payload = [];
+        for (const mv of resSrc) {
+          const element = {
+            model: "movies.movie",
+            id: mv.id,
+            genre_ids: mv.genre_ids,
+            overview: mv.overview,
+            poster_path: mv.poster_path,
+            release_date: mv.release_date,
+            title: mv.title,
+            vote_average: mv.vote_average,
+            vote_count: mv.vote_count,
+          };
+          payload.push(element);
+        }
+        
+        context.commit('RECOMMEND_SERIES', payload)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
+
+    // Django에서 추천받기
+    getRecommendByDjango(context) {
+      const userPk = this.state.user_pk
+      const userToken = this.state.token
+      axios({
+        method: 'get',
+        url: `${API_URL}/movies/recommendation/${userPk}`,
+        headers: {
+          Authorization: `Token ${userToken}`
+        }
+      })
+      .then((response) => {
+        // console.log(response.data)
+        const resSrc = response.data
+        const payload = {
+          id: resSrc.id,
+          overview: resSrc.overview,
+          title: resSrc.title,
+          vote_count: resSrc.vote_count,
+          vote_average: resSrc.vote_average,
+          poster_path: resSrc.poster_path,
+          release_date: resSrc.release_date
+        }
+        // console.log(payload)
+        context.commit('RECOMMEND_SERIES', payload)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     }
   },
   modules: {

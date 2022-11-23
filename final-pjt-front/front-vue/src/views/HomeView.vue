@@ -218,7 +218,7 @@ export default {
         },
       })
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           this.$store.commit("USER_ENTER", response.data);
           // console.log(this.$store.state.user_pk)
         })

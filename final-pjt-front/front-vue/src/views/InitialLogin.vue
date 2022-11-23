@@ -121,13 +121,13 @@ export default {
           return userGenre[0].id;
         })
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           // if (response in this.$store.state.like_genres) {
           //   alert("이미 선택된 장르입니다.");
           // }
           this.$store.state.like_genres.push(response);
           axios({
-            method: "post",
+            method: "put",
             url: `${API_URL}/movies/genres/like/`,
             headers: {
               Authorization: `Token ${this.$store.state.token}`,
@@ -137,9 +137,11 @@ export default {
               like_genres: this.$store.state.like_genres,
             },
           })
-            .then((response) => {
-              console.log(response);
-              this.$router.push({ name: "RecommendView" });
+            .then(() => {
+              // console.log(response);
+              this.$store.dispatch('getRecommendByDjango')
+              const movieId = this.$store.state.recommended.id
+              this.$router.push({ name:'RecommendView', params: { id:`${movieId}` }})
             })
             .catch((error) => {
               console.log(error);
