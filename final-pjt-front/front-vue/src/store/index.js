@@ -21,7 +21,8 @@ export default new Vuex.Store({
     ],
     token: null,
     user_pk: null,
-    like_genres: null,
+    like_genres: [],
+    like_actors: [],
     albums: [
     ],
     reviews: [

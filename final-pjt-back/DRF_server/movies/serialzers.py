@@ -34,13 +34,19 @@ class GenreLikeUserSerializer(serializers.ModelSerializer):
 class ActorListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Actor
-        fields = '__all__'
+        fields = (
+            'id',
+            'name',
+        )
 
 
 class ActorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Actor
-        fields = ('name', 'profile_path')
+        fields = (
+            'id',
+            'name',
+        )
 
 
 class ActorLikeUserSerializer(serializers.ModelSerializer):
@@ -53,19 +59,23 @@ class ActorLikeUserSerializer(serializers.ModelSerializer):
         read_only_fields = ('id',)
 
 
-class UserLikesSerializer(serializers.ModelSerializer):
-    like_genres = GenreSerializer(many=True)
-    like_actors = ActorSerializer(many=True)
-    like_movies = MovieSerializer(many=True)
+class InfoSerializer(serializers.ModelSerializer):
+    genre = GenreSerializer
+    actor = ActorListSerializer
 
+    class Meta:
+        model = Movie
+
+
+class UserLikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = (
-            'email',
+            'id',
             'like_genres',
             'like_actors',
-            'like_movies',
         )
+        read_only_fields = ('id',)
 
 
 class RecommendationSerializer(serializers.ModelSerializer):

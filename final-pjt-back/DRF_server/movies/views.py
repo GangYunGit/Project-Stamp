@@ -11,9 +11,10 @@ from .serialzers import (
     MovieListSerializer,
     MovieSerializer,
     GenreSerializer,
+    InfoSerializer,
     GenreLikeUserSerializer,
-    UserLikesSerializer,
-    ActorListSerializer,
+    UserLikeSerializer,
+    ActorSerializer,
     ActorLikeUserSerializer,
     RecommendationSerializer,
 )
@@ -44,8 +45,13 @@ def genre_list(request):
 @api_view(['GET'])
 def actor_list(request):
     actors = get_list_or_404(Actor)
-    serializer = ActorListSerializer(actors, many=True)
+    serializer = ActorSerializer(actors, many=True)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def info_list(request):
+    pass
 
 
 # def genre_index(request):
@@ -126,11 +132,21 @@ def like_movie(request, movie_pk):
 #     return render(request, 'movies/user_likes.html', context)
 
 
-@api_view(['GET'])
-def users(request):
-    users = get_user_model().objects.all()
-    serializer = UserLikesSerializer(users, many=True)
-    return Response(serializer.data)
+@api_view(['GET', 'PUT'])
+@permission_classes([IsAuthenticated])
+def user_likes(request):
+    user = request.user
+    if request.method == 'GET':
+        serializer = UserLikeSerializer(user)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = UserLikeSerializer(instance=user, data=request.data)
+        print(serializer)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            print(serializer)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 @api_view(['GET'])
