@@ -1,28 +1,36 @@
 <template>
   <div style="background-color: #bdfcfe">
     <!-- <NavBar /> -->
-    <div class="" style="background-color:white">
+    <div class="" style="background-color: white">
       <b-nav tabs justified>
         <b-nav-item active
-          ><router-link :to="{ name: 'HomeView' }" style="text-decoration: none; color: black;"
+          ><router-link
+            :to="{ name: 'HomeView' }"
+            style="text-decoration: none; color: black"
             >Home</router-link
           ></b-nav-item
         >
         <b-nav-item active
-          ><router-link :to="{ name: 'BookView' }" style="text-decoration: none; color: black;"
+          ><router-link
+            :to="{ name: 'BookView' }"
+            style="text-decoration: none; color: black"
             >Album</router-link
           ></b-nav-item
         >
         <b-nav-item active
-          ><router-link :to="{ name: 'InitialLogin' }" style="text-decoration: none; color: black;"
+          ><router-link
+            :to="{ name: 'InitialLogin' }"
+            style="text-decoration: none; color: black"
             >Recommended</router-link
           ></b-nav-item
         >
         <b-nav-item v-if="isLogin" active>
-          <p style="text-decoration: none; color: black;" @click="userLogout">로그아웃</p>
+          <p style="text-decoration: none; color: black" @click="userLogout">
+            로그아웃
+          </p>
         </b-nav-item>
         <b-nav-item v-else>
-          <router-link :to="{ name:'LoginView' }">로그인</router-link>
+          <router-link :to="{ name: 'LoginView' }">로그인</router-link>
         </b-nav-item>
       </b-nav>
     </div>
@@ -52,7 +60,9 @@
               @click="searchResult"
               >검색</b-button
             >
-            <b-button class="m-2" variant="outline-secondary" @click="basicData">필터 초기화</b-button>
+            <b-button class="m-2" variant="outline-secondary" @click="basicData"
+              >필터 초기화</b-button
+            >
           </b-col>
           <!-- <b-col class="col-md-3 mx-auto">
           <img src="../assets/album.png" style="width:80px; height:96px;" alt="" @click="viewAlbum">
@@ -98,7 +108,7 @@ Vue.use(IconsPlugin);
 
 // API_URL = "http://127.0.0.1:8000/"
 const API_URL = "http://localhost:8000";
-const VUE_APP_TMDB = process.env.VUE_APP_TMDB
+const VUE_APP_TMDB = process.env.VUE_APP_TMDB;
 
 export default {
   name: "HomeView",
@@ -113,7 +123,7 @@ export default {
       // searchInput : axios 요청에 보낼 검색어
       searchInput: null,
       movies: [],
-      searchType: '',
+      searchType: "",
     };
   },
   created() {
@@ -125,9 +135,9 @@ export default {
   computed: {
     isLogin() {
       if (this.$store.token !== null) {
-        return true
+        return true;
       } else {
-        return false
+        return false;
       }
     },
   },
@@ -178,44 +188,44 @@ export default {
 
     // 검색 필터 결과 표시(TMDB에 검색 요청 전송)
     searchResult() {
-      console.log(this.searchType)
+      console.log(this.searchType);
       if (this.searchInput) {
-          axios ({
-          method: 'get',
-          url: `https://api.themoviedb.org/3/search/movie?api_key=${VUE_APP_TMDB}&query=${this.searchInput}&language=ko-KR&include_adult=false`
+        axios({
+          method: "get",
+          url: `https://api.themoviedb.org/3/search/movie?api_key=${VUE_APP_TMDB}&query=${this.searchInput}&language=ko-KR&include_adult=false`,
         })
-        .then((response) => {
-          const responseData = response.data.results
-          const payload = []
-          for (const mv of responseData) {
-            if ((mv.poster_path !== null) && (mv.adult === false)) {
-              const element = {
-                model: "movies.movie",
-                id: mv.id,
-                genre_ids: mv.genre_ids,
-                overview: mv.overview,
-                poster_path: mv.poster_path,
-                release_date: mv.release_date,
-                title: mv.title,
-                vote_average: mv.vote_average,
-                vote_count: mv.vote_count,
-              };
-              payload.push(element);
+          .then((response) => {
+            const responseData = response.data.results;
+            const payload = [];
+            for (const mv of responseData) {
+              if (mv.poster_path !== null && mv.adult === false) {
+                const element = {
+                  model: "movies.movie",
+                  id: mv.id,
+                  genre_ids: mv.genre_ids,
+                  overview: mv.overview,
+                  poster_path: mv.poster_path,
+                  release_date: mv.release_date,
+                  title: mv.title,
+                  vote_average: mv.vote_average,
+                  vote_count: mv.vote_count,
+                };
+                payload.push(element);
+              }
             }
-          }
-          // console.log(responseData)
-          if (payload.length === 0) {
-            alert('검색된 결과가 없습니다.')
-          } else {
-            this.$store.dispatch('basicData', payload)
-            this.movies = this.$store.state.movies
-          }
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+            // console.log(responseData)
+            if (payload.length === 0) {
+              alert("검색된 결과가 없습니다.");
+            } else {
+              this.$store.dispatch("basicData", payload);
+              this.movies = this.$store.state.movies;
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
-        alert('검색어를 입력하세요.')
+        alert("검색어를 입력하세요.");
       }
     },
 
@@ -230,7 +240,7 @@ export default {
       // console.log(token)
       axios({
         method: "get",
-        url: `${API_URL}/movies/genres/like/`,
+        url: `${API_URL}/movies/user/likes/`,
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -247,7 +257,7 @@ export default {
 
     // 로그아웃
     userLogout() {
-      this.$store.dispatch('userLogout')
+      this.$store.dispatch("userLogout");
     },
 
     // 사용자 앨범 정보 가져오기(데이터 초기화용)

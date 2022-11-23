@@ -69,7 +69,7 @@ ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/?verification=1'
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/?verification=1'
 
 SITE_ID = 1
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
 REST_FRAMEWORK = {
     # Authentication
@@ -104,7 +104,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:8080",]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8080",
+]
 
 # 허용할 다른 출처를 작성하는 곳
 CORS_ALLOWED_ORIGINS = [

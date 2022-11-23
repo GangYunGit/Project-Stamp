@@ -122,16 +122,27 @@ export default {
             const userActor = actorList.filter((actor) => {
               return actor.name === this.actorName;
             });
-            return [userGenre[0].id, userActor[0].id];
+            return [userGenre, userActor];
           })
         )
         .then((response) => {
           console.log(this.$store.state.user_pk);
           console.log(response);
           const userGenre = response[0];
+          if (userGenre.length !== 0) {
+            this.$store.state.like_genres.push(userGenre[0].id);
+          }
           const userActor = response[1];
-          this.$store.state.like_genres.push(userGenre);
-          this.$store.state.like_actors.push(userActor);
+          if (userActor.length !== 0) {
+            this.$store.state.like_actors.push(userActor[0].id);
+          }
+          if (
+            this.$store.state.like_genres.length == 0 &&
+            this.$store.state.like_actors.length == 0
+          ) {
+            alert("장르나 배우 중 한 가지를 선택해주세요!");
+            return;
+          }
           axios({
             method: "put",
             url: `${API_URL}/movies/user/likes/`,

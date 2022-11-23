@@ -31,15 +31,6 @@ class GenreLikeUserSerializer(serializers.ModelSerializer):
         read_only_fields = ('id',)
 
 
-class ActorListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Actor
-        fields = (
-            'id',
-            'name',
-        )
-
-
 class ActorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Actor
@@ -57,14 +48,6 @@ class ActorLikeUserSerializer(serializers.ModelSerializer):
             'like_actors',
         )
         read_only_fields = ('id',)
-
-
-class InfoSerializer(serializers.ModelSerializer):
-    genre = GenreSerializer
-    actor = ActorListSerializer
-
-    class Meta:
-        model = Movie
 
 
 class UserLikeSerializer(serializers.ModelSerializer):

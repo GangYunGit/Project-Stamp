@@ -11,12 +11,10 @@ from .serialzers import (
     MovieListSerializer,
     MovieSerializer,
     GenreSerializer,
-    InfoSerializer,
-    GenreLikeUserSerializer,
-    UserLikeSerializer,
     ActorSerializer,
-    ActorLikeUserSerializer,
-    RecommendationSerializer,
+    # ActorLikeUserSerializer,
+    # GenreLikeUserSerializer,
+    UserLikeSerializer,
 )
 from .models import Movie, Genre, Actor
 
@@ -49,87 +47,38 @@ def actor_list(request):
     return Response(serializer.data)
 
 
-@api_view(['GET'])
-def info_list(request):
-    pass
+# @api_view(['GET', 'PUT'])
+# @permission_classes([IsAuthenticated])
+# def like_genre(request):
+#     user = request.user
+#     if request.method == 'GET':
+#         serializer = GenreLikeUserSerializer(user)
+#         return Response(serializer.data)
+
+#     elif request.method == 'PUT':
+#         serializer = GenreLikeUserSerializer(instance=user, data=request.data)
+#         print(serializer)
+#         if serializer.is_valid(raise_exception=True):
+#             serializer.save()
+#             print(serializer)
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-# def genre_index(request):
-#     genres = Genre.objects.all()
-#     context = {
-#         'genres': genres,
-#     }
-#     return render(request, 'movies/genre_index.html', context)
+# @api_view(['GET', 'PUT'])
+# @permission_classes([IsAuthenticated])
+# def like_actor(request):
+#     user = request.user
+#     if request.method == 'GET':
+#         serializer = ActorLikeUserSerializer(user)
+#         return Response(serializer.data)
 
-
-@api_view(['GET', 'PUT'])
-@permission_classes([IsAuthenticated])
-def like_genre(request):
-    # if request.user.is_authenticated:
-    # genre = get_object_or_404(Genre)
-    # if genre.like_users.filter(pk=request.user.pk).exists():
-    #     genre.like_users.remove(request.user)
-    # else:
-    #     genre.like_users.add(request.user)
-    user = request.user
-    if request.method == 'GET':
-        serializer = GenreLikeUserSerializer(user)
-        return Response(serializer.data)
-
-    elif request.method == 'PUT':
-        serializer = GenreLikeUserSerializer(instance=user, data=request.data)
-        print(serializer)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            print(serializer)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    # return redirect('accounts:login')
-
-
-@api_view(['GET', 'PUT'])
-@permission_classes([IsAuthenticated])
-def like_actor(request):
-    user = request.user
-    if request.method == 'GET':
-        serializer = ActorLikeUserSerializer(user)
-        return Response(serializer.data)
-
-    elif request.method == 'PUT':
-        serializer = ActorLikeUserSerializer(instance=user, data=request.data)
-        print(serializer)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            print(serializer)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
-def like_movie(request, movie_pk):
-    # if request.user.is_authenticated:
-    movie = Movie.objects.get(pk=movie_pk)
-
-    if movie.like_users.filter(pk=request.user.pk).exists():
-        movie.like_users.remove(request.user)
-        is_liked = False
-    else:
-        movie.like_users.add(request.user)
-        is_liked = True
-    context = {
-        'is_liked': is_liked,
-    }
-    return JsonResponse(context)
-    # return redirect('accounts:login')
-
-
-# def user_likes(request):
-#     genres = Genre.objects.all()
-#     movies = Movie.objects.all()
-#     actors = Actor.objects.all()
-#     context = {
-#         'genres': genres,
-#         'movies': movies,
-#         'actors': actors,
-#     }
-#     return render(request, 'movies/user_likes.html', context)
+#     elif request.method == 'PUT':
+#         serializer = ActorLikeUserSerializer(instance=user, data=request.data)
+#         print(serializer)
+#         if serializer.is_valid(raise_exception=True):
+#             serializer.save()
+#             print(serializer)
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 @api_view(['GET', 'PUT'])
@@ -150,6 +99,7 @@ def user_likes(request):
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def recommendation(request, user_pk):
     genres = Genre.objects.filter(like_users=user_pk)
     actors = Actor.objects.filter(like_users=user_pk)
