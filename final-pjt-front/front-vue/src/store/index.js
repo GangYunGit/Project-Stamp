@@ -34,12 +34,11 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    // 회원가입 시 출력할 화면
-    INITIAL_LOGIN(state, token) {
-      state.token = token
-      // console.log(token)
-      router.push({ name: 'InitialLogin' })
-    },
+    // // 회원가입 시 출력할 화면
+    // INITIAL_LOGIN(state, token) {
+    //   state.token = token
+    //   router.push({ name: 'InitialLogin' })
+    // },
     // 로그인 시 토큰(인증 정보) 저장
     SAVE_TOKEN(state, token) {
       state.token = token
@@ -101,7 +100,7 @@ export default new Vuex.Store({
         },
       })
         .then((response) => {
-          context.commit('INITIAL_LOGIN', response.data.key)
+          context.commit('SAVE_TOKEN', response.data.key)
         })
         .catch((error) => {
           console.log(error)
@@ -240,7 +239,7 @@ export default new Vuex.Store({
         // console.log(response.data)
         const payload = [];
         const resSrc = response.data
-        console.log(resSrc)
+        // console.log(resSrc)
         for (const mv of resSrc) {
           const element = {
             id: mv.id,

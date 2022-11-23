@@ -24,7 +24,6 @@
           </b-card-text>
         </b-card>
         <b-button pill variant="#667eea" class="m-2 gradient-custom" @click="addToAlbum">앨범에 추가하기</b-button>
-        <b-button @click="goBack" pill variant="outline-warning" class="m-2">뒤로</b-button>
         <b-button pill variant="outline-secondary" class="m-2" @click="getAnother">다른 영화 보기</b-button>
       </div>
     </div>

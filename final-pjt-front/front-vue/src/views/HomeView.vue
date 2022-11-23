@@ -1,7 +1,7 @@
 <template>
   <div style="background-color: #bdfcfe">
     <!-- <NavBar /> -->
-    <div style="">
+    <div class="p-2" style="background-color:white">
       <b-nav tabs justified>
         <b-nav-item active
           ><router-link :to="{ name: 'HomeView' }" style="text-decoration: none; color: black;"
@@ -19,7 +19,7 @@
           ></b-nav-item
         >
         <b-nav-item v-if="isLogin" active>
-          <router-link :to="{ name:'AccountEdit' }" style="text-decoration: none; color: black;">회원정보</router-link>
+          <p style="text-decoration: none; color: black;" @click="userLogout">로그아웃</p>
         </b-nav-item>
         <b-nav-item v-else>
           <router-link :to="{ name:'LoginView' }">로그인</router-link>
@@ -32,17 +32,20 @@
         <HeaderView />
         <hr />
         <b-row>
-          <b-col align-self="baseline" class="col-md-9 mx-auto">
-            <h3>어떤 작품을 찾으시나요?</h3>
-            <b-form-textarea
-              id="textarea-default"
+          <h3>어떤 작품을 찾으시나요?</h3>
+          <b-col align-self="baseline" class="col-md-8 mx-auto">
+            <!-- <select name="selectType" v-model="searchType" id="">
+              <option value="title" selected  >제목으로 검색</option>
+              <option value="genre">장르로 검색</option>
+            </select> -->
+            <b-form-input
               placeholder="제목으로 찾기"
               @keyup.enter="searchResult"
               v-model.trim="searchInput"
               class="m-1"
               size="sm"
             >
-            </b-form-textarea>
+            </b-form-input>
             <b-button
               class="m-2"
               variant="outline-primary"
@@ -109,7 +112,6 @@ export default {
   components: {
     HeaderView,
     MovieListView,
-    // NavBar,
   },
   data() {
     return {
@@ -118,6 +120,7 @@ export default {
       // searchInput : axios 요청에 보낼 검색어
       searchInput: null,
       movies: [],
+      searchType: '',
     };
   },
   created() {
@@ -181,6 +184,7 @@ export default {
 
     // 검색 필터 결과 표시(TMDB에 검색 요청 전송)
     searchResult() {
+      console.log(this.searchType)
       if (this.searchInput) {
           axios ({
           method: 'get',
@@ -188,11 +192,28 @@ export default {
         })
         .then((response) => {
           const responseData = response.data.results
+          const payload = []
+          for (const mv of responseData) {
+            if ((mv.poster_path !== null) && (mv.adult === false)) {
+              const element = {
+                model: "movies.movie",
+                id: mv.id,
+                genre_ids: mv.genre_ids,
+                overview: mv.overview,
+                poster_path: mv.poster_path,
+                release_date: mv.release_date,
+                title: mv.title,
+                vote_average: mv.vote_average,
+                vote_count: mv.vote_count,
+              };
+              payload.push(element);
+            }
+          }
           // console.log(responseData)
-          if (responseData.length === 0) {
+          if (payload.length === 0) {
             alert('검색된 결과가 없습니다.')
           } else {
-            this.$store.dispatch('basicData', responseData)
+            this.$store.dispatch('basicData', payload)
             this.movies = this.$store.state.movies
           }
         })
@@ -228,6 +249,9 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    userLogout() {
+      this.$store.dispatch('userLogout')
     },
   },
 };

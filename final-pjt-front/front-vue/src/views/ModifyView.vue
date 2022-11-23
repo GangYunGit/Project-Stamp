@@ -80,9 +80,13 @@ export default {
             }
         },
         oldReview() {
-            const albumId = this.$route.params.pk
-            console.log(albumId)
-            this.newReview = this.$store.state.albums[albumId-1].review
+            const albumContent = this.$store.state.albums.filter(album => {
+            if (album.id === this.$route.params.pk) {
+              return album
+            }
+          })
+            console.log(albumContent)
+            this.newReview = albumContent[0].review
         },
     },
 }

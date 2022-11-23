@@ -17,7 +17,7 @@
       <template #footer>
         <small class="text-muted"></small>
       </template>
-      <router-link :to="{ name: 'ModifyView', params: { pk: album.id }}"><b-button variant="primary">후기 수정하기</b-button></router-link>
+      <router-link :to="{ name: 'ModifyView', params: { pk: album.id }}"><b-button variant="outline-primary">후기 수정하기</b-button></router-link>
     </b-card>
   </div>
 </template>
