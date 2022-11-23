@@ -34,12 +34,11 @@
         <b-row>
           <b-col align-self="baseline" class="col-md-9 mx-auto">
             <h3>어떤 작품을 찾으시나요?</h3>
-            <input
-              type="text"
-              @keyup.enter="searchResult"
-              v-model.trim="searchInput"
-              class="m-1"
-            />
+            <b-form-textarea
+              id="textarea-default"
+              placeholder="제목으로 찾기"
+            >
+            </b-form-textarea>
             <b-button
               class="m-2"
               variant="outline-primary"
@@ -51,7 +50,7 @@
             >
             <router-link :to="{ name: 'InitialLogin' }"
               ><b-button class="m-2" variant="outline-danger"
-                >영화 추천 받기</b-button
+                >기타 필터</b-button
               ></router-link
             >
           </b-col>

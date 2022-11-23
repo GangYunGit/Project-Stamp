@@ -11,15 +11,15 @@ class Genre(models.Model):
 
 
 class Movie(models.Model):
-    genre_ids = models.ManyToManyField(Genre)
-    overview = models.TextField()
-    poster_path = models.TextField()
-    release_date = models.DateTimeField()
-    title = models.CharField(max_length=100)
-    vote_average = models.FloatField()
-    vote_count = models.IntegerField()
+    genre_ids = models.ManyToManyField(Genre, null=True)
+    overview = models.TextField(null=True)
+    poster_path = models.TextField(null=True)
+    release_date = models.DateTimeField(null=True)
+    title = models.CharField(null=True, max_length=100)
+    vote_average = models.FloatField(null=True)
+    vote_count = models.IntegerField(null=True)
     like_users = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, related_name='like_movies'
+        settings.AUTH_USER_MODEL, related_name='like_movies', null=True
     )
 
 

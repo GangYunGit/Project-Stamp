@@ -134,6 +134,6 @@ def users(request):
 @api_view(['GET'])
 def recommendation(request, user_pk):
     genres = Genre.objects.filter(like_users=user_pk)
-    movie = Movie.objects.distinct().filter(genre_ids__in=genres).order_by('?').first()
+    movie = Movie.objects.distinct().filter(genre_ids__in=genres).order_by('?')[:20]
     serializer = MovieSerializer(movie)
     return Response(serializer.data)

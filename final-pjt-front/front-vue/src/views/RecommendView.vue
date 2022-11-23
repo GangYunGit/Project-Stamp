@@ -83,11 +83,7 @@ export default {
       }
 
       const shuffle = this.$store.state.recommended
-      if (shuffle.length > 1) {
-        this.movie = _.sample(shuffle)
-      } else {
-        this.movie = shuffle
-      }
+      this.movie = _.sample(shuffle)
     },
 
     // 앨범에 이 영화를 추가

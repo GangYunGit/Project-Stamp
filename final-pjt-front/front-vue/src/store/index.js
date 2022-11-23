@@ -22,7 +22,7 @@ export default new Vuex.Store({
     ],
     token: null,
     user_pk: null,
-    like_genres: null,
+    like_genres: [],
     albums: [
     ],
     reviews: [
@@ -231,23 +231,28 @@ export default new Vuex.Store({
       const userToken = this.state.token
       axios({
         method: 'get',
-        url: `${API_URL}/movies/recommendation/${userPk}`,
+        url: `${API_URL}/movies/recommendation/${userPk}/`,
         headers: {
           Authorization: `Token ${userToken}`
         }
       })
       .then((response) => {
         // console.log(response.data)
+        const payload = [];
         const resSrc = response.data
-        const payload = {
-          id: resSrc.id,
-          overview: resSrc.overview,
-          title: resSrc.title,
-          vote_count: resSrc.vote_count,
-          vote_average: resSrc.vote_average,
-          poster_path: resSrc.poster_path,
-          release_date: resSrc.release_date
-        }
+        console.log(resSrc)
+        for (const mv of resSrc) {
+          const element = {
+            id: mv.id,
+            overview: mv.overview,
+            title: mv.title,
+            vote_count: mv.vote_count,
+            vote_average: mv.vote_average,
+            poster_path: mv.poster_path,
+            release_date: mv.release_date
+          } 
+          payload.push(element);
+        } 
         // console.log(payload)
         context.commit('RECOMMEND_SERIES', payload)
       })

@@ -121,7 +121,6 @@ export default {
           return userGenre[0].id;
         })
         .then((response) => {
-          // console.log(response);
           // if (response in this.$store.state.like_genres) {
           //   alert("이미 선택된 장르입니다.");
           // }
@@ -137,8 +136,8 @@ export default {
               like_genres: this.$store.state.like_genres,
             },
           })
-            .then(() => {
-              // console.log(response);
+            .then((response) => {
+              console.log(response);
               this.$store.dispatch('getRecommendByDjango')
               const movieId = this.$store.state.recommended.id
               this.$router.push({ name:'RecommendView', params: { id:`${movieId}` }})
