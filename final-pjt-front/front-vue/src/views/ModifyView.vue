@@ -70,8 +70,7 @@ export default {
                 //     Authorization: `Token ${this.$store.state.token}`
                 // },
             })
-            .then((response) => {
-                console.log(response)
+            .then(() => {
                 this.$router.push({ name: 'BookView' })
             })
             .catch((error) => {
@@ -85,7 +84,6 @@ export default {
               return album
             }
           })
-            console.log(albumContent)
             this.newReview = albumContent[0].review
         },
     },
