@@ -37,6 +37,10 @@
             <b-form-textarea
               id="textarea-default"
               placeholder="제목으로 찾기"
+              @keyup.enter="searchResult"
+              v-model.trim="searchInput"
+              class="m-1"
+              size="sm"
             >
             </b-form-textarea>
             <b-button
@@ -128,7 +132,7 @@ export default {
       } else {
         return false
       }
-    }
+    },
   },
   methods: {
     getAlbumData() {
