@@ -1,7 +1,7 @@
 <template>
   <div style="background-color: #bdfcfe">
     <!-- <NavBar /> -->
-    <div class="p-2" style="background-color:white">
+    <div class="" style="background-color:white">
       <b-nav tabs justified>
         <b-nav-item active
           ><router-link :to="{ name: 'HomeView' }" style="text-decoration: none; color: black;"
@@ -52,14 +52,7 @@
               @click="searchResult"
               >검색</b-button
             >
-            <b-button class="m-2" variant="outline-secondary" @click="basicData"
-              >필터 초기화</b-button
-            >
-            <router-link :to="{ name: 'InitialLogin' }"
-              ><b-button class="m-2" variant="outline-danger"
-                >기타 필터</b-button
-              ></router-link
-            >
+            <b-button class="m-2" variant="outline-secondary" @click="basicData">필터 초기화</b-button>
           </b-col>
           <!-- <b-col class="col-md-3 mx-auto">
           <img src="../assets/album.png" style="width:80px; height:96px;" alt="" @click="viewAlbum">

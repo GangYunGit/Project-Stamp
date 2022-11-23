@@ -40,7 +40,6 @@
             <b-form-input
               v-model="movieName"
               placeholder="추후 지원 예정"
-              disabled="True"
             ></b-form-input>
           </b-row>
           <b-row class="p-2">
@@ -55,7 +54,6 @@
             <b-form-input
               v-model="actorName"
               placeholder="추후 지원 예정"
-              disabled="True"
             ></b-form-input>
           </b-row>
         </b-col>

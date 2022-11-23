@@ -9,6 +9,7 @@ import InitialLogin from '../views/InitialLogin.vue'
 import RecommendView from '../views/RecommendView.vue'
 import ModifyView from '../views/ModifyView.vue'
 import AccountEdit from '../views/AccountEdit.vue'
+import NotFount404 from '../views/NotFound404.vue'
 import store from "../store/index.js"
 
 
@@ -70,6 +71,11 @@ const routes = [
     path: '/account',
     name: 'AccountEdit',
     component: AccountEdit,
+  },
+  {
+    path: '*',
+    redirect: '/error',
+    component: NotFount404,
   },
 ]
 

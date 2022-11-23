@@ -216,7 +216,6 @@ export default new Vuex.Store({
           };
           payload.push(element);
         }
-        
         context.commit('RECOMMEND_SERIES', payload)
       })
       .catch((error) => {
