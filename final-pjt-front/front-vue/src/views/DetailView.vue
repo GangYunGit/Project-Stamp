@@ -1,35 +1,33 @@
 <template>
-  <div style="background-color: #BDFCFE;">
+  <div style="background-color: #BDFCFE; height:fit-content">
     <div style="">
       <b-nav tabs justified>
-      <b-nav-item active><router-link :to="{ name: 'HomeView' }" style="text-decoration: none; color: black;">Home</router-link></b-nav-item>
-      <b-nav-item ><router-link :to="{ name:'BookView' }" style="text-decoration: none; color: black;">Album</router-link></b-nav-item>
-      <b-nav-item ><router-link :to="{ name:'InitialLogin' }" style="text-decoration: none; color: black;">Recommended</router-link></b-nav-item>
+      <b-nav-item ><router-link :to="{ name: 'HomeView' }" style="text-decoration: none; color: black;">Home</router-link></b-nav-item>
+      <b-nav-item active><router-link :to="{ name:'BookView' }" style="text-decoration: none; color: black;">Album</router-link></b-nav-item>
+      <b-nav-item active><router-link :to="{ name:'InitialLogin' }" style="text-decoration: none; color: black;">Recommended</router-link></b-nav-item>
       </b-nav>
     </div>
-  <div class='p-4' style="background-color:#BDFCFE;">
-    <div class="mx-auto mt-3 p-3 col-lg-6 col-md-8" style="background-color:#FBFEAB;">
-      <b-card
-      class="mb-2 rounded-3 mx-auto"
-      :title="movie?.title"
-      :img-src="`https://image.tmdb.org/t/p/original/${movie?.poster_path}`"
-      img-alt="Poster Image"
-      img-top
-      img-height="350"
-      img-width="240"
-      style="width: 26rem"
-    >
-      <b-card-text>
-        {{ movie?.overview }}
-      </b-card-text>
-    </b-card>
-    <b-button pill variant="#667eea" class="m-2 gradient-custom" @click="addToAlbum">앨범에 추가하기</b-button>
-  <router-link :to="{ name : 'HomeView' }"><b-button pill variant="outline-secondary" class="m-2">메인으로</b-button></router-link>
-  <router-link :to="{ name: 'RecommendView', params: { id:movie.id }}" class="m-2"><b-button pill variant="primary">영화 추천받기</b-button></router-link>
+    <div class='p-4' style="background-color:#BDFCFE;">
+      <div class="mx-auto mt-2 p-2 col-sm-8 col-lg-4 col-md-6" style="background-color:#FBFEAB;">
+        <b-card
+        class="mb-2 rounded-3 mx-auto"
+        :title="movie?.title"
+        :img-src="`https://image.tmdb.org/t/p/original/${movie?.poster_path}`"
+        img-alt="Poster Image"
+        img-top
+        img-height="60%"
+        img-width="60%"
+      >
+        <b-card-text>
+          {{ movie?.overview }}
+        </b-card-text>
+      </b-card>
+      <b-button pill variant="#667eea" class="m-2 gradient-custom" @click="addToAlbum">앨범에 추가하기</b-button>
+      <b-button pill variant="outline-secondary" class="m-2" @click="goBack">돌아가기</b-button>
+      <b-button class='m-2' pill variant="primary" @click="getRecommend">영화 추천받기</b-button>
+      </div>
+    </div>
   </div>
-  </div>
-  </div>
-
 </template>
 
 <script>
@@ -131,9 +129,16 @@ export default {
         })
       }
     },
-    // 추천 영화 조회(더미 데이터)
+    // 추천 영화 조회(TMDB)
     getRecommend() {
+      const movieId = this.$route.params.id
+      this.$store.dispatch('getRecommendByTMDB', movieId)
+      this.$router.push({ name:'RecommendView', params: { id:this.$route.params.id  }})
+    },
 
+    // 이전 페이지로 돌아가기
+    goBack() {
+      this.$router.go(-1)
     },
   },
 }

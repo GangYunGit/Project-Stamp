@@ -1,16 +1,9 @@
 <template>
   <div class="container position-relative">
-    <div class="text-center col-md-10">
+    <div class="text-center mx-auto col-md-8">
       <div v-if="isLogin">
         <b-row align-self="baseline">
-          <b-col class="col-md-9 p-2 mx-auto">
-            <h5>안녕하세요!</h5>
-            <b-button variant="light" @click="userLogout">로그아웃</b-button>
-          </b-col>
-          <b-col class="col-md-3 mx-auto">
-            <router-link :to="{ name:'AccountEdit' }"><img src="../assets/user.png" style="width:64px; height:64px;" alt=""></router-link>
-            <p>회원정보 수정</p>
-          </b-col>
+            <h5>{{ hello }}</h5>
         </b-row>
       </div>
       <div v-else>
@@ -28,6 +21,7 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import _ from 'lodash'
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
@@ -38,6 +32,13 @@ export default {
   name: 'HeaderView',
   data() {
     return {
+      hello: '',
+      randomHello: [
+        '감동적인 글귀를 기록해 두세요.',
+        '놀라웠던 장면을 알려주세요.',
+        '재미있고 행복한 남겨 보세요.',
+        '무서웠던 기억을 공유해 주세요.',
+      ]
     }
   },
   computed: {
@@ -46,9 +47,17 @@ export default {
       // return true
     }
   },
+  created() {
+    this.getRandomHello()
+  },
   methods: {
     userLogout() {
       this.$store.dispatch('userLogout')
+    },
+    getRandomHello() {
+      const msgSrc = this.randomHello
+      this.hello = _.sample(msgSrc)
+      // console.log(this.hello)
     }
   },
 }

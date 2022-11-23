@@ -8,7 +8,7 @@
       img-top
       img-height="420"
       img-width="240"
-      style="max-width: 24rem; object-fit: cover;"
+      style="max-width: 28rem; object-fit: cover;"
     >
     <br>
       <b-card-text style="font-family: Gill Sans, sans-serif; line-height: 140%;">
@@ -17,7 +17,7 @@
       <template #footer>
         <small class="text-muted"></small>
       </template>
-      <router-link :to="{ name: 'ModifyView', params: { pk: album.id }}"><b-button variant="primary">후기 수정하기</b-button></router-link>
+      <router-link :to="{ name: 'ModifyView', params: { pk: album.id }}"><b-button variant="outline-primary">후기 수정하기</b-button></router-link>
     </b-card>
   </div>
 </template>

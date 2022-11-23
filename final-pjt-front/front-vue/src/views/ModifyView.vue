@@ -11,11 +11,12 @@
       <div class="container justify-content-md-center p-4 col-md-6" style="background-color:#FBFEAB">
         <h2 class="p-1">후기 수정하기</h2>
         <br>
+        <p>영화를 보고 느낀 점을 남겨주세요.</p>
         <b-form-textarea
         id="textarea-small"
         size="sm"
         rows="6"
-        placeholder="후기는 100자 이내로 작성 가능합니다."
+        placeholder="후기는 100자를 초과할 수 없습니다."
         v-model="newReview"
       ></b-form-textarea>
         <!-- <textarea name="" id="" cols="30" rows="5" v-model="newReview"></textarea> -->
@@ -79,9 +80,13 @@ export default {
             }
         },
         oldReview() {
-            const albumId = this.$route.params.pk
-            console.log(albumId)
-            this.newReview = this.$store.state.albums[albumId-1].review
+            const albumContent = this.$store.state.albums.filter(album => {
+            if (album.id === this.$route.params.pk) {
+              return album
+            }
+          })
+            console.log(albumContent)
+            this.newReview = albumContent[0].review
         },
     },
 }

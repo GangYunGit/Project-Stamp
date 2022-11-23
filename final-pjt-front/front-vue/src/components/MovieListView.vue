@@ -57,7 +57,8 @@ export default {
           })
           payload = payload + genreName[0].name + ','
         }
-        this.genres = payload
+        const sortedPayload = payload.slice(0, payload.length-1)
+        this.genres = sortedPayload
       })
       .catch((error) => {
         console.log(error)
