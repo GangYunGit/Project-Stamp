@@ -23,10 +23,17 @@
             >Recommended</router-link
           ></b-nav-item
         >
+        <b-nav-item>
+          <router-link
+            :to="{ name: 'AccountEdit' }"
+            style="text-decoration: none; color: black"
+            >회원정보</router-link
+          >
+        </b-nav-item>
       </b-nav>
     </div>
     <div
-      class="container col-md-8 p-4 mt-5"
+      class="container col-md-8 col-lg-6 p-4 mt-5"
       style="background-color: #fbfeab; border-radius: 40px"
     >
       <div class="align-items-md-center">
@@ -37,7 +44,7 @@
             <label for="input-default" class="p-2">영화 제목</label>
             <b-form-input
               v-model="movieName"
-              placeholder="예) 기생충"
+              placeholder="추후 지원 예정"
             ></b-form-input>
           </b-row>
           <b-row class="p-2">
@@ -51,7 +58,7 @@
             <label for="input-default" class="p-2">배우명</label>
             <b-form-input
               v-model="actorName"
-              placeholder="예) 브래드 피트"
+              placeholder="추후 지원 예정"
             ></b-form-input>
           </b-row>
         </b-col>
@@ -146,7 +153,12 @@ export default {
           })
             .then((response) => {
               console.log(response);
-              this.$router.push({ name: "RecommendView" });
+              this.$store.dispatch("getRecommendByDjango");
+              const movieId = this.$store.state.recommended.id;
+              this.$router.push({
+                name: "RecommendView",
+                params: { id: `${movieId}` },
+              });
             })
             .catch((error) => {
               console.log(error);
