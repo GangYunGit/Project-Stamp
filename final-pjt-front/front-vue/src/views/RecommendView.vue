@@ -78,21 +78,23 @@ export default {
 
         // Django에서 작성한 DB fields에 알맞게 수정
         const payload = [];
-          for (const mv of resSrc) {
-            const element = {
-              model: "movies.movie",
-              id: mv.id,
-              genre_ids: mv.genre_ids,
-              overview: mv.overview,
-              poster_path: mv.poster_path,
-              release_date: mv.release_date,
-              title: mv.title,
-              vote_average: mv.vote_average,
-              vote_count: mv.vote_count,
-            };
-            payload.push(element);
-          }
-          this.movie = payload[0]
+        for (const mv of resSrc) {
+          const element = {
+            model: "movies.movie",
+            id: mv.id,
+            genre_ids: mv.genre_ids,
+            overview: mv.overview,
+            poster_path: mv.poster_path,
+            release_date: mv.release_date,
+            title: mv.title,
+            vote_average: mv.vote_average,
+            vote_count: mv.vote_count,
+          };
+          payload.push(element);
+        }
+        this.movie = payload[0]
+        // console.log(this.movie)
+        
         //resSrc는 store에 저장
         this.$store.commit('RECOMMEND_SERIES', payload)
       })

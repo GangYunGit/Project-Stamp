@@ -185,7 +185,7 @@ export default {
         })
         .then((response) => {
           const responseData = response.data.results
-          console.log(responseData)
+          // console.log(responseData)
           if (responseData.length === 0) {
             alert('검색된 결과가 없습니다.')
           } else {
