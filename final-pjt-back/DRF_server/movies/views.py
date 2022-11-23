@@ -5,6 +5,7 @@ from rest_framework import status
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.http import JsonResponse
+from django.db.models import Q
 
 from .serialzers import (
     MovieListSerializer,
@@ -13,6 +14,7 @@ from .serialzers import (
     GenreLikeUserSerializer,
     UserLikesSerializer,
     ActorListSerializer,
+    ActorLikeUserSerializer,
     RecommendationSerializer,
 )
 from .models import Movie, Genre, Actor
@@ -78,21 +80,21 @@ def like_genre(request):
     # return redirect('accounts:login')
 
 
-def like_actor(request, actor_pk):
-    # if request.user.is_authenticated:
-    actor = Actor.objects.get(pk=actor_pk)
+@api_view(['GET', 'PUT'])
+@permission_classes([IsAuthenticated])
+def like_actor(request):
+    user = request.user
+    if request.method == 'GET':
+        serializer = ActorLikeUserSerializer(user)
+        return Response(serializer.data)
 
-    if actor.like_users.filter(pk=request.user.pk).exists():
-        actor.like_users.remove(request.user)
-        is_liked = False
-    else:
-        actor.like_users.add(request.user)
-        is_liked = True
-    context = {
-        'is_liked': is_liked,
-    }
-    return JsonResponse(context)
-    # return redirect('accounts:login')
+    elif request.method == 'PUT':
+        serializer = ActorLikeUserSerializer(instance=user, data=request.data)
+        print(serializer)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            print(serializer)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 def like_movie(request, movie_pk):
@@ -134,6 +136,13 @@ def users(request):
 @api_view(['GET'])
 def recommendation(request, user_pk):
     genres = Genre.objects.filter(like_users=user_pk)
-    movie = Movie.objects.distinct().filter(genre_ids__in=genres).order_by('?').first()
-    serializer = MovieSerializer(movie)
+    actors = Actor.objects.filter(like_users=user_pk)
+    print(genres)
+    print(actors)
+    movie = (
+        Movie.objects.distinct()
+        .filter(Q(genre_ids__in=genres) | Q(actor__in=actors))
+        .order_by('?')[:20]
+    )
+    serializer = MovieSerializer(movie, many=True)
     return Response(serializer.data)

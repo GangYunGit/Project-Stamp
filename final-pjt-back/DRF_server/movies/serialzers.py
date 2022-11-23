@@ -18,10 +18,7 @@ class MovieSerializer(serializers.ModelSerializer):
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
-        fields = (
-            'id',
-            'name',
-        )
+        fields = ('id', 'name', 'like_users')
 
 
 class GenreLikeUserSerializer(serializers.ModelSerializer):
@@ -44,6 +41,16 @@ class ActorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Actor
         fields = ('name', 'profile_path')
+
+
+class ActorLikeUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = (
+            'id',
+            'like_actors',
+        )
+        read_only_fields = ('id',)
 
 
 class UserLikesSerializer(serializers.ModelSerializer):
