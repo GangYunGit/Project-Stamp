@@ -5,27 +5,27 @@
       <b-nav-item ><router-link :to="{ name: 'HomeView' }" style="text-decoration: none; color: black;">Home</router-link></b-nav-item>
       <b-nav-item ><router-link :to="{ name:'BookView' }" style="text-decoration: none; color: black;">Album</router-link></b-nav-item>
       <b-nav-item active><router-link :to="{ name:'InitialLogin' }" style="text-decoration: none; color: black;">Recommended</router-link></b-nav-item>
+
       </b-nav>
     </div>
     <div class="p-4" style="background-color:#BDFCFE;">
-      <div class="mx-auto mt-3 p-3 col-lg-6 col-md-8" style="background-color:#FBFEAB">
+      <div class="mx-auto mt-3 p-3 col-sm-8 col-lg-4 col-md-6" style="background-color:#FBFEAB">
         <b-card
-          class="mb-2 rounded-3 mx-auto m-3 p-3"
+          class="mb-2 rounded-3 mx-auto m-2 p-2"
           :title="movie.title"
           :img-src="`https://image.tmdb.org/t/p/original/${movie.poster_path}`"
           img-alt="Poster Image"
           img-top
-          img-height="350"
-          img-width="240"
-          style="width: 26rem"
+          img-height="60%"
+          img-width="60%"
         >
           <b-card-text>
             {{ movie.overview }}
           </b-card-text>
         </b-card>
         <b-button pill variant="#667eea" class="m-2 gradient-custom" @click="addToAlbum">앨범에 추가하기</b-button>
-        <b-button pill variant="outline-secondary" class="m-2" @click="getAnother">다른 영화 보기</b-button>
         <b-button @click="goBack" pill variant="outline-warning" class="m-2">뒤로</b-button>
+        <b-button pill variant="outline-secondary" class="m-2" @click="getAnother">다른 영화 보기</b-button>
       </div>
     </div>
   </div>

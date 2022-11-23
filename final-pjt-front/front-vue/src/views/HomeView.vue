@@ -18,6 +18,12 @@
             >Recommended</router-link
           ></b-nav-item
         >
+        <b-nav-item v-if="isLogin" active>
+          <router-link :to="{ name:'AccountEdit' }" style="text-decoration: none; color: black;">회원정보</router-link>
+        </b-nav-item>
+        <b-nav-item v-else>
+          <router-link :to="{ name:'LoginView' }">로그인</router-link>
+        </b-nav-item>
       </b-nav>
     </div>
     <br />
@@ -116,7 +122,15 @@ export default {
     this.basicData();
     this.userData();
   },
-  computed: {},
+  computed: {
+    isLogin() {
+      if (this.$store.token !== null) {
+        return true
+      } else {
+        return false
+      }
+    }
+  },
   methods: {
     getAlbumData() {
       this.$store.dispatch("getAlbumData");
@@ -172,8 +186,12 @@ export default {
         .then((response) => {
           const responseData = response.data.results
           console.log(responseData)
-          this.$store.dispatch('basicData', responseData)
-          this.movies = this.$store.state.movies
+          if (responseData.length === 0) {
+            alert('검색된 결과가 없습니다.')
+          } else {
+            this.$store.dispatch('basicData', responseData)
+            this.movies = this.$store.state.movies
+          }
         })
         .catch((error) => {
           console.log(error)

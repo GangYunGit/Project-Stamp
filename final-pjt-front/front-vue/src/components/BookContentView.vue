@@ -8,7 +8,7 @@
       img-top
       img-height="420"
       img-width="240"
-      style="max-width: 24rem; object-fit: cover;"
+      style="max-width: 28rem; object-fit: cover;"
     >
     <br>
       <b-card-text style="font-family: Gill Sans, sans-serif; line-height: 140%;">

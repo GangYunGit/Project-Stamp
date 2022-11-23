@@ -38,6 +38,8 @@ export default {
   name: 'HeaderView',
   data() {
     return {
+      randomHello: [
+      ]
     }
   },
   computed: {

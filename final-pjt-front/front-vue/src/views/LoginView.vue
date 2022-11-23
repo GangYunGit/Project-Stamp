@@ -2,9 +2,9 @@
 <section class="vh-100">
     <div style="">
       <b-nav tabs justified>
-      <b-nav-item ><router-link :to="{ name: 'HomeView' }">Home</router-link></b-nav-item>
-      <b-nav-item ><router-link :to="{ name:'BookView' }">Album</router-link></b-nav-item>
-      <b-nav-item ><router-link :to="{ name:'InitialLogin' }">Recommend</router-link></b-nav-item>
+      <b-nav-item ><router-link :to="{ name: 'HomeView' }" style="text-decoration: none;">Home</router-link></b-nav-item>
+      <b-nav-item ><router-link :to="{ name:'BookView' }" style="text-decoration: none;">Album</router-link></b-nav-item>
+      <b-nav-item ><router-link :to="{ name:'InitialLogin' }" style="text-decoration: none;">Recommend</router-link></b-nav-item>
       </b-nav>
     </div>
   <div class="mx-auto m-3 col-md-6 rounded-3" style="background-color:#FBFEAB;">

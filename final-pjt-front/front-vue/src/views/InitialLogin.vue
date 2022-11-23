@@ -20,6 +20,11 @@
             >Recommended</router-link
           ></b-nav-item
         >
+        <b-nav-item>
+          <router-link :to="{ name:'AccountEdit' }"
+          style="text-decoration: none; color: black;"
+          >회원정보</router-link>
+        </b-nav-item>
       </b-nav>
     </div>
     <div

@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #BDFCFE;">
+  <div style="background-color: #BDFCFE; height:fit-content">
     <div style="">
       <b-nav tabs justified>
       <b-nav-item active><router-link :to="{ name: 'HomeView' }" style="text-decoration: none; color: black;">Home</router-link></b-nav-item>
@@ -8,16 +8,15 @@
       </b-nav>
     </div>
   <div class='p-4' style="background-color:#BDFCFE;">
-    <div class="mx-auto mt-3 p-3 col-lg-6 col-md-8" style="background-color:#FBFEAB;">
+    <div class="mx-auto mt-2 p-2 col-sm-8 col-lg-4 col-md-6" style="background-color:#FBFEAB;">
       <b-card
       class="mb-2 rounded-3 mx-auto"
       :title="movie?.title"
       :img-src="`https://image.tmdb.org/t/p/original/${movie?.poster_path}`"
       img-alt="Poster Image"
       img-top
-      img-height="350"
-      img-width="240"
-      style="width: 26rem"
+      img-height="60%"
+      img-width="60%"
     >
       <b-card-text>
         {{ movie?.overview }}
