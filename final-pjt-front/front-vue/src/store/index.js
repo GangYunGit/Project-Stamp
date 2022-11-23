@@ -63,6 +63,7 @@ export default new Vuex.Store({
       // console.log(user_data)
       state.user_pk = user_data.id
       state.like_genres = user_data.like_genres
+      state.like_actors = user_data.like_actors
     },
 
     // 현재 접속한 사용자에 맞게 앨범 데이터 필터링
@@ -207,17 +208,17 @@ export default new Vuex.Store({
           for (const mv of resSrc) {
             if ((mv.poster_path !== null) && (mv.adult === false)) {
               const element = {
-              model: "movies.movie",
-              id: mv.id,
-              genre_ids: mv.genre_ids,
-              overview: mv.overview,
-              poster_path: mv.poster_path,
-              release_date: mv.release_date,
-              title: mv.title,
-              vote_average: mv.vote_average,
-              vote_count: mv.vote_count,
-            };
-            payload.push(element);
+                model: "movies.movie",
+                id: mv.id,
+                genre_ids: mv.genre_ids,
+                overview: mv.overview,
+                poster_path: mv.poster_path,
+                release_date: mv.release_date,
+                title: mv.title,
+                vote_average: mv.vote_average,
+                vote_count: mv.vote_count,
+              };
+              payload.push(element);
             }
           }
           context.commit('RECOMMEND_SERIES', payload)
