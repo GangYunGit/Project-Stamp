@@ -54,7 +54,7 @@ def actor_list(request):
 #     return render(request, 'movies/genre_index.html', context)
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'PUT'])
 @permission_classes([IsAuthenticated])
 def like_genre(request):
     # if request.user.is_authenticated:
@@ -63,14 +63,14 @@ def like_genre(request):
     #     genre.like_users.remove(request.user)
     # else:
     #     genre.like_users.add(request.user)
+    user = request.user
     if request.method == 'GET':
-        user = request.user
         serializer = GenreLikeUserSerializer(user)
         return Response(serializer.data)
 
-    elif request.method == 'POST':
-        serializer = GenreLikeUserSerializer(data=request.data)
-        # print(serializer)
+    elif request.method == 'PUT':
+        serializer = GenreLikeUserSerializer(instance=user, data=request.data)
+        print(serializer)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             print(serializer)
