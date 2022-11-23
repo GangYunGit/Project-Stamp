@@ -41,13 +41,6 @@
         <br />
         <b-col class="col-7 mx-auto">
           <b-row class="p-2">
-            <label for="input-default" class="p-2">영화 제목</label>
-            <b-form-input
-              v-model="movieName"
-              placeholder="추후 지원 예정"
-            ></b-form-input>
-          </b-row>
-          <b-row class="p-2">
             <label for="input-default" class="p-2">장르명</label>
             <b-form-input
               v-model="genreName"
@@ -58,7 +51,7 @@
             <label for="input-default" class="p-2">배우명</label>
             <b-form-input
               v-model="actorName"
-              placeholder="추후 지원 예정"
+              placeholder="예) 브래드 피트"
             ></b-form-input>
           </b-row>
         </b-col>

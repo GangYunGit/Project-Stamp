@@ -105,6 +105,7 @@ export default new Vuex.Store({
         })
         .catch((error) => {
           console.log(error)
+          alert('이미 등록된 사용자입니다.')
         })
     },
     // 사용자 로그인
@@ -204,7 +205,8 @@ export default new Vuex.Store({
           // Django에서 작성한 DB fields에 알맞게 수정
           const payload = [];
           for (const mv of resSrc) {
-            const element = {
+            if ((mv.poster_path !== null) && (mv.adult === false)) {
+              const element = {
               model: "movies.movie",
               id: mv.id,
               genre_ids: mv.genre_ids,
@@ -216,6 +218,7 @@ export default new Vuex.Store({
               vote_count: mv.vote_count,
             };
             payload.push(element);
+            }
           }
           context.commit('RECOMMEND_SERIES', payload)
         })
