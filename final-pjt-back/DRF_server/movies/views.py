@@ -103,8 +103,8 @@ def user_likes(request):
 def recommendation(request, user_pk):
     genres = Genre.objects.filter(like_users=user_pk)
     actors = Actor.objects.filter(like_users=user_pk)
-    print(genres)
-    print(actors)
+    print(len(genres))
+    print(len(actors))
     movie = (
         Movie.objects.distinct()
         .filter(Q(genre_ids__in=genres) | Q(actor__in=actors))
