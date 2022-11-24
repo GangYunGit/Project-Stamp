@@ -23,13 +23,6 @@
             >Recommended</router-link
           ></b-nav-item
         >
-        <b-nav-item>
-          <router-link
-            :to="{ name: 'AccountEdit' }"
-            style="text-decoration: none; color: black"
-            >회원정보</router-link
-          >
-        </b-nav-item>
       </b-nav>
     </div>
     <div
@@ -125,8 +118,8 @@ export default {
         ])
         .then(
           axios.spread((genreResponse, actorResponse) => {
-            this.genreList.push(genreResponse.data);
-            this.actorList.push(actorResponse.data);
+          this.genreList.push(genreResponse.data);
+          this.actorList.push(actorResponse.data);
         }))
         .catch((error) => {
           console.log(error)
