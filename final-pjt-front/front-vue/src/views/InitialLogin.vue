@@ -37,7 +37,7 @@
             <span>
               <!-- <label for="input-default" class="p-2">장르명</label> -->
               <h5 class="p-2">장르명</h5>
-              <b-button 
+              <b-button
                 variant="warning"
                 v-for="genre_id in userLikeGenreData"
                 :key="genre_id"
@@ -227,7 +227,7 @@ export default {
       const userActor = this.$store.state.like_actors;
       if (userGenre.length === 0 && userActor.length === 0) {
         alert(
-          "장르명이나 배우명 중 하나는 입력해야 합니다.\n유효한 장르명을 입력하고 Enter를 눌러주세요."
+          "장르명이나 배우명 중 하나는 입력해야 합니다.\n유효한 장르명, 또는 배우명을 입력하고 Enter를 눌러 추가하세요."
         );
         return;
       } else {
