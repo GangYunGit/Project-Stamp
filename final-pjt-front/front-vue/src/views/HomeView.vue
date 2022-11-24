@@ -130,6 +130,7 @@ export default {
     // 페이지 초기화 시 작동
     this.basicData();
     this.userData();
+    this.getAlbumData();
   },
   computed: {
     isLogin() {
@@ -253,9 +254,13 @@ export default {
           console.log(error);
         });
     },
+
+    // 로그아웃
     userLogout() {
       this.$store.dispatch("userLogout");
     },
+
+    // 사용자 앨범 정보 가져오기(데이터 초기화용)
   },
 };
 </script>

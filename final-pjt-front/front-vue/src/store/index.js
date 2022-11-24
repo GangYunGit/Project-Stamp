@@ -85,6 +85,8 @@ export default new Vuex.Store({
     // 추천 영화 목록 저장
     RECOMMEND_SERIES(state, dataSrc) {
       state.recommended = dataSrc
+      this.like_genres = []
+      this.like_actors = []
       // console.log(state.recommended)
     }
   },
