@@ -49,13 +49,20 @@
         </form>
       </div>
     </div>
+    <br>
+    <FooterView />
   </div>
 </section>
 </template>
 
 <script>
+import FooterView from "@/components/FooterView.vue"
+
 export default {
   name: 'LoginView',
+  components: {
+    FooterView,
+  },
   data() {
     return {
       userEmail: null,
