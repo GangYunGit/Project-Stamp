@@ -55,9 +55,9 @@ export default {
               return genreInfo.name
             }
           })
-          payload = payload + genreName[0].name + ','
+          payload = payload + genreName[0].name + ', '
         }
-        const sortedPayload = payload.slice(0, payload.length-1)
+        const sortedPayload = payload.slice(0, payload.length-2)
         this.genres = sortedPayload
       })
       .catch((error) => {

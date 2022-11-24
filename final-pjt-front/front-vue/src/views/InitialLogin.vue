@@ -37,13 +37,15 @@
             <span>
               <!-- <label for="input-default" class="p-2">장르명</label> -->
               <h5 class="p-2">장르명</h5>
-              <button
+              <b-button 
+                variant="warning"
                 v-for="genre_id in userLikeGenreData"
                 :key="genre_id"
+                class="m-1 mb-2"
                 @click="deleteLikeGenre(genre_id)"
               >
                 {{ getGenreName(genre_id) }} x
-              </button>
+              </b-button>
             </span>
             <b-form-input
               v-model="genreName"
@@ -55,13 +57,15 @@
             <!-- <label for="input-default" class="p-2">배우명</label> -->
             <h5 class="p-2">배우명</h5>
             <span>
-              <button
+              <b-button
+                variant="warning"
+                class="m-1 mb-2"
                 v-for="actor_id in userLikeActorData"
                 :key="actor_id"
                 @click="deleteLikeActor(actor_id)"
               >
                 {{ getActorName(actor_id) }} x
-              </button>
+              </b-button>
             </span>
             <b-form-input
               v-model="actorName"
