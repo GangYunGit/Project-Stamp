@@ -10,7 +10,7 @@
   <div class="p-4" style="background-color: #BDFCFE; height:140%;">
     <h1 class="">앨범</h1>
     <turn 
-      class="container wrapper mx-auto rounded-3" 
+      class="wrapper mx-auto rounded-3" 
       style="background-color:brown; width:100%; height: 700px; line-height: 75%;"
       >
       <BookContentView 
@@ -86,11 +86,11 @@ export default {
     //   this.reviewList = filtered
     // },
   },
-  created() {
+  mounted() {
     this.getAlbumData()
   },
-  mounted() {
-    // this.testMethod()
+  created() {
+    this.getAlbumData()
   },
 };
 </script>

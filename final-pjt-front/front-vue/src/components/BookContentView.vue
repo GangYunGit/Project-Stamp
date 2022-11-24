@@ -1,7 +1,7 @@
 <template>
   <div style="background-color:#FBFEAB">
       <b-card
-      class="mx-auto m-4"
+      class="mx-auto mt-4"
       :title="album.movie_title"
       :img-src="`https://image.tmdb.org/t/p/original/${album.movie_poster_path}`"
       img-alt="Poster Image"
