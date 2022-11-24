@@ -80,16 +80,11 @@
         <MovieListView v-for="movie in movies" :key="movie.id" :movie="movie" />
       </b-row>
     </div>
+    <FooterView />
   </div>
 </template>
 
 <script>
-// Vue 캐러셀 코드(더미 데이터)
-// import VueCarousel from 'vue-carousel';
-// Vue.use(VueCarousel);
-
-// bootstrap, axios 관련 라이브러리
-// @ is an alias to /src
 import Vue from "vue";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 
@@ -99,14 +94,13 @@ import axios from "axios";
 
 import HeaderView from "@/components/HeaderView";
 import MovieListView from "@/components/MovieListView.vue";
-// import NavBar from '@/components/NavBar.vue'
+import FooterView from "@/components/FooterView.vue"
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue);
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin);
 
-// API_URL = "http://127.0.0.1:8000/"
 const API_URL = "http://localhost:8000";
 const VUE_APP_TMDB = process.env.VUE_APP_TMDB;
 
@@ -115,6 +109,7 @@ export default {
   components: {
     HeaderView,
     MovieListView,
+    FooterView,
   },
   data() {
     return {

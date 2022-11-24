@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #bdfcfe; height: 800px">
+  <div style="background-color: #bdfcfe; height: 100%">
     <div style="">
       <b-nav tabs justified>
         <b-nav-item
@@ -70,6 +70,9 @@
         </b-row>
       </div>
     </div>
+    <br>
+    <br>
+    <FooterView />
   </div>
 </template>
 
@@ -77,6 +80,7 @@
 import Vue from "vue";
 import VueCarousel from "vue-carousel";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+import FooterView from "@/components/FooterView.vue"
 
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -97,6 +101,9 @@ const API_URL = "http://localhost:8000";
 
 export default {
   name: "InitialLogin",
+  components: {
+    FooterView,
+  },
   data() {
     return {
       genreList: [],

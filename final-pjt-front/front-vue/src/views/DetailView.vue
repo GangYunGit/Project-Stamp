@@ -15,10 +15,15 @@
         :img-src="`https://image.tmdb.org/t/p/original/${movie?.poster_path}`"
         img-alt="Poster Image"
         img-top
-        img-height="60%"
+        img-height="650px"
+        style="height: 50%"
         img-width="60%"
       >
         <b-card-text>
+          <p>{{ genres }}</p>
+          <b-icon icon="star" class="border-warning"></b-icon>
+          {{ movie.vote_average }}
+          <br>
           {{ movie?.overview }}
         </b-card-text>
       </b-card>
@@ -53,10 +58,12 @@ export default {
   data() {
     return {
       movie: this.$store.state.temp,
+      genres: '',
     }
   },
   created() {
     this.getMovieDetail()
+    this.getGenreList()
     // console.log(this.movie)
   },
   updated() {
@@ -133,13 +140,38 @@ export default {
     getRecommend() {
       const movieId = this.$route.params.id
       this.$store.dispatch('getRecommendByTMDB', movieId)
-      this.$router.push({ name:'RecommendView', params: { id:this.$route.params.id  }})
     },
 
     // 이전 페이지로 돌아가기
     goBack() {
       this.$router.go(-1)
     },
+
+    // 장르 이름 가져오기
+    getGenreList() {
+      axios({
+        method: 'get',
+        url: "http://localhost:8000/movies/genres",
+      })
+      .then((response) => {
+        let payload = ''
+        const genreIdList = response.data
+        // console.log(genreIdList)
+        for (const genre of this.movie.genre_ids) {
+          const genreName = genreIdList.filter(genreInfo => {
+            if (genre === genreInfo.id) {
+              return genreInfo.name
+            }
+          })
+          payload = payload + genreName[0].name + ','
+        }
+        const sortedPayload = payload.slice(0, payload.length-1)
+        this.genres = sortedPayload
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    }
   },
 }
 </script>

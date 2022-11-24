@@ -16,10 +16,13 @@
           :img-src="`https://image.tmdb.org/t/p/original/${movie.poster_path}`"
           img-alt="Poster Image"
           img-top
-          img-height="60%"
+          img-height="650px"
           img-width="60%"
         >
           <b-card-text>
+            <b-icon icon="star" class="border-warning"></b-icon>
+            {{ movie.vote_average }}
+            <br>
             {{ movie.overview }}
           </b-card-text>
         </b-card>
@@ -55,7 +58,7 @@ export default {
   data() {
     return {
       movie: [],
-      index: 0
+      index: 0,
     }
   },
   created() {
@@ -67,6 +70,7 @@ export default {
     // vuex에 저장된 추천 작품 가져오기
     getRecommend() {
       const recommendSrc = this.$store.state.recommended
+      console.log(recommendSrc)
       if (recommendSrc.length > 1) {
         this.movie = _.sample(recommendSrc)
       } else {

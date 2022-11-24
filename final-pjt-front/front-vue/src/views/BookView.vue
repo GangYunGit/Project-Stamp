@@ -7,23 +7,24 @@
         <b-nav-item ><router-link :to="{ name:'InitialLogin' }" style="text-decoration: none; color: black;">Recommended</router-link></b-nav-item>
       </b-nav>
     </div>
-  <div class="p-4" style="background-color: #BDFCFE; height:140%;">
-    <h1 class="">앨범</h1>
-    <turn
-      class="container wrapper mx-auto rounded-3" 
-      style="background-color:brown; width:100%; height: 700px; line-height: 75%;"
-      >
-      <BookContentView 
-        class="page-wrapper flip_page_double hard col"
-        align-v="center"
-        style="width:100%; height:100%;"
-        v-for="album in albumList"
-        :key="album.id"
-        :album="album"
-      />
-    </turn>
-    <br>
-  </div>
+    <div class="p-4" style="background-color: #BDFCFE; height:140%;">
+      <h1 class="">앨범</h1>
+      <turn
+        class="container wrapper mx-auto rounded-3" 
+        style="background-color:brown; width:100%; height: 700px; line-height: 75%;"
+        >
+        <BookContentView 
+          class="page-wrapper flip_page_double hard col"
+          align-v="center"
+          style="width:100%; height:100%;"
+          v-for="album in albumList"
+          :key="album.id"
+          :album="album"
+        />
+      </turn>
+      <br>
+    </div>
+    <FooterView />
   </div>
 </template>
 
@@ -33,6 +34,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 // import axios from 'axios'
 import BookContentView from '@/components/BookContentView'
+import FooterView from '@/components/FooterView'
 
 import Vue from 'vue';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
@@ -51,6 +53,7 @@ export default {
   name: "BookView",
   components: {
     BookContentView,
+    FooterView,
     Turn,
   },
   data() {

@@ -69,7 +69,6 @@ export default new Vuex.Store({
     // 현재 접속한 사용자에 맞게 앨범 데이터 필터링
     SET_ALBUM(state, albumData) {
       state.albums = albumData
-      // console.log(state.albums)
     },
 
     // 앨범 정보 추가
@@ -203,13 +202,12 @@ export default new Vuex.Store({
       })
         .then((response) => {
           const resSrc = response.data.results
-          // console.log(resSrc)
-
-          // Django에서 작성한 DB fields에 알맞게 수정
-          const payload = [];
-          for (const mv of resSrc) {
-            if ((mv.poster_path !== null) && (mv.adult === false)) {
-              const element = {
+          if (resSrc.length > 0) {
+            // Django에서 작성한 DB fields에 알맞게 수정
+            const payload = [];
+            for (const mv of resSrc) {
+              if ((mv.poster_path !== null) && (mv.adult === false)) {
+                const element = {
                 model: "movies.movie",
                 id: mv.id,
                 genre_ids: mv.genre_ids,
@@ -224,6 +222,10 @@ export default new Vuex.Store({
             }
           }
           context.commit('RECOMMEND_SERIES', payload)
+          router.push({ name:'RecommendView', params: { id:'movieId' }})
+          } else {
+            alert('관련 작품이 없습니다.')
+          }
         })
         .catch((error) => {
           console.log(error)
