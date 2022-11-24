@@ -44,13 +44,17 @@
             <span>
               <!-- <label for="input-default" class="p-2">장르명</label> -->
               <h5 class="p-2">장르명</h5>
-              <button v-for="(genre, index) in likeGenres" :key="index">
-                {{ genre.name }}x
+              <button
+                v-for="genre_id in userLikeGenreData"
+                :key="genre_id"
+                @click="deleteLikeGenre(genre_id)"
+              >
+                {{ getGenreName(genre_id) }} x
               </button>
             </span>
             <b-form-input
               v-model="genreName"
-              @keyup.enter="addGenre"
+              @keyup.enter="addLikeGenre"
               placeholder="예) 코미디"
             ></b-form-input>
           </b-row>
@@ -58,19 +62,24 @@
             <!-- <label for="input-default" class="p-2">배우명</label> -->
             <h5 class="p-2">배우명</h5>
             <span>
-              <button v-for="(actor, index) in likeActors" :key="index">
-                {{ actor.name }}x
+              <button
+                v-for="actor_id in userLikeActorData"
+                :key="actor_id"
+                @click="deleteLikeActor(actor_id)"
+              >
+                {{ getActorName(actor_id) }} x
               </button>
             </span>
             <b-form-input
               v-model="actorName"
+              @keyup.enter="addLikeActor"
               placeholder="예) 브래드 피트"
             ></b-form-input>
           </b-row>
         </b-col>
         <b-row align-h="end">
           <b-col cols="4">
-            <b-button class="m-3" variant="primary" @click="submitTaste"
+            <b-button class="m-3" variant="primary" @click="submitTaste()"
               >확인</b-button
             >
           </b-col>
@@ -112,21 +121,36 @@ export default {
   name: "InitialLogin",
   data() {
     return {
-      movieName: null,
+      genreList: [],
+      actorList: [],
+      userLikeGenreData: null,
+      userLikeActorData: null,
       genreName: null,
       actorName: null,
     };
   },
-  computed: {
-    likeGenres() {
-      return this.$store.state.like_genres;
-    },
-    likeActors() {
-      return this.$store.state.like_actors;
-    },
+  created() {
+    this.getGenreList();
+    this.getUserLikes();
   },
   methods: {
-    submitTaste() {
+    pushGenre(genre) {
+      this.$store.state.like_genres.push(genre);
+      this.genreName = null;
+    },
+    pushActor(actor) {
+      this.$store.state.like_actors.push(actor);
+      this.actorName = null;
+    },
+    deleteLikeGenre(genre) {
+      const index = this.$store.state.like_genres.indexOf(genre);
+      this.$store.state.like_genres.splice(index, 1);
+    },
+    deleteLikeActor(actor) {
+      const index = this.$store.state.like_actors.indexOf(actor);
+      this.$store.state.like_actors.splice(index, 1);
+    },
+    getGenreList() {
       axios
         .all([
           axios.get(`${API_URL}/movies/genres/`),
@@ -134,69 +158,99 @@ export default {
         ])
         .then(
           axios.spread((genreResponse, actorResponse) => {
-            const genreList = genreResponse.data;
-            const userGenre = genreList.filter((genre) => {
-              return genre.name === this.genreName;
-            });
-            const actorList = actorResponse.data;
-
-            const userActor = actorList.filter((actor) => {
-              return actor.name === this.actorName;
-            });
-            return [userGenre, userActor];
+            this.genreList.push(genreResponse.data);
+            this.actorList.push(actorResponse.data);
           })
         )
-        .then((response) => {
-          console.log(this.$store.state.user_pk);
-          console.log(this.$store.state.like_genres.id);
-          console.log(response);
-          const userGenre = response[0];
-          if (userGenre.length !== 0) {
-            this.$store.state.like_genres.push(userGenre[0]);
-          }
-          const userActor = response[1];
-          if (userActor.length !== 0) {
-            this.$store.state.like_actors.push(userActor[0]);
-          }
-          if (
-            this.$store.state.like_genres.length == 0 &&
-            this.$store.state.like_actors.length == 0
-          ) {
-            alert("장르나 배우 중 한 가지를 선택해주세요!");
-            return;
-          }
-          axios({
-            method: "put",
-            url: `${API_URL}/movies/user/likes/`,
-            headers: {
-              Authorization: `Token ${this.$store.state.token}`,
-            },
-            data: {
-              id: this.$store.state.user_pk,
-              like_genres: this.$store.state.like_genres.map((genre) => {
-                return genre.id;
-              }),
-              like_actors: this.$store.state.like_actors.map((actor) => {
-                return actor.id;
-              }),
-            },
-          })
-            .then((response) => {
-              console.log(response);
-              this.$store.dispatch("getRecommendByDjango");
-              const movieId = this.$store.state.recommended.id;
-              this.$router.push({
-                name: "RecommendView",
-                params: { id: `${movieId}` },
-              });
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        })
         .catch((error) => {
           console.log(error);
-        }, []);
+        });
+    },
+    getUserLikes() {
+      this.userLikeGenreData = this.$store.state.like_genres;
+      this.userLikeActorData = this.$store.state.like_actors;
+    },
+    getGenreName(genreId) {
+      const genreName = this.genreList[0].filter(
+        (genre) => genre.id === genreId
+      );
+      return genreName[0].name;
+    },
+    getActorName(actorId) {
+      const actorName = this.actorList[0].filter(
+        (actor) => actor.id === actorId
+      );
+      return actorName[0].name;
+    },
+    addLikeGenre() {
+      const userGenre = this.genreList[0].filter(
+        (genre) => genre.name === this.genreName
+      );
+      if (userGenre.length === 0) {
+        alert("없는 장르 입니다.\n유효한 장르명을 입력하세요");
+        return;
+      }
+      this.getUserLikes();
+      const myGenre = userGenre[0].id;
+      for (const genreId of this.$store.state.like_genres) {
+        if (myGenre === genreId) {
+          alert("이미 입력된 장르 입니다.");
+          return;
+        }
+      }
+      this.pushGenre(myGenre);
+    },
+    addLikeActor() {
+      const userActor = this.actorList[0].filter(
+        (actor) => actor.name === this.actorName
+      );
+      if (userActor.length === 0) {
+        alert("없는 배우 입니다.\n유효한 배우명을 입력하세요");
+        return;
+      }
+      this.getUserLikes();
+      const myActor = userActor[0].id;
+      for (const actorId of this.$store.state.like_actors) {
+        if (myActor === actorId) {
+          alert("이미 입력된 배우 입니다.");
+          return;
+        }
+      }
+      this.pushActor(myActor);
+    },
+    submitTaste() {
+      const userGenre = this.$store.state.like_genres;
+      const userActor = this.$store.state.like_actors;
+      if (userGenre.length === 0 && userActor.length === 0) {
+        alert(
+          "장르명이나 배우명 중 하나는 입력해야 합니다.\n유효한 장르명을 입력하고 Enter를 눌러주세요."
+        );
+        return;
+      } else {
+        axios({
+          method: "put",
+          url: `${API_URL}/movies/user/likes/`,
+          headers: {
+            Authorization: `Token ${this.$store.state.token}`,
+          },
+          data: {
+            id: this.$store.state.user_pk,
+            like_genres: this.$store.state.like_genres,
+            like_actors: this.$store.state.like_actors,
+          },
+        })
+          .then(() => {
+            this.$store.dispatch("getRecommendByDjango");
+            const movieId = this.$store.state.recommended.id;
+            this.$router.push({
+              name: "RecommendView",
+              params: { id: `${movieId}` },
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     },
   },
 };
