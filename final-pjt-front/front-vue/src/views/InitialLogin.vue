@@ -41,14 +41,27 @@
         <br />
         <b-col class="col-7 mx-auto">
           <b-row class="p-2">
-            <label for="input-default" class="p-2">장르명</label>
+            <span>
+              <!-- <label for="input-default" class="p-2">장르명</label> -->
+              <h5 class="p-2">장르명</h5>
+              <button v-for="(genre, index) in likeGenres" :key="index">
+                {{ genre.name }}x
+              </button>
+            </span>
             <b-form-input
               v-model="genreName"
+              @keyup.enter="addGenre"
               placeholder="예) 코미디"
             ></b-form-input>
           </b-row>
           <b-row class="p-2">
-            <label for="input-default" class="p-2">배우명</label>
+            <!-- <label for="input-default" class="p-2">배우명</label> -->
+            <h5 class="p-2">배우명</h5>
+            <span>
+              <button v-for="(actor, index) in likeActors" :key="index">
+                {{ actor.name }}x
+              </button>
+            </span>
             <b-form-input
               v-model="actorName"
               placeholder="예) 브래드 피트"
@@ -104,6 +117,14 @@ export default {
       actorName: null,
     };
   },
+  computed: {
+    likeGenres() {
+      return this.$store.state.like_genres;
+    },
+    likeActors() {
+      return this.$store.state.like_actors;
+    },
+  },
   methods: {
     submitTaste() {
       axios
@@ -127,14 +148,15 @@ export default {
         )
         .then((response) => {
           console.log(this.$store.state.user_pk);
+          console.log(this.$store.state.like_genres.id);
           console.log(response);
           const userGenre = response[0];
           if (userGenre.length !== 0) {
-            this.$store.state.like_genres.push(userGenre[0].id);
+            this.$store.state.like_genres.push(userGenre[0]);
           }
           const userActor = response[1];
           if (userActor.length !== 0) {
-            this.$store.state.like_actors.push(userActor[0].id);
+            this.$store.state.like_actors.push(userActor[0]);
           }
           if (
             this.$store.state.like_genres.length == 0 &&
@@ -151,8 +173,12 @@ export default {
             },
             data: {
               id: this.$store.state.user_pk,
-              like_genres: this.$store.state.like_genres,
-              like_actors: this.$store.state.like_actors,
+              like_genres: this.$store.state.like_genres.map((genre) => {
+                return genre.id;
+              }),
+              like_actors: this.$store.state.like_actors.map((actor) => {
+                return actor.id;
+              }),
             },
           })
             .then((response) => {
