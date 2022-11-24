@@ -9,15 +9,15 @@
     </div>
   <div class="p-4" style="background-color: #BDFCFE; height:140%;">
     <h1 class="">앨범</h1>
-    <turn 
-      class="wrapper mx-auto rounded-3" 
+    <turn
+      class="container wrapper mx-auto rounded-3" 
       style="background-color:brown; width:100%; height: 700px; line-height: 75%;"
       >
       <BookContentView 
         class="page-wrapper flip_page_double hard col"
         align-v="center"
         style="width:100%; height:100%;"
-        v-for="album in albums"
+        v-for="album in albumList"
         :key="album.id"
         :album="album"
       />
@@ -50,17 +50,17 @@ Vue.use(IconsPlugin)
 export default {
   name: "BookView",
   components: {
-    // FwTurn,
     BookContentView,
     Turn,
   },
   data() {
     return {
+      albumList: [],
       reviewList: [],
     };
   },
   computed: {
-    albums() {
+    albums: function() {
       // console.log(this.$store.state.albums)
       return this.$store.state.albums
     },
@@ -74,24 +74,28 @@ export default {
     },
     getAlbumData() {
       this.$store.dispatch('getAlbumData')
-      // console.log(this.albums)
+      this.albumList = this.$store.state.albums
+      console.log(Turn, this.albumList)
     },
     getCommentData() {
       this.$store.dispatch('getCommentData')
     },
-    // getReviewData() {
-    //   const filtered = reviewSrc.filter(page => page.user === userId)
-    //   console.log(filtered)
-    //   context.commit('SET_ALBUM', filtered)
-    //   this.reviewList = filtered
-    // },
-  },
-  mounted() {
-    this.getAlbumData()
   },
   created() {
     this.getAlbumData()
+    // console.log(Turn, this.albumList)
   },
+  mounted() {
+  if (localStorage.getItem('reloaded')) {
+    // The page was just reloaded. Clear the value from local storage
+    // so that it will reload the next time this page is visited.
+    localStorage.removeItem('reloaded');
+  } else {
+    // Set a flag so that we know not to reload the page twice.
+    localStorage.setItem('reloaded', '1');
+    location.reload();
+  }
+}
 };
 </script>
 

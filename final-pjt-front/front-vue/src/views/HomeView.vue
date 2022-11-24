@@ -249,6 +249,7 @@ export default {
           console.log(error);
         });
     },
+    
 
     // 로그아웃
     userLogout() {
