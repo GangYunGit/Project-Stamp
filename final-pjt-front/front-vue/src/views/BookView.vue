@@ -14,7 +14,7 @@
       style="background-color:brown; width:100%; height: 700px; line-height: 75%;"
       >
       <BookContentView 
-        class="flip_page_double hard col"
+        class="page-wrapper flip_page_double hard col"
         align-v="center"
         style="width:100%; height:100%;"
         v-for="album in albums"
@@ -51,8 +51,8 @@ export default {
   name: "BookView",
   components: {
     // FwTurn,
-    Turn,
     BookContentView,
+    Turn,
   },
   data() {
     return {
