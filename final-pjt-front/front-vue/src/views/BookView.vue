@@ -7,23 +7,24 @@
         <b-nav-item ><router-link :to="{ name:'InitialLogin' }" style="text-decoration: none; color: black;">Recommended</router-link></b-nav-item>
       </b-nav>
     </div>
-  <div class="p-4" style="background-color: #BDFCFE; height:140%;">
-    <h1 class="">앨범</h1>
-    <turn 
-      class="container wrapper mx-auto rounded-3" 
-      style="background-color:brown; width:100%; height: 700px; line-height: 75%;"
-      >
-      <BookContentView 
-        class="flip_page_double hard col"
-        align-v="center"
-        style="width:100%; height:100%;"
-        v-for="album in albums"
-        :key="album.id"
-        :album="album"
-      />
-    </turn>
-    <br>
-  </div>
+    <div class="p-4" style="background-color: #BDFCFE; height:140%;">
+      <h1 class="">앨범</h1>
+      <turn
+        class="container wrapper mx-auto rounded-3" 
+        style="background-color:brown; width:100%; height: 700px; line-height: 75%;"
+        >
+        <BookContentView 
+          class="page-wrapper flip_page_double hard col"
+          align-v="center"
+          style="width:100%; height:100%;"
+          v-for="album in albumList"
+          :key="album.id"
+          :album="album"
+        />
+      </turn>
+      <br>
+    </div>
+    <FooterView />
   </div>
 </template>
 
@@ -33,6 +34,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 // import axios from 'axios'
 import BookContentView from '@/components/BookContentView'
+import FooterView from '@/components/FooterView'
 
 import Vue from 'vue';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
@@ -50,17 +52,18 @@ Vue.use(IconsPlugin)
 export default {
   name: "BookView",
   components: {
-    // FwTurn,
-    Turn,
     BookContentView,
+    FooterView,
+    Turn,
   },
   data() {
     return {
+      albumList: [],
       reviewList: [],
     };
   },
   computed: {
-    albums() {
+    albums: function() {
       // console.log(this.$store.state.albums)
       return this.$store.state.albums
     },
@@ -74,24 +77,28 @@ export default {
     },
     getAlbumData() {
       this.$store.dispatch('getAlbumData')
-      // console.log(this.albums)
+      this.albumList = this.$store.state.albums
+      console.log(Turn, this.albumList)
     },
     getCommentData() {
       this.$store.dispatch('getCommentData')
     },
-    // getReviewData() {
-    //   const filtered = reviewSrc.filter(page => page.user === userId)
-    //   console.log(filtered)
-    //   context.commit('SET_ALBUM', filtered)
-    //   this.reviewList = filtered
-    // },
   },
   created() {
     this.getAlbumData()
+    // console.log(Turn, this.albumList)
   },
   mounted() {
-    // this.testMethod()
-  },
+  if (localStorage.getItem('reloaded')) {
+    // The page was just reloaded. Clear the value from local storage
+    // so that it will reload the next time this page is visited.
+    localStorage.removeItem('reloaded');
+  } else {
+    // Set a flag so that we know not to reload the page twice.
+    localStorage.setItem('reloaded', '1');
+    location.reload();
+  }
+}
 };
 </script>
 

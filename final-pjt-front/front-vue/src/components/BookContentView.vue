@@ -1,7 +1,7 @@
 <template>
   <div style="background-color:#FBFEAB">
       <b-card
-      class="mx-auto m-4"
+      class="mx-auto mt-4"
       :title="album.movie_title"
       :img-src="`https://image.tmdb.org/t/p/original/${album.movie_poster_path}`"
       img-alt="Poster Image"
@@ -17,7 +17,8 @@
       <template #footer>
         <small class="text-muted"></small>
       </template>
-      <router-link :to="{ name: 'ModifyView', params: { pk: album.id }}"><b-button variant="outline-primary">후기 수정하기</b-button></router-link>
+      <router-link :to="{ name: 'ModifyView', params: { pk: album.id }}"><b-button class="m-4" variant="outline-primary">후기 수정하기</b-button></router-link>
+      <p>추가된 날짜 : {{ createdAt }}</p>
     </b-card>
   </div>
 </template>
@@ -38,6 +39,11 @@ export default {
   name: 'BookContentView',
   props: {
     album: Object,
+  },
+  computed: {
+    createdAt() {
+      return  this.album.created_at.substring(0,10)
+    }
   },
   data() {
     return {
