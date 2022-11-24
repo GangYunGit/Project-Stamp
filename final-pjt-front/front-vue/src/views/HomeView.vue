@@ -261,10 +261,6 @@ export default {
     },
 
     // 사용자 앨범 정보 가져오기(데이터 초기화용)
-    getAlbumData() {
-      this.$store.dispatch('getAlbumData')
-      // console.log(this.albums)
-    },
   },
 };
 </script>

@@ -99,13 +99,18 @@ export default {
   name: "InitialLogin",
   data() {
     return {
-      movieName: null,
+      genreList: [],
+      actorList: [],
       genreName: null,
       actorName: null,
     };
   },
+  created() {
+    this.getGenreList()
+  },
   methods: {
-    submitTaste() {
+    // Django에 저장된 장르 목록 정보 불러오기
+    getGenreList() {
       axios
         .all([
           axios.get(`${API_URL}/movies/genres/`),
@@ -113,64 +118,46 @@ export default {
         ])
         .then(
           axios.spread((genreResponse, actorResponse) => {
-            const genreList = genreResponse.data;
-            const userGenre = genreList.filter((genre) => {
-              return genre.name === this.genreName;
-            });
-            const actorList = actorResponse.data;
+            this.genreList.push(genreResponse.data);
+            this.actorList.push(actorResponse.data);
+        }))
+        .catch((error) => {
+          console.log(error)
+        })
+    },
 
-            const userActor = actorList.filter((actor) => {
-              return actor.name === this.actorName;
-            });
-            return [userGenre, userActor];
-          })
-        )
-        .then((response) => {
-          console.log(this.$store.state.user_pk);
-          console.log(response);
-          const userGenre = response[0];
-          if (userGenre.length !== 0) {
-            this.$store.state.like_genres.push(userGenre[0].id);
-          }
-          const userActor = response[1];
-          if (userActor.length !== 0) {
-            this.$store.state.like_actors.push(userActor[0].id);
-          }
-          if (
-            this.$store.state.like_genres.length == 0 &&
-            this.$store.state.like_actors.length == 0
-          ) {
-            alert("장르나 배우 중 한 가지를 선택해주세요!");
-            return;
-          }
-          axios({
-            method: "put",
-            url: `${API_URL}/movies/user/likes/`,
-            headers: {
-              Authorization: `Token ${this.$store.state.token}`,
-            },
-            data: {
-              id: this.$store.state.user_pk,
-              like_genres: this.$store.state.like_genres,
-              like_actors: this.$store.state.like_actors,
-            },
-          })
-            .then((response) => {
-              console.log(response);
-              this.$store.dispatch("getRecommendByDjango");
-              const movieId = this.$store.state.recommended.id;
-              this.$router.push({
-                name: "RecommendView",
-                params: { id: `${movieId}` },
-              });
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+    // 사용자가 장르명, 배우명을 입력하면 Django에서 관련 영화 추천
+    submitTaste() {
+      const userGenre = this.genreList[0].filter(genre => genre === this.genreName)
+      const userActor = this.actorList[0].filter(actor => actor === this.actorName)
+      if (userGenre === null && userActor === null) {
+        alert('장르명이나 배우명 중 하나는 입력해야 합니다.')
+      } else {
+        axios({
+        method: "put",
+        url: `${API_URL}/movies/user/likes/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`,
+        },
+        data: {
+          id: this.$store.state.user_pk,
+          like_genres: this.$store.state.like_genres,
+          like_actors: this.$store.state.like_actors,
+        },
+        })
+        .then(() => {
+          // console.log(response);
+          this.$store.dispatch("getRecommendByDjango");
+          const movieId = this.$store.state.recommended.id;
+          this.$router.push({
+            name: "RecommendView",
+            params: { id: `${movieId}` },
+          });
         })
         .catch((error) => {
           console.log(error);
-        }, []);
+        });
+      }
     },
   },
 };
