@@ -70,7 +70,6 @@ export default {
     // vuex에 저장된 추천 작품 가져오기
     getRecommend() {
       const recommendSrc = this.$store.state.recommended
-      console.log(recommendSrc)
       if (recommendSrc.length > 1) {
         this.movie = _.sample(recommendSrc)
       } else {

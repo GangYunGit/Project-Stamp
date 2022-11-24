@@ -7,7 +7,7 @@
         <b-nav-item><router-link :to="{ name:'InitialLogin' }">Recommended</router-link></b-nav-item>
         </b-nav>
     </div>
-    <div class="p-4 row" align-v="center" style="background-color: #BDFCFE; height: 85vh;">
+    <div class="p-4 row" align-v="center" style="background-color: #BDFCFE; height: 70vh;">
       <div class="container justify-content-md-center p-4 col-md-6" style="background-color:#FBFEAB">
         <h2 class="p-1">후기 수정하기</h2>
         <br>
@@ -25,6 +25,7 @@
         <router-link :to="{ name:'BookView' }"><b-button class='m-3' variant="outline-dark">취소</b-button></router-link>
       </div>
     </div>
+    <FooterView />
   </div>
 </template>
 
@@ -36,6 +37,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import axios from 'axios'
 
+import FooterView from '@/components/FooterView'
+
 const API_URL = 'http://localhost:8000'
 
 // Make BootstrapVue available throughout your project
@@ -45,6 +48,9 @@ Vue.use(IconsPlugin)
 
 export default {
     name: 'ModifyView',
+    components: {
+      FooterView,
+    },
     data() {
         return {
             newReview: null,
