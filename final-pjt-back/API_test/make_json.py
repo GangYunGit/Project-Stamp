@@ -78,40 +78,40 @@ def is_korean_name(name):
 #         json.dump(genre_data, f, indent=4)
 
 
-def create_movie_data():
-    with open('genres.json', 'r+') as f:
-        movie_data = json.load(f)
+# def create_movie_data():
+#     with open('genres.json', 'r+') as f:
+#         movie_data = json.load(f)
 
-    for page in range(1, 20):
-        raw_data = requests.get(url.get_movie_url(page=page))
-        json_data = raw_data.json()
-        movies = json_data.get('results')
+#     for page in range(1, 20):
+#         raw_data = requests.get(url.get_movie_url(page=page))
+#         json_data = raw_data.json()
+#         movies = json_data.get('results')
 
-        for movie in movies:
-            if movie.get('release_date') == "" or movie.get('poster_path') == "":
-                continue
+#         for movie in movies:
+#             if movie.get('release_date') == "" or movie.get('poster_path') == "":
+#                 continue
 
-            movie.pop('adult')
-            movie.pop('original_language')
-            movie.pop('original_title')
-            movie.pop('popularity')
-            movie.pop('backdrop_path')
-            movie.pop('video')
-            movie['like_users'] = []
-            tmp = {
-                'model': 'movies.movie',
-                'pk': movie.pop('id'),
-                'fields': movie,
-            }
-            movie_data.append(tmp)
+#             movie.pop('adult')
+#             movie.pop('original_language')
+#             movie.pop('original_title')
+#             movie.pop('popularity')
+#             movie.pop('backdrop_path')
+#             movie.pop('video')
+#             movie['like_users'] = []
+#             tmp = {
+#                 'model': 'movies.movie',
+#                 'pk': movie.pop('id'),
+#                 'fields': movie,
+#             }
+#             movie_data.append(tmp)
 
-    with open('movies.json', 'w') as f:
-        json.dump(movie_data, f, indent=4)
+#     with open('movies.json', 'w') as f:
+#         json.dump(movie_data, f, indent=4)
 
 
 def create_actor_data():
     actors = []
-    for page in range(1, 9):
+    for page in range(1, 51):
         raw_data = requests.get(url.get_actor_url(page=page))
         json_data = raw_data.json()
         actor_data = json_data.get('results')
@@ -161,7 +161,7 @@ def create_actor_data():
 
 def create_movie_from_actor():
     movies = []
-    for page in range(1, 9):
+    for page in range(1, 51):
         raw_data = requests.get(url.get_actor_url(page=page))
         json_data = raw_data.json()
         actor_data = json_data.get('results')

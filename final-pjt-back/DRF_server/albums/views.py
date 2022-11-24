@@ -12,7 +12,6 @@ from .serializers import AlbumListSerializer, AlbumSerializer, ReviewSerializer
 
 @api_view(['GET', 'POST'])
 def album_index(request):
-    # 테스트용 앨범 리스트 전체 보여주는 view함수(GET 만)
     if request.method == 'GET':
         albums = get_list_or_404(Album)
         serializer = AlbumListSerializer(albums, many=True)
@@ -20,7 +19,6 @@ def album_index(request):
 
     elif request.method == 'POST':
         serializer = AlbumListSerializer(data=request.data)
-        # print(serializer)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

@@ -9,12 +9,3 @@ class Album(models.Model):
     review = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-
-# class Review(models.Model):
-#     album = models.ForeignKey(
-#         Album, unique=True, on_delete=models.CASCADE, related_name='review'
-#     )
-#     content = models.TextField()
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
